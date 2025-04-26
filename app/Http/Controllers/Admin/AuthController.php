@@ -50,7 +50,7 @@ class AuthController extends Controller
 
             try {
                 $user = User::where('email', $username)->first();
-
+                
                 if (!$user)
                     return response()->json(['error2' => 'No user found with this username']);
 

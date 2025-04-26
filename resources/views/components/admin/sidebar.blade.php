@@ -68,11 +68,11 @@
                                 </div>
                             </li>
                             @endcanany
-                            @can('wards.view')
+                            <!-- @can('wards.view') -->
                                 <li class="nav-item">
-                                    <a href="{{ route('wards.index') }}" class="nav-link {{ request()->routeIs('wards.index') ? 'active' : '' }}" data-key="t-horizontal">Wards</a>
+                                    <a href="{{ route('vehicle.index') }}" class="nav-link {{ request()->routeIs('vehicle.index') ? 'active' : '' }}" data-key="t-horizontal">Vehicle</a>
                                 </li>
-                            @endcan
+                            <!-- @endcan -->
                          
                         </ul>
                     </div>

@@ -46,7 +46,7 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
 
 
     // Masters
-    Route::resource('wards', App\Http\Controllers\Admin\Masters\WardController::class);
+    Route::resource('vehicle', App\Http\Controllers\Admin\Masters\VehicleController::class);
    
     // Users Roles n Permissions
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);
