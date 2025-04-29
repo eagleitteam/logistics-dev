@@ -1,130 +1,94 @@
 <x-admin.layout>
-    <x-slot name="title">Add Vehicle Data Type</x-slot>
-    <x-slot name="heading">Add Vehicle Data Type</x-slot>
+    <x-slot name="title">To Do List View</x-slot>
+    <x-slot name="heading">To Do List View</x-slot>
     {{-- <x-slot name="subheading">Test</x-slot> --}}
 
+    <div class="chat-wrapper d-lg-flex gap-1 mx-n4 mt-n4 p-1">
 
-    <!-- Add Form -->
-    <div class="row" id="addContainer" style="display:none;">
-        <div class="col-sm-12">
-            <div class="card">
-                <form class="theme-form" name="addForm" id="addForm" enctype="multipart/form-data">
-                    @csrf
+        <div class="file-manager-content w-100 p-4 pb-0 border bg-transparent">
+            <div class="row mb-4">
+                <div class="col-auto order-1 d-block d-lg-none">
+                    <button type="button" class="btn btn-soft-success btn-icon btn-sm fs-16 file-menu-btn">
+                        <i class="ri-menu-2-fill align-bottom"></i>
+                    </button>
+                </div>
+                <div class="col-sm order-3 order-sm-2 mt-3 mt-sm-0">
+                    <h5 class="fw-semibold mb-0">To Do Application</h5>
+                </div>
 
-                    <div class="card-body">
-                        <div class="mb-3 row">
-                            <div class="col-md-4">
-                                <label class="col-form-label" for="type">Vehicle Type <span class="text-danger">*</span></label>
-                                <input class="form-control" id="type" name="type" type="text" placeholder="Enter Vehicle Type">
-                                <span class="text-danger invalid type_err"></span>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-form-label" for="description">Description <span class="text-danger">*</span></label>
-                                <input class="form-control" id="description" name="description" type="text" placeholder="Enter description">
-                                <span class="text-danger invalid description_err"></span>
-                            </div>
+                <div class="col-auto order-2 order-sm-3 ms-auto">
+                    <div class="hstack gap-2">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button class="btn btn-icon fw-semibold btn-soft-danger"><i class="ri-arrow-go-back-line"></i></button>
+                            <button class="btn btn-icon fw-semibold btn-soft-success"><i class="ri-arrow-go-forward-line"></i></button>
                         </div>
-
-                    </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-success" id="addSubmit">Submit</button>
-                        <button type="reset" class="btn btn-warning">Reset</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-
-    {{-- Edit Form --}}
-    <div class="row" id="editContainer" style="display:none;">
-        <div class="col">
-            <form class="form-horizontal form-bordered" method="post" id="editForm">
-                @csrf
-                <section class="card">
-                    <header class="card-header">
-                        <h4 class="card-title">Edit Ward</h4>
-                    </header>
-
-                    <div class="card-body py-2">
-
-                        <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
-                        <div class="mb-3 row">
-                            <div class="col-md-4">
-                                <label class="col-form-label" for="type">Vehicle Type <span class="text-danger">*</span></label>
-                                <input class="form-control" id="type" name="type" type="text" placeholder="Vehicle Type">
-                                <span class="text-danger invalid type_err"></span>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-form-label" for="description">Vehicle Description <span class="text-danger">*</span></label>
-                                <input class="form-control" id="description" name="description" type="text" placeholder="Enter Vehicle Description">
-                                <span class="text-danger invalid description_err"></span>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn-primary" id="editSubmit">Submit</button>
-                        <button type="reset" class="btn btn-warning">Reset</button>
-                    </div>
-                </section>
-            </form>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <!-- @can('wards.create') -->
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="">
-                                    <button id="addToTable" class="btn btn-primary">Add <i class="fa fa-plus"></i></button>
-                                    <button id="btnCancel" class="btn btn-danger" style="display:none;">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <!-- @endcan -->
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="buttons-datatables" class="table table-bordered nowrap align-middle" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Sr No.</th>
-                                    <th>Type</th>
-                                    <th>Description</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($vehicles as $vehicle)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $vehicle->type }}</td>
-                                        <td>{{ $vehicle->description }}</td>
-                                        <td>
-                                            <!-- @can('wards.edit') -->
-                                                <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="edit"></i></button>
-                                            <!-- @endcan
-                                            @can('wards.delete') -->
-                                                <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="trash-2"></i> </button>
-                                            <!-- @endcan -->
-                                        </td>
-                                    </tr>
-                                @endforeach
-                        </table>
                     </div>
                 </div>
             </div>
+            <div class="p-3 border rounded mb-4">
+                <div class="row g-2">
+                    <div class="col-lg-auto">
+                        <select class="form-control" data-choices data-choices-search-false name="choices-select-sortlist" id="choices-select-sortlist">
+                            <option value="">Sort</option>
+                            <option value="By ID">By ID</option>
+                            <option value="By Name">By Name</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-auto">
+                        <select class="form-control" data-choices data-choices-search-false name="choices-select-status" id="choices-select-status">
+                            <option value="">All Tasks</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Inprogress">Inprogress</option>
+                            <option value="Pending">Pending</option>
+                            <option value="New">New</option>
+                        </select>
+                    </div>
+                    <div class="col-lg">
+                        <div class="search-box">
+                            <input type="text" id="searchTaskList" class="form-control search" placeholder="Search task name">
+                            <i class="ri-search-line search-icon"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-auto">
+                        <button class="btn btn-primary createTask" type="button" data-bs-toggle="modal" data-bs-target="#createTask">
+                            <i class="ri-add-fill align-bottom"></i> Add Tasks
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="todo-content position-relative px-4 mx-n4" id="todo-content">
+                <div id="elmLoader">
+                    <div class="spinner-border text-primary avatar-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="todo-task" id="todo-task">
+                    <div class="table-responsive">
+                        <table class="table align-middle position-relative table-nowrap">
+                            <thead class="table-active">
+                                <tr>
+                                    <th scope="col">Task Name</th>
+                                    <th scope="col">Assigned</th>
+                                    <th scope="col">Due Date</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Priority</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="task-list"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="py-4 mt-4 text-center" id="noresult" style="display: none;">
+                    <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#8c68cd,secondary:#4788ff" style="width:72px;height:72px"></lord-icon>
+                    <h5 class="mt-4">Sorry! No Result Found</h5>
+                </div>
+            </div>
+
         </div>
     </div>
-
-
-
 
 </x-admin.layout>
 

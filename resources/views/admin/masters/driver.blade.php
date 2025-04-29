@@ -1,0 +1,470 @@
+<x-admin.layout>
+    <x-slot name="title">Add Driver Details</x-slot>
+    <x-slot name="heading">Add Driver Details</x-slot>
+    {{-- <x-slot name="subheading">Test</x-slot> --}}
+
+                <div class="row">
+                    <div class="col-xxl-6">
+                            <div class="card-body">
+                                    <form action="javascript:void(0);">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label for="firstNameinput" class="form-label">Frist Name</label>
+                                                    <input type="text" class="form-control" placeholder="Frist Name" id="firstNameinput">
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label for="lastNameinput" class="form-label">Last Name</label>
+                                                    <input type="text" class="form-control" placeholder="Last Name" id="lastNameinput">
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label for="mobileNoinput" class="form-label">Mobile Number</label>
+                                                    <input type="tel" class="form-control" placeholder="Mobile Number" id="mobileNoinput">
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+                                            <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label for="JoingDate" class="form-label">Joing Date</label>
+                                                <input type="date" class="form-control" id="JoingDate">
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label for="EndDate" class="form-label">End Date</label>
+                                                <input type="date" class="form-control" id="EndDate">
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label for="basicSalaryinput" class="form-label">Basic Salary</label>
+                                                    <input type="number" class="form-control" placeholder="Basic Salary" id="basicSalaryinput">
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="altContactinput" class="form-label">Alternet Contact Number</label>
+                                                    <input type="number" class="form-control" placeholder="Alternet Contact Number" id="altContactinput">
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="emailidInput" class="form-label">Email Address</label>
+                                                    <input type="email" class="form-control" placeholder="example@gamil.com" id="emailidInput">
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+                                            <div class="col-md-12">
+                                                <div class="mb-3">
+                                                    <label for="address1ControlTextarea" class="form-label">Full Address</label>
+                                                    <input type="text" class="form-control" placeholder="Address 1" id="address1ControlTextarea">
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label for="citynameInput" class="form-label">City</label>
+                                                    <input type="text" class="form-control" placeholder="Enter your city" id="citynameInput">
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label for="pinCodeinput" class="form-label">PIN Code</label>
+                                                    <input type="number" class="form-control" placeholder="Pin Code" id="pinCodeinput">
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label for="ForminputState" class="form-label">State</label>
+                                                    <select id="ForminputState" class="form-select" data-choices data-choices-sorting="true">
+                                                        <option selected>Choose...</option>
+                                                        <option>Maharashtra</option>
+                                                        <option>Goa</option>
+                                                        <option>Karnataka</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+
+
+                                        <!--Wizard col-->
+                                        <div class="col-xl-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h4 class="card-title mb-0">Payment Details & Upload Documents Tab</h4>
+                                                </div><!-- end card header -->
+                                                <div class="card-body">
+                                                    <form action="#" class="form-steps" autocomplete="off">
+
+                                                        <div class="step-arrow-nav mb-4">
+
+                                                            <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
+                                                                <li class="nav-item" role="presentation">
+                                                                    <button class="nav-link done" id="steparrow-gen-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-gen-info" type="button" role="tab" aria-controls="steparrow-gen-info" aria-selected="true">Payment Details</button>
+                                                                </li>
+                                                                <li class="nav-item" role="presentation">
+                                                                    <button class="nav-link active" id="steparrow-description-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-description-info" type="button" role="tab" aria-controls="steparrow-description-info" aria-selected="false">Upload Documents</button>
+                                                                </li>
+
+                                                            </ul>
+                                                        </div>
+                                                        <!-- Payments Details tab pane -->
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane fade" id="steparrow-gen-info" role="tabpanel" aria-labelledby="steparrow-gen-info-tab">
+                                                                <div>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="steparrow-gen-info-email-input">Bank Name</label>
+                                                                                <input type="text" class="form-control" id="steparrow-gen-info-email-input" placeholder="Enter Bank Name" required >
+                                                                                <div class="invalid-feedback">Please Enter an Bank Name</div>
+                                                                            </div>
+                                                                        </div>
+                                                                         <!--end col-->
+                                                                        <div class="col-lg-6">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="steparrow-gen-info-username-input">Branch</label>
+                                                                                <input type="text" class="form-control" id="steparrow-gen-info-username-input" placeholder="Enter Branch" required >
+                                                                                <div class="invalid-feedback">Please enter a Branch</div>
+                                                                            </div>
+                                                                        </div>
+                                                                         <!--end col-->
+                                                                         <div class="col-lg-6">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="steparrow-gen-info-username-input">Bank A/c Number</label>
+                                                                                <input type="number" class="form-control" id="steparrow-gen-info-username-input" placeholder="Enter Bank A/c Number" required >
+                                                                                <div class="invalid-feedback">Please enter a Bank A/c Number</div>
+                                                                            </div>
+                                                                        </div>
+                                                                         <!--end col-->
+                                                                         <div class="col-lg-6">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="steparrow-gen-info-username-input">Bank IFSC Code</label>
+                                                                                <input type="text" class="form-control" id="steparrow-gen-info-username-input" placeholder="Enter Bank IFSC Code" required >
+                                                                                <div class="invalid-feedback">Please enter a Bank IFSC Code</div>
+                                                                            </div>
+                                                                        </div>
+                                                                         <!--end col-->
+
+                                                                            <div class="card">
+                                                                                <div class="card-header">
+                                                                                    <h4 class="card-title mb-0">Gpay or Phone Pay Details (if it is)</h4>
+                                                                                </div>
+                                                                            </div>
+
+                                                                         <div class="col-lg-6">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="steparrow-gen-info-username-input">Refance Name</label>
+                                                                                <input type="text" class="form-control" id="steparrow-gen-info-username-input" placeholder="Enter Refance Name" required >
+                                                                                <div class="invalid-feedback">Please enter a Refance Name</div>
+                                                                            </div>
+                                                                        </div>
+                                                                         <!--end col-->
+                                                                         <div class="col-lg-6">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="steparrow-gen-info-username-input">Gpay or Phone Pay Number</label>
+                                                                                <input type="number" class="form-control" id="steparrow-gen-info-username-input" placeholder="Enter Gpay or Phone Pay Number" required >
+                                                                                <div class="invalid-feedback">Please enter a Gpay or Phone Pay Number</div>
+                                                                            </div>
+                                                                        </div>
+                                                                         <!--end col-->
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                            <!-- end tab pane -->
+
+                                                            <!-- Upload Documents tab pane -->
+                                                            <div class="tab-pane fade show active" id="steparrow-description-info" role="tabpanel" aria-labelledby="steparrow-description-info-tab">
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <div class="mb-3">
+                                                                            <label for="formFile" class="form-label">Upload Aadhar Card</label>
+                                                                            <input class="form-control" type="file" id="formFile">
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--end col-->
+                                                                    <div class="col-md-4">
+                                                                        <div class="mb-3">
+                                                                            <label for="formFile" class="form-label">Upload PANCard</label>
+                                                                            <input class="form-control" type="file" id="formFile">
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--end col-->
+                                                                    <div class="col-md-4">
+                                                                        <div class="mb-3">
+                                                                            <label for="formFile" class="form-label">Upload Driving Licence</label>
+                                                                            <input class="form-control" type="file" id="formFile">
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--end col-->
+                                                                    <div class="col-md-4">
+                                                                        <div class="mb-3">
+                                                                            <label for="StartleaveDate" class="form-label">Driving Licence Exp Date</label>
+                                                                            <input type="date" class="form-control" id="StartleaveDate">
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--end col-->
+
+                                                                        <div class="col-md-4">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="des-info-description-input">Remark / Description </label>
+                                                                                <textarea class="form-control" placeholder="Enter Description" id="des-info-description-input" rows="3" required></textarea>
+                                                                                <div class="invalid-feedback">Please enter a description if any</div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                            <!-- end tab pane -->
+
+                                                            <div class="tab-pane fade" id="pills-experience" role="tabpanel">
+                                                                <div class="text-center">
+
+                                                                    <div class="avatar-md mt-5 mb-4 mx-auto">
+                                                                        <div class="avatar-title bg-light text-success display-4 rounded-circle">
+                                                                            <i class="ri-checkbox-circle-fill"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                    <h5>Well Done !</h5>
+                                                                    <p class="text-muted">You have Successfully Signed Up</p>
+                                                                </div>
+                                                            </div>
+                                                            <!-- end tab pane -->
+                                                        </div>
+                                                        <!-- end tab content -->
+                                                    </form>
+                                                </div>
+                                                <!-- end card body -->
+                                            </div>
+                                            <!-- end card -->
+                                        </div>
+                                        <!-- end col -->
+                                    </div>
+                                            <div class="col-lg-12">
+                                                <div class="text-end">
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+                                        </div>
+                                        <!--end row-->
+                                    </form>
+
+
+                            </div>
+                        </div>
+                    </div> <!-- end col -->
+                </div>
+                <!--end row-->
+
+
+
+</x-admin.layout>
+
+{{-- Add More Vehical Number --}}
+<script>
+    document.getElementById('addVehicleBtn').addEventListener('click', function () {
+        const container = document.getElementById('vehicleContainer');
+
+        // Create Vehical Number input
+        const vehicalNumberDiv = document.createElement('div');
+        vehicalNumberDiv.className = 'col-md-6';
+        vehicalNumberDiv.innerHTML = `
+            <div class="mb-3">
+                <label class="form-label">Vehical Number</label>
+                <input type="text" class="form-control" placeholder="MH 04 GS 0065">
+            </div>
+        `;
+
+        // Create Vehical Type input
+        const vehicalTypeDiv = document.createElement('div');
+        vehicalTypeDiv.className = 'col-md-6';
+        vehicalTypeDiv.innerHTML = `
+            <div class="mb-3">
+                <label class="form-label">Vehical Type</label>
+                <input type="text" class="form-control" placeholder="FT / PICKUP">
+            </div>
+        `;
+
+        // Append both to container
+        container.appendChild(vehicalNumberDiv);
+        container.appendChild(vehicalTypeDiv);
+    });
+</script>
+
+
+{{-- Add --}}
+<script>
+    $("#addForm").submit(function(e) {
+        e.preventDefault();
+        $("#addSubmit").prop('disabled', true);
+
+        var formdata = new FormData(this);
+        $.ajax({
+            url: '{{ route('vehicle.store') }}',
+            type: 'POST',
+            data: formdata,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                $("#addSubmit").prop('disabled', false);
+                if (!data.error2)
+                    swal("Successful!", data.success, "success")
+                    .then((action) => {
+                        window.location.href = '{{ route('vehicle.index') }}';
+                    });
+                else
+                    swal("Error!", data.error2, "error");
+            },
+            statusCode: {
+                422: function(responseObject, textStatus, jqXHR) {
+                    $("#addSubmit").prop('disabled', false);
+                    resetErrors();
+                    printErrMsg(responseObject.responseJSON.errors);
+                },
+                500: function(responseObject, textStatus, errorThrown) {
+                    $("#addSubmit").prop('disabled', false);
+                    swal("Error occured!", "Something went wrong please try again", "error");
+                }
+            }
+        });
+
+    });
+</script>
+
+
+<!-- Edit -->
+<script>
+    $("#buttons-datatables").on("click", ".edit-element", function(e) {
+        e.preventDefault();
+        var model_id = $(this).attr("data-id");
+        var url = "{{ route('vehicle.edit', ':model_id') }}";
+
+        $.ajax({
+            url: url.replace(':model_id', model_id),
+            type: 'GET',
+            data: {
+                '_token': "{{ csrf_token() }}"
+            },
+            success: function(data, textStatus, jqXHR) {
+                editFormBehaviour();
+                if (!data.error) {
+                    $("#editForm input[name='edit_model_id']").val(data.ward.id);
+                    $("#editForm input[name='name']").val(data.ward.name);
+                    $("#editForm input[name='initial']").val(data.ward.initial);
+                } else {
+                    alert(data.error);
+                }
+            },
+            error: function(error, jqXHR, textStatus, errorThrown) {
+                alert("Some thing went wrong");
+            },
+        });
+    });
+</script>
+
+
+<!-- Update -->
+<script>
+    $(document).ready(function() {
+        $("#editForm").submit(function(e) {
+            e.preventDefault();
+            $("#editSubmit").prop('disabled', true);
+            var formdata = new FormData(this);
+            formdata.append('_method', 'PUT');
+            var model_id = $('#edit_model_id').val();
+            var url = "{{ route('vehicle.update', ':model_id') }}";
+            //
+            $.ajax({
+                url: url.replace(':model_id', model_id),
+                type: 'POST',
+                data: formdata,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    $("#editSubmit").prop('disabled', false);
+                    if (!data.error2)
+                        swal("Successful!", data.success, "success")
+                        .then((action) => {
+                            window.location.href = '{{ route('vehicle.index') }}';
+                        });
+                    else
+                        swal("Error!", data.error2, "error");
+                },
+                statusCode: {
+                    422: function(responseObject, textStatus, jqXHR) {
+                        $("#editSubmit").prop('disabled', false);
+                        resetErrors();
+                        printErrMsg(responseObject.responseJSON.errors);
+                    },
+                    500: function(responseObject, textStatus, errorThrown) {
+                        $("#editSubmit").prop('disabled', false);
+                        swal("Error occured!", "Something went wrong please try again", "error");
+                    }
+                }
+            });
+
+        });
+    });
+</script>
+
+
+<!-- Delete -->
+<script>
+    $("#buttons-datatables").on("click", ".rem-element", function(e) {
+        e.preventDefault();
+        swal({
+                title: "Are you sure to delete this ward?",
+                // text: "Make sure if you have filled Vendor details before proceeding further",
+                icon: "info",
+                buttons: ["Cancel", "Confirm"]
+            })
+            .then((justTransfer) => {
+                if (justTransfer) {
+                    var model_id = $(this).attr("data-id");
+                    var url = "{{ route('vehicle.destroy', ':model_id') }}";
+
+                    $.ajax({
+                        url: url.replace(':model_id', model_id),
+                        type: 'POST',
+                        data: {
+                            '_method': "DELETE",
+                            '_token': "{{ csrf_token() }}"
+                        },
+                        success: function(data, textStatus, jqXHR) {
+                            if (!data.error && !data.error2) {
+                                swal("Success!", data.success, "success")
+                                    .then((action) => {
+                                        window.location.reload();
+                                    });
+                            } else {
+                                if (data.error) {
+                                    swal("Error!", data.error, "error");
+                                } else {
+                                    swal("Error!", data.error2, "error");
+                                }
+                            }
+                        },
+                        error: function(error, jqXHR, textStatus, errorThrown) {
+                            swal("Error!", "Something went wrong", "error");
+                        },
+                    });
+                }
+            });
+    });
+</script>

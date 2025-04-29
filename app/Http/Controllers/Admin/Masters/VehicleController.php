@@ -19,6 +19,7 @@ class VehicleController extends Controller
         $vehicles = Vehicle::latest()->get();
 
         return view('admin.masters.vehicles')->with(['vehicles' => $vehicles]);
+        // return view('admin.masters.vehicles')->with(['vehicles' => $vehicles]);
     }
 
     /**

@@ -1,127 +1,97 @@
 <x-admin.layout>
-    <x-slot name="title">Add Vehicle Data Type</x-slot>
-    <x-slot name="heading">Add Vehicle Data Type</x-slot>
+    <x-slot name="title">Daily Vehical Movement Tracker</x-slot>
+    <x-slot name="heading">Daily Vehical Movement Tracker</x-slot>
     {{-- <x-slot name="subheading">Test</x-slot> --}}
 
 
-    <!-- Add Form -->
-    <div class="row" id="addContainer" style="display:none;">
-        <div class="col-sm-12">
-            <div class="card">
-                <form class="theme-form" name="addForm" id="addForm" enctype="multipart/form-data">
-                    @csrf
-
-                    <div class="card-body">
-                        <div class="mb-3 row">
-                            <div class="col-md-4">
-                                <label class="col-form-label" for="type">Vehicle Type <span class="text-danger">*</span></label>
-                                <input class="form-control" id="type" name="type" type="text" placeholder="Enter Vehicle Type">
-                                <span class="text-danger invalid type_err"></span>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-form-label" for="description">Description <span class="text-danger">*</span></label>
-                                <input class="form-control" id="description" name="description" type="text" placeholder="Enter description">
-                                <span class="text-danger invalid description_err"></span>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-success" id="addSubmit">Submit</button>
-                        <button type="reset" class="btn btn-warning">Reset</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-
-    {{-- Edit Form --}}
-    <div class="row" id="editContainer" style="display:none;">
-        <div class="col">
-            <form class="form-horizontal form-bordered" method="post" id="editForm">
-                @csrf
-                <section class="card">
-                    <header class="card-header">
-                        <h4 class="card-title">Edit Ward</h4>
-                    </header>
-
-                    <div class="card-body py-2">
-
-                        <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
-                        <div class="mb-3 row">
-                            <div class="col-md-4">
-                                <label class="col-form-label" for="type">Vehicle Type <span class="text-danger">*</span></label>
-                                <input class="form-control" id="type" name="type" type="text" placeholder="Vehicle Type">
-                                <span class="text-danger invalid type_err"></span>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-form-label" for="description">Vehicle Description <span class="text-danger">*</span></label>
-                                <input class="form-control" id="description" name="description" type="text" placeholder="Enter Vehicle Description">
-                                <span class="text-danger invalid description_err"></span>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn-primary" id="editSubmit">Submit</button>
-                        <button type="reset" class="btn btn-warning">Reset</button>
-                    </div>
-                </section>
-            </form>
-        </div>
-    </div>
-
-
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-xxl-6">
             <div class="card">
-                <!-- @can('wards.create') -->
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="">
-                                    <button id="addToTable" class="btn btn-primary">Add <i class="fa fa-plus"></i></button>
-                                    <button id="btnCancel" class="btn btn-danger" style="display:none;">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <!-- @endcan -->
+
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="buttons-datatables" class="table table-bordered nowrap align-middle" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Sr No.</th>
-                                    <th>Type</th>
-                                    <th>Description</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($vehicles as $vehicle)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $vehicle->type }}</td>
-                                        <td>{{ $vehicle->description }}</td>
-                                        <td>
-                                            <!-- @can('wards.edit') -->
-                                                <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="edit"></i></button>
-                                            <!-- @endcan
-                                            @can('wards.delete') -->
-                                                <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="trash-2"></i> </button>
-                                            <!-- @endcan -->
-                                        </td>
-                                    </tr>
-                                @endforeach
-                        </table>
-                    </div>
+                        <form action="javascript:void(0);">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="TripDate" class="form-label">Date</label>
+                                        <input type="date" class="form-control" id="TripDate">
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="vehicalNoinput" class="form-label">Vehical NO</label>
+                                        <input type="text" class="form-control" placeholder="MH 04 GS 0065" id="vehicalNoinput">
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="VehicalTypeinput" class="form-label">Vehical Type</label>
+                                        <input type="text" class="form-control" placeholder="Vehical Type" id="VehicalTypeinput">
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="origininput" class="form-label">Origin</label>
+                                        <input type="text" class="form-control" placeholder="Origin" id="origininput">
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="destinationinput" class="form-label">Destination</label>
+                                        <input type="text" class="form-control" placeholder="Destination" id="destinationinput">
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="rateinput" class="form-label">Trip Rate</label>
+                                        <input type="number" class="form-control" placeholder="Trip Rate" id="rateinput">
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="clientNameInput" class="form-label">Client Name</label>
+                                        <input type="text" class="form-control" placeholder="Client Name" id="clientNameInput">
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="driverNameInput" class="form-label">Driver Name</label>
+                                        <input type="text" class="form-control" placeholder="Driver Name" id="driverNameInput">
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="driveAllowanceInput" class="form-label">Driver Allowance(As per Trip)</label>
+                                        <input type="number" class="form-control" placeholder="Driver Allowance" id="driveAllowanceInput">
+                                    </div>
+                                </div>
+                                <!--end col-->
+
+                               <div class="col-lg-12">
+                                    <div class="text-end">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+                        </form>
+
+
                 </div>
             </div>
-        </div>
+        </div> <!-- end col -->
     </div>
+    <!--end row-->
+
 
 
 

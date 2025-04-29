@@ -70,16 +70,22 @@
                             @endcanany
                             <!-- @can('wards.view') -->
                                 <li class="nav-item">
-                                    <a href="{{ route('vehicle.index') }}" class="nav-link {{ request()->routeIs('vehicle.index') ? 'active' : '' }}" data-key="t-horizontal">Vehicle</a>
+                                    <a href="{{ route('vehicle.index') }}" class="nav-link {{ request()->routeIs('vehicle.index') ? 'active' : '' }}" data-key="t-horizontal">Add Vehicle DataType</a>
                                 </li>
                             <!-- @endcan -->
-                         
+
+                            <!-- @can('wards.view') -->
+                                <li class="nav-item">
+                                <a href="{{ route('vehicle.index') }}" class="nav-link {{ request()->routeIs('vehicle.index') ? 'active' : '' }}" data-key="t-horizontal">Add Vehicle DataType</a>
+                                </li>
+                            <!-- @endcan -->
+
                         </ul>
                     </div>
                 </li>
                 @endcanany
 
-           
+
             </ul>
         </div>
     </div>
