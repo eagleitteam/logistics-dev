@@ -112,10 +112,10 @@
 
                                                             <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
                                                                 <li class="nav-item" role="presentation">
-                                                                    <button class="nav-link done" id="steparrow-gen-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-gen-info" type="button" role="tab" aria-controls="steparrow-gen-info" aria-selected="true">Payment Details</button>
+                                                                    <button class="nav-link done" id="steparrow-gen-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-gen-info" type="button" role="tab" aria-controls="steparrow-gen-info" aria-selected="false">Payment Details</button>
                                                                 </li>
                                                                 <li class="nav-item" role="presentation">
-                                                                    <button class="nav-link active" id="steparrow-description-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-description-info" type="button" role="tab" aria-controls="steparrow-description-info" aria-selected="false">Upload Documents</button>
+                                                                    <button class="nav-link active" id="steparrow-description-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-description-info" type="button" role="tab" aria-controls="steparrow-description-info" aria-selected="true">Upload Documents</button>
                                                                 </li>
 
                                                             </ul>

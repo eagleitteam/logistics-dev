@@ -76,7 +76,7 @@
 
                             <!-- @can('wards.view') -->
                                 <li class="nav-item">
-                                <a href="{{ route('vehicle.index') }}" class="nav-link {{ request()->routeIs('vehicle.index') ? 'active' : '' }}" data-key="t-horizontal">Add Vehicle DataType</a>
+                                <a href="{{ route('vendor.index') }}" class="nav-link {{ request()->routeIs('vendorAddForm.index') ? 'active' : '' }}" data-key="t-horizontal">Add Vendor</a>
                                 </li>
                             <!-- @endcan -->
 

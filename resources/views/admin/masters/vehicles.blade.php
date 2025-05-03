@@ -185,15 +185,15 @@
             success: function(data, textStatus, jqXHR) {
                 editFormBehaviour();
                 if (!data.error) {
-                    $("#editForm input[name='edit_model_id']").val(data.ward.id);
-                    $("#editForm input[name='name']").val(data.ward.name);
-                    $("#editForm input[name='initial']").val(data.ward.initial);
+                    $("#editForm input[name='edit_model_id']").val(data.vehicle.id);
+                    $("#editForm input[name='type']").val(data.vehicle.type);
+                    $("#editForm input[name='description']").val(data.vehicle.description);
                 } else {
                     alert(data.error);
                 }
             },
             error: function(error, jqXHR, textStatus, errorThrown) {
-                alert("Some thing went wrong");
+                alert("Something went wrong");
             },
         });
     });
@@ -210,7 +210,7 @@
             formdata.append('_method', 'PUT');
             var model_id = $('#edit_model_id').val();
             var url = "{{ route('vehicle.update', ':model_id') }}";
-            //
+
             $.ajax({
                 url: url.replace(':model_id', model_id),
                 type: 'POST',
@@ -235,11 +235,10 @@
                     },
                     500: function(responseObject, textStatus, errorThrown) {
                         $("#editSubmit").prop('disabled', false);
-                        swal("Error occured!", "Something went wrong please try again", "error");
+                        swal("Error occurred!", "Something went wrong please try again", "error");
                     }
                 }
             });
-
         });
     });
 </script>
@@ -250,13 +249,13 @@
     $("#buttons-datatables").on("click", ".rem-element", function(e) {
         e.preventDefault();
         swal({
-                title: "Are you sure to delete this ward?",
-                // text: "Make sure if you have filled Vendor details before proceeding further",
-                icon: "info",
-                buttons: ["Cancel", "Confirm"]
+                title: "Are you sure to delete this vehicle type?",
+                icon: "warning",
+                buttons: ["Cancel", "Confirm"],
+                dangerMode: true,
             })
-            .then((justTransfer) => {
-                if (justTransfer) {
+            .then((willDelete) => {
+                if (willDelete) {
                     var model_id = $(this).attr("data-id");
                     var url = "{{ route('vehicle.destroy', ':model_id') }}";
 
@@ -289,3 +288,7 @@
             });
     });
 </script>
+
+
+
+

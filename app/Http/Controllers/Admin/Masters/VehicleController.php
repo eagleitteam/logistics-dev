@@ -18,7 +18,7 @@ class VehicleController extends Controller
     {
         $vehicles = Vehicle::latest()->get();
 
-        return view('admin.masters.vehicles')->with(['vehicles' => $vehicles]);
+        return view('admin.masters.selfVehicalDetailView')->with(['vehicles' => $vehicles]);
         // return view('admin.masters.vehicles')->with(['vehicles' => $vehicles]);
     }
 
@@ -58,24 +58,50 @@ class VehicleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Vehicle $vehicle)
     {
-        //
+        try {
+            return response()->json([
+                'vehicle' => $vehicle,
+                'success' => 'Vehicle retrieved successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to retrieve vehicle'], 500);
+        }
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreVehicleRequest $request, Vehicle $vehicle)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $input = $request->validated();
+            $vehicle->update(Arr::only($input, Vehicle::getFillables()));
+            DB::commit();
+
+            return response()->json(['success' => 'Vehicle updated successfully!']);
+        } catch (\Exception $e) {
+            return $this->respondWithAjax($e, 'updating', 'Vehicle');
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Vehicle $vehicle)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $vehicle->delete();
+            DB::commit();
+
+            return response()->json(['success' => 'Vehicle deleted successfully!']);
+        } catch (\Exception $e) {
+            return $this->respondWithAjax($e, 'deleting', 'Vehicle');
+        }
     }
 }
