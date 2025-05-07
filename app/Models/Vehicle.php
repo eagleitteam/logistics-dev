@@ -9,7 +9,7 @@ class Vehicle extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['type', 'description'];
+    protected $fillable = ['vehicle_number', 'vehicle_type','fule_type','register_date','chassis_num','eng_num','model_num','toll_stm','remark','f_e_d','f_s_d','file'];
 
 
     public static function booted()

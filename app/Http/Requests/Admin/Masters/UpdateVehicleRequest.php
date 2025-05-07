@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Masters;
+namespace App\Http\Requests\admin\masters;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreVehicleRequest extends FormRequest
+class UpdateVehicleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -34,7 +34,7 @@ class StoreVehicleRequest extends FormRequest
             'f_s_d' =>'required',
             'f_e_d'=>'required',
             'file'=>'required'
-            // 'description' => 'required',
+            
         ];
     }
 }

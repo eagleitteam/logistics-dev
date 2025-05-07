@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Masters;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Masters\StoreVehicleRequest;
+use App\Http\Requests\Admin\Masters\UpdateVehicleRequest;
 use Illuminate\Http\Request;
 use App\Models\Vehicle;
 use Illuminate\Support\Arr;
@@ -17,9 +18,7 @@ class VehicleController extends Controller
     public function index()
     {
         $vehicles = Vehicle::latest()->get();
-
         return view('admin.masters.selfVehicalDetailView')->with(['vehicles' => $vehicles]);
-        // return view('admin.masters.vehicles')->with(['vehicles' => $vehicles]);
     }
 
     /**
@@ -27,7 +26,7 @@ class VehicleController extends Controller
      */
     public function create()
     {
-
+        return view('admin.masters.createVehicle'); // create the blade if needed
     }
 
     /**
@@ -43,7 +42,10 @@ class VehicleController extends Controller
 
             return response()->json(['success' => 'Vehicle created successfully!']);
         } catch (\Exception $e) {
-            return $this->respondWithAjax($e, 'creating', 'Vehicle');
+            DB::rollBack();
+            return response()->json([
+                'error' => 'Error creating vehicle: ' . $e->getMessage()
+            ], 500);
         }
     }
 
@@ -52,7 +54,13 @@ class VehicleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $vehicle = Vehicle::find($id);
+
+        if (!$vehicle) {
+            return response()->json(['error' => 'Vehicle not found'], 404);
+        }
+
+        return response()->json(['vehicle' => $vehicle]);
     }
 
     /**
@@ -60,16 +68,11 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
-        try {
-            return response()->json([
-                'vehicle' => $vehicle,
-                'success' => 'Vehicle retrieved successfully'
-            ]);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to retrieve vehicle'], 500);
-        }
+        return response()->json([
+            'vehicle' => $vehicle,
+            'success' => 'Vehicle retrieved successfully'
+        ]);
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -84,10 +87,12 @@ class VehicleController extends Controller
 
             return response()->json(['success' => 'Vehicle updated successfully!']);
         } catch (\Exception $e) {
-            return $this->respondWithAjax($e, 'updating', 'Vehicle');
+            DB::rollBack();
+            return response()->json([
+                'error' => 'Error updating vehicle: ' . $e->getMessage()
+            ], 500);
         }
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -101,7 +106,10 @@ class VehicleController extends Controller
 
             return response()->json(['success' => 'Vehicle deleted successfully!']);
         } catch (\Exception $e) {
-            return $this->respondWithAjax($e, 'deleting', 'Vehicle');
+            DB::rollBack();
+            return response()->json([
+                'error' => 'Error deleting vehicle: ' . $e->getMessage()
+            ], 500);
         }
     }
 }
