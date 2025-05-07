@@ -79,7 +79,47 @@
                                 <a href="{{ route('vendor.index') }}" class="nav-link {{ request()->routeIs('vendorAddForm.index') ? 'active' : '' }}" data-key="t-horizontal">Add Vendor</a>
                                 </li>
                             <!-- @endcan -->
+                            
+                            
+                            <!-- @can('wards.view') -->
+                            <li class="nav-item">
+                                <a href="{{ route('bank.index') }}" class="nav-link {{ request()->routeIs('bank.index') ? 'active' : '' }}" data-key="t-horizontal">Bank</a>
+                                </li>
+                            <!-- @endcan -->
 
+                            
+                            <!-- @can('wards.view') -->
+                            <li class="nav-item">
+                                <a href="{{ route('client.index') }}" class="nav-link {{ request()->routeIs('client.index') ? 'active' : '' }}" data-key="t-horizontal">client</a>
+                                </li>
+                            <!-- @endcan -->
+
+                             <!-- @can('wards.view') -->
+                             <li class="nav-item">
+                                <a href="{{ route('contact.index') }}" class="nav-link {{ request()->routeIs('contact.index') ? 'active' : '' }}" data-key="t-horizontal">Contact List</a>
+                                </li>
+                            <!-- @endcan -->
+
+                            <!-- @can('wards.view') -->
+                            <li class="nav-item">
+                                <a href="{{ route('driver.index') }}" class="nav-link {{ request()->routeIs('driver.index') ? 'active' : '' }}" data-key="t-horizontal">Driver</a>
+                                </li>
+                            <!-- @endcan -->
+                               <!-- @can('wards.view') -->
+                            <li class="nav-item">
+                                <a href="{{ route('group.index') }}" class="nav-link {{ request()->routeIs('group.index') ? 'active' : '' }}" data-key="t-horizontal">Group Ledger</a>
+                                </li>
+                            <!-- @endcan -->
+                                <!-- @can('wards.view') -->
+                            <li class="nav-item">
+                                <a href="{{ route('todo.index') }}" class="nav-link {{ request()->routeIs('todo.index') ? 'active' : '' }}" data-key="t-horizontal">ToDo List</a>
+                                </li>
+                            <!-- @endcan -->
+                                  <!-- @can('wards.view') -->
+                            <li class="nav-item">
+                                <a href="{{ route('tripmovment.index') }}" class="nav-link {{ request()->routeIs('tripmovment.index') ? 'active' : '' }}" data-key="t-horizontal">Trip Movment</a>
+                                </li>
+                            <!-- @endcan -->
                         </ul>
                     </div>
                 </li>

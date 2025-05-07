@@ -146,30 +146,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="buttons-datatables" class="table table-bordered nowrap align-middle" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Sr No.</th>
-                                    <th>Type</th>
-                                    <th>Description</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($vehicles as $vehicle)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $vehicle->type }}</td>
-                                        <td>{{ $vehicle->description }}</td>
-                                        <td>
-                                            <!-- @can('wards.edit') -->
-                                                <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="edit"></i></button>
-                                            <!-- @endcan
-                                            @can('wards.delete') -->
-                                                <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="trash-2"></i> </button>
-                                            <!-- @endcan -->
-                                        </td>
-                                    </tr>
-                                @endforeach
+                           
                         </table>
                     </div>
                 </div>
