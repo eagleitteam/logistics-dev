@@ -114,6 +114,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('todo.index') }}" class="nav-link {{ request()->routeIs('todo.index') ? 'active' : '' }}" data-key="t-horizontal">ToDo List</a>
                                 </li>
+                                
                             <!-- @endcan -->
                                   <!-- @can('wards.view') -->
                             <li class="nav-item">
