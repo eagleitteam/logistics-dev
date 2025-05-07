@@ -18,7 +18,7 @@ class VehicleController extends Controller
     {
         $vehicles = Vehicle::latest()->get();
 
-        return view('admin.masters.selfVehicalDetailView')->with(['vehicles' => $vehicles]);
+        return view('admin.masters.voucherMaster')->with(['vehicles' => $vehicles]);
         // return view('admin.masters.vehicles')->with(['vehicles' => $vehicles]);
     }
 

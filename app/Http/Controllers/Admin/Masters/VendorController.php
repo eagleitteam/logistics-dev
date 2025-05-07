@@ -18,7 +18,7 @@ class VendorController extends Controller
     {
         $vendors = Vendor::latest()->get();
 
-        return view('admin.masters.vendorAddForm')->with(['vendors' => $vendors]);
+        return view('admin.masters.advancedFuelManagement')->with(['vendors' => $vendors]);
     }
 
     /**
