@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\admin\masters;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\Controller;
+use App\Http\Requests\Admin\Masters\StoreClientRequest;
+use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -12,7 +16,9 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return view('admin.masters.client');
+        $clients = Client::latest()->get();
+
+        return view('admin.masters.client')->with(['clients' => $clients]);
     }
 
     /**
@@ -26,9 +32,20 @@ class ClientController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreClientRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $input = $request->validated();
+            // Create vendor
+            $client = Client::create(Arr::only($input, Client::getFillables()));
+            DB::commit();
+            return response()->json(['success' => 'Client created successfully!']);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->respondWithAjax($e, 'creating', 'Client');
+        }
     }
 
     /**

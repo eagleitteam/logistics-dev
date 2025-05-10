@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Masters;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\Controller;
+use App\Http\Requests\Admin\Masters\StoreDriverRequest;
+use App\Models\Driver;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class DriverController extends Controller
 {
@@ -26,9 +30,20 @@ class DriverController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreDriverRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $input = $request->validated();
+            // Create vendor
+            $vendor = Driver::create(Arr::only($input, Driver::getFillables()));
+            DB::commit();
+            return response()->json(['success' => 'Driver created successfully!']);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->respondWithAjax($e, 'creating', 'Driver');
+        }
     }
 
     /**

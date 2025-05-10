@@ -6,89 +6,94 @@
                 <div class="row">
                     <div class="col-xxl-6">
                             <div class="card-body">
-                                    <form action="javascript:void(0);">
+                                <form class="theme-form" name="addForm" id="addForm" enctype="multipart/form-data">
+                                    @csrf
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="mb-3">
                                                     <label for="firstNameinput" class="form-label">Frist Name</label>
-                                                    <input type="text" class="form-control" placeholder="Frist Name" id="firstNameinput">
+                                                    <input type="text" class="form-control" placeholder="Frist Name" id="firstNameinput" name="f_name">
+                                                    <span class="text-danger invalid f_name_err"></span>
+
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-4">
                                                 <div class="mb-3">
                                                     <label for="lastNameinput" class="form-label">Last Name</label>
-                                                    <input type="text" class="form-control" placeholder="Last Name" id="lastNameinput">
+                                                    <input type="text" class="form-control" placeholder="Last Name" id="lastNameinput" name="l_name">
+                                                    <span class="text-danger invalid l_name_err"></span>
+
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-4">
                                                 <div class="mb-3">
                                                     <label for="mobileNoinput" class="form-label">Mobile Number</label>
-                                                    <input type="tel" class="form-control" placeholder="Mobile Number" id="mobileNoinput">
+                                                    <input type="tel" class="form-control" placeholder="Mobile Number" id="mobileNoinput" name="mobile_no">
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-4">
                                             <div class="mb-3">
                                                 <label for="JoingDate" class="form-label">Joing Date</label>
-                                                <input type="date" class="form-control" id="JoingDate">
+                                                <input type="date" class="form-control" id="JoingDate" name="joining_date">
                                             </div>
                                         </div>
                                         <!--end col-->
                                         <div class="col-md-4">
                                             <div class="mb-3">
                                                 <label for="EndDate" class="form-label">End Date</label>
-                                                <input type="date" class="form-control" id="EndDate">
+                                                <input type="date" class="form-control" id="EndDate" name="end_date">
                                             </div>
                                         </div>
                                         <!--end col-->
                                             <div class="col-md-4">
                                                 <div class="mb-3">
                                                     <label for="basicSalaryinput" class="form-label">Basic Salary</label>
-                                                    <input type="number" class="form-control" placeholder="Basic Salary" id="basicSalaryinput">
+                                                    <input type="number" class="form-control" placeholder="Basic Salary" id="basicSalaryinput" name="basic_salary">
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="altContactinput" class="form-label">Alternet Contact Number</label>
-                                                    <input type="number" class="form-control" placeholder="Alternet Contact Number" id="altContactinput">
+                                                    <input type="number" class="form-control" placeholder="Alternet Contact Number" id="altContactinput" name="alternate_contact_no">
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="emailidInput" class="form-label">Email Address</label>
-                                                    <input type="email" class="form-control" placeholder="example@gamil.com" id="emailidInput">
+                                                    <input type="email" class="form-control" placeholder="example@gamil.com" id="emailidInput" name="email">
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-12">
                                                 <div class="mb-3">
                                                     <label for="address1ControlTextarea" class="form-label">Full Address</label>
-                                                    <input type="text" class="form-control" placeholder="Address 1" id="address1ControlTextarea">
+                                                    <input type="text" class="form-control" placeholder="Address 1" id="address1ControlTextarea" name="address">
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-4">
                                                 <div class="mb-3">
                                                     <label for="citynameInput" class="form-label">City</label>
-                                                    <input type="text" class="form-control" placeholder="Enter your city" id="citynameInput">
+                                                    <input type="text" class="form-control" placeholder="Enter your city" id="citynameInput" name="city">
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-4">
                                                 <div class="mb-3">
                                                     <label for="pinCodeinput" class="form-label">PIN Code</label>
-                                                    <input type="number" class="form-control" placeholder="Pin Code" id="pinCodeinput">
+                                                    <input type="number" class="form-control" placeholder="Pin Code" id="pinCodeinput" name="pincode">
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-4">
                                                 <div class="mb-3">
                                                     <label for="ForminputState" class="form-label">State</label>
-                                                    <select id="ForminputState" class="form-select" data-choices data-choices-sorting="true">
+                                                    <select id="ForminputState" class="form-select" name="state">
                                                         <option selected>Choose...</option>
                                                         <option>Maharashtra</option>
                                                         <option>Goa</option>
@@ -106,7 +111,7 @@
                                                     <h4 class="card-title mb-0">Payment Details & Upload Documents Tab</h4>
                                                 </div><!-- end card header -->
                                                 <div class="card-body">
-                                                    <form action="#" class="form-steps" autocomplete="off">
+                                                    {{-- <form action="#" class="form-steps" autocomplete="off"> --}}
 
                                                         <div class="step-arrow-nav mb-4">
 
@@ -128,7 +133,7 @@
                                                                         <div class="col-lg-6">
                                                                             <div class="mb-3">
                                                                                 <label class="form-label" for="steparrow-gen-info-email-input">Bank Name</label>
-                                                                                <input type="text" class="form-control" id="steparrow-gen-info-email-input" placeholder="Enter Bank Name" required >
+                                                                                <input type="text" class="form-control" id="steparrow-gen-info-email-input" placeholder="Enter Bank Name" name="bank_name" >
                                                                                 <div class="invalid-feedback">Please Enter an Bank Name</div>
                                                                             </div>
                                                                         </div>
@@ -136,7 +141,7 @@
                                                                         <div class="col-lg-6">
                                                                             <div class="mb-3">
                                                                                 <label class="form-label" for="steparrow-gen-info-username-input">Branch</label>
-                                                                                <input type="text" class="form-control" id="steparrow-gen-info-username-input" placeholder="Enter Branch" required >
+                                                                                <input type="text" class="form-control" id="steparrow-gen-info-username-input" placeholder="Enter Branch" name="bank_branch" >
                                                                                 <div class="invalid-feedback">Please enter a Branch</div>
                                                                             </div>
                                                                         </div>
@@ -144,7 +149,7 @@
                                                                          <div class="col-lg-6">
                                                                             <div class="mb-3">
                                                                                 <label class="form-label" for="steparrow-gen-info-username-input">Bank A/c Number</label>
-                                                                                <input type="number" class="form-control" id="steparrow-gen-info-username-input" placeholder="Enter Bank A/c Number" required >
+                                                                                <input type="number" class="form-control" id="steparrow-gen-info-username-input" placeholder="Enter Bank A/c Number" name="bank_account_no" >
                                                                                 <div class="invalid-feedback">Please enter a Bank A/c Number</div>
                                                                             </div>
                                                                         </div>
@@ -152,7 +157,7 @@
                                                                          <div class="col-lg-6">
                                                                             <div class="mb-3">
                                                                                 <label class="form-label" for="steparrow-gen-info-username-input">Bank IFSC Code</label>
-                                                                                <input type="text" class="form-control" id="steparrow-gen-info-username-input" placeholder="Enter Bank IFSC Code" required >
+                                                                                <input type="text" class="form-control" id="steparrow-gen-info-username-input" placeholder="Enter Bank IFSC Code" name="bank_ifsc_code" >
                                                                                 <div class="invalid-feedback">Please enter a Bank IFSC Code</div>
                                                                             </div>
                                                                         </div>
@@ -167,7 +172,7 @@
                                                                          <div class="col-lg-6">
                                                                             <div class="mb-3">
                                                                                 <label class="form-label" for="steparrow-gen-info-username-input">Refance Name</label>
-                                                                                <input type="text" class="form-control" id="steparrow-gen-info-username-input" placeholder="Enter Refance Name" required >
+                                                                                <input type="text" class="form-control" id="steparrow-gen-info-username-input" placeholder="Enter Refance Name" name="reference_name" >
                                                                                 <div class="invalid-feedback">Please enter a Refance Name</div>
                                                                             </div>
                                                                         </div>
@@ -175,7 +180,7 @@
                                                                          <div class="col-lg-6">
                                                                             <div class="mb-3">
                                                                                 <label class="form-label" for="steparrow-gen-info-username-input">Gpay or Phone Pay Number</label>
-                                                                                <input type="number" class="form-control" id="steparrow-gen-info-username-input" placeholder="Enter Gpay or Phone Pay Number" required >
+                                                                                <input type="number" class="form-control" id="steparrow-gen-info-username-input" placeholder="Enter Gpay or Phone Pay Number" name="gpay_number" >
                                                                                 <div class="invalid-feedback">Please enter a Gpay or Phone Pay Number</div>
                                                                             </div>
                                                                         </div>
@@ -193,28 +198,28 @@
                                                                     <div class="col-md-4">
                                                                         <div class="mb-3">
                                                                             <label for="formFile" class="form-label">Upload Aadhar Card</label>
-                                                                            <input class="form-control" type="file" id="formFile">
+                                                                            <input class="form-control" type="file" id="formFile" name="aadhar_card_path">
                                                                         </div>
                                                                     </div>
                                                                     <!--end col-->
                                                                     <div class="col-md-4">
                                                                         <div class="mb-3">
                                                                             <label for="formFile" class="form-label">Upload PANCard</label>
-                                                                            <input class="form-control" type="file" id="formFile">
+                                                                            <input class="form-control" type="file" id="formFile" name="pan_card_path">
                                                                         </div>
                                                                     </div>
                                                                     <!--end col-->
                                                                     <div class="col-md-4">
                                                                         <div class="mb-3">
                                                                             <label for="formFile" class="form-label">Upload Driving Licence</label>
-                                                                            <input class="form-control" type="file" id="formFile">
+                                                                            <input class="form-control" type="file" id="formFile" name="driving_license_path">
                                                                         </div>
                                                                     </div>
                                                                     <!--end col-->
                                                                     <div class="col-md-4">
                                                                         <div class="mb-3">
                                                                             <label for="StartleaveDate" class="form-label">Driving Licence Exp Date</label>
-                                                                            <input type="date" class="form-control" id="StartleaveDate">
+                                                                            <input type="date" class="form-control" id="StartleaveDate" name="driving_license_validity">
                                                                         </div>
                                                                     </div>
                                                                     <!--end col-->
@@ -222,7 +227,7 @@
                                                                         <div class="col-md-4">
                                                                             <div class="mb-3">
                                                                                 <label class="form-label" for="des-info-description-input">Remark / Description </label>
-                                                                                <textarea class="form-control" placeholder="Enter Description" id="des-info-description-input" rows="3" required></textarea>
+                                                                                <textarea class="form-control" placeholder="Enter Description" id="des-info-description-input" rows="3" name="remark"></textarea>
                                                                                 <div class="invalid-feedback">Please enter a description if any</div>
                                                                             </div>
                                                                         </div>
@@ -232,22 +237,9 @@
                                                             </div>
                                                             <!-- end tab pane -->
 
-                                                            <div class="tab-pane fade" id="pills-experience" role="tabpanel">
-                                                                <div class="text-center">
-
-                                                                    <div class="avatar-md mt-5 mb-4 mx-auto">
-                                                                        <div class="avatar-title bg-light text-success display-4 rounded-circle">
-                                                                            <i class="ri-checkbox-circle-fill"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <h5>Well Done !</h5>
-                                                                    <p class="text-muted">You have Successfully Signed Up</p>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end tab pane -->
                                                         </div>
                                                         <!-- end tab content -->
-                                                    </form>
+                                                    {{-- </form>x --}}
                                                 </div>
                                                 <!-- end card body -->
                                             </div>
@@ -257,13 +249,13 @@
                                     </div>
                                             <div class="col-lg-12">
                                                 <div class="text-end">
-                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                    <button type="submit" class="btn btn-primary" id="addSubmit">Submit</button>
                                                 </div>
                                             </div>
                                             <!--end col-->
                                         </div>
                                         <!--end row-->
-                                    </form>
+                                </form>
 
 
                             </div>
@@ -276,47 +268,19 @@
 
 </x-admin.layout>
 
-{{-- Add More Vehical Number --}}
-<script>
-    document.getElementById('addVehicleBtn').addEventListener('click', function () {
-        const container = document.getElementById('vehicleContainer');
-
-        // Create Vehical Number input
-        const vehicalNumberDiv = document.createElement('div');
-        vehicalNumberDiv.className = 'col-md-6';
-        vehicalNumberDiv.innerHTML = `
-            <div class="mb-3">
-                <label class="form-label">Vehical Number</label>
-                <input type="text" class="form-control" placeholder="MH 04 GS 0065">
-            </div>
-        `;
-
-        // Create Vehical Type input
-        const vehicalTypeDiv = document.createElement('div');
-        vehicalTypeDiv.className = 'col-md-6';
-        vehicalTypeDiv.innerHTML = `
-            <div class="mb-3">
-                <label class="form-label">Vehical Type</label>
-                <input type="text" class="form-control" placeholder="FT / PICKUP">
-            </div>
-        `;
-
-        // Append both to container
-        container.appendChild(vehicalNumberDiv);
-        container.appendChild(vehicalTypeDiv);
-    });
-</script>
-
 
 {{-- Add --}}
 <script>
+        alert("dfdf");
+
     $("#addForm").submit(function(e) {
+        alert("dfdf");
         e.preventDefault();
         $("#addSubmit").prop('disabled', true);
 
         var formdata = new FormData(this);
         $.ajax({
-            url: '{{ route('vehicle.store') }}',
+            url: '{{ route('drivers.store') }}',
             type: 'POST',
             data: formdata,
             contentType: false,
@@ -326,7 +290,7 @@
                 if (!data.error2)
                     swal("Successful!", data.success, "success")
                     .then((action) => {
-                        window.location.href = '{{ route('vehicle.index') }}';
+                        window.location.href = '{{ route('drivers.index') }}';
                     });
                 else
                     swal("Error!", data.error2, "error");
@@ -353,7 +317,7 @@
     $("#buttons-datatables").on("click", ".edit-element", function(e) {
         e.preventDefault();
         var model_id = $(this).attr("data-id");
-        var url = "{{ route('vehicle.edit', ':model_id') }}";
+        var url = "{{ route('drivers.edit', ':model_id') }}";
 
         $.ajax({
             url: url.replace(':model_id', model_id),
@@ -388,7 +352,7 @@
             var formdata = new FormData(this);
             formdata.append('_method', 'PUT');
             var model_id = $('#edit_model_id').val();
-            var url = "{{ route('vehicle.update', ':model_id') }}";
+            var url = "{{ route('drivers.update', ':model_id') }}";
             //
             $.ajax({
                 url: url.replace(':model_id', model_id),
@@ -401,7 +365,7 @@
                     if (!data.error2)
                         swal("Successful!", data.success, "success")
                         .then((action) => {
-                            window.location.href = '{{ route('vehicle.index') }}';
+                            window.location.href = '{{ route('drivers.index') }}';
                         });
                     else
                         swal("Error!", data.error2, "error");
@@ -437,7 +401,7 @@
             .then((justTransfer) => {
                 if (justTransfer) {
                     var model_id = $(this).attr("data-id");
-                    var url = "{{ route('vehicle.destroy', ':model_id') }}";
+                    var url = "{{ route('drivers.destroy', ':model_id') }}";
 
                     $.ajax({
                         url: url.replace(':model_id', model_id),

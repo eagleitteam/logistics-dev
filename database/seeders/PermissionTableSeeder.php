@@ -76,25 +76,86 @@ class PermissionTableSeeder extends Seeder
             ],
             [
                 'id' => 13,
-                'name' => 'wards.view',
-                'group' => 'wards',
+                'name' => 'vehicles.view',
+                'group' => 'vehicles',
             ],
             [
                 'id' => 14,
-                'name' => 'wards.create',
-                'group' => 'wards',
+                'name' => 'vehicles.create',
+                'group' => 'vehicles',
             ],
             [
                 'id' => 15,
-                'name' => 'wards.edit',
-                'group' => 'wards',
+                'name' => 'vehicles.edit',
+                'group' => 'vehicles',
             ],
             [
                 'id' => 16,
-                'name' => 'wards.delete',
-                'group' => 'wards',
+                'name' => 'vehicles.delete',
+                'group' => 'vehicles',
             ],
-        
+            [
+                'id' => 17,
+                'name' => 'vendors.view',
+                'group' => 'vendors',
+            ],
+            [
+                'id' => 18,
+                'name' => 'vendors.create',
+                'group' => 'vendors',
+            ],
+            [
+                'id' => 19,
+                'name' => 'vendors.edit',
+                'group' => 'vendors',
+            ],
+            [
+                'id' => 20,
+                'name' => 'vendors.delete',
+                'group' => 'vendors',
+            ],
+            [
+                'id' => 21,
+                'name' => 'clients.view',
+                'group' => 'clients',
+            ],
+            [
+                'id' => 22,
+                'name' => 'clients.create',
+                'group' => 'clients',
+            ],
+            [
+                'id' => 23,
+                'name' => 'clients.edit',
+                'group' => 'clients',
+            ],
+            [
+                'id' => 24,
+                'name' => 'clients.delete',
+                'group' => 'clients',
+            ],
+
+            [
+                'id' => 25,
+                'name' => 'drivers.view',
+                'group' => 'drivers',
+            ],
+            [
+                'id' => 26,
+                'name' => 'drivers.create',
+                'group' => 'drivers',
+            ],
+            [
+                'id' => 27,
+                'name' => 'drivers.edit',
+                'group' => 'drivers',
+            ],
+            [
+                'id' => 28,
+                'name' => 'drivers.delete',
+                'group' => 'drivers',
+            ]
+
 
         ];
 

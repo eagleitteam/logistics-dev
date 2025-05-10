@@ -9,7 +9,7 @@ class Driver extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'mobile_no','basic_salary','joining_date','end_date','status','aadhar_card_path','driving_license_path','driving_license_validity','payment_transfer_to','bank_name','bank_account_no','bank_ifsc_code','bank_branch','gpay_number'];
+    protected $fillable = ['f_name','l_name','mobile_no','basic_salary','joining_date','end_date','alternate_contact_no','email','address','city','pincode','state','status','aadhar_card_path','pan_card_path','driving_license_path','driving_license_validity','remark','bank_name','bank_account_no','bank_ifsc_code','reference_name','bank_branch','gpay_number'];
 
     public static function booted()
     {

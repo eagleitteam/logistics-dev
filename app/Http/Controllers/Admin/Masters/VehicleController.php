@@ -18,7 +18,7 @@ class VehicleController extends Controller
     public function index()
     {
         $vehicles = Vehicle::latest()->get();
-        return view('admin.masters.selfVehicalDetailView')->with(['vehicles' => $vehicles]);
+        return view('admin.masters.vehicles')->with(['vehicles' => $vehicles]);
     }
 
     /**
@@ -68,10 +68,15 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
-        return response()->json([
-            'vehicle' => $vehicle,
-            'success' => 'Vehicle retrieved successfully'
-        ]);
+        if ($vehicle) {
+            $response = [
+                'result' => 1,
+                'vehicle' => $vehicle,
+            ];
+        } else {
+            $response = ['result' => 0];
+        }
+        return $response;
     }
 
     /**

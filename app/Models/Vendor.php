@@ -9,8 +9,7 @@ class Vendor extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['vendor_type', 'vendor_name','vendor_address','gst_no','tds_applicable','tds_rate','vehicle_no','vehicle_id','contact_name','contact_no','email'];
-
+    protected $fillable = ['name','vendor_address','gst_no','tds_applicable','tds_rate','contact_name','contact_no','alternate_contact_no','email','city','pincode','state'];
 
     public static function booted()
     {
