@@ -10,7 +10,7 @@ class Client extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'contact_person','contact_number','email','owner_name','billing_type'];
+    protected $fillable = ['name','gst_no', 'contact_person','contact_number','alternate_contact_no','email','billing_address','city','pincode','state','billing_type'];
 
     public static function booted()
     {

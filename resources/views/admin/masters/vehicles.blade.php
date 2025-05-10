@@ -1,6 +1,6 @@
 <x-admin.layout>
-    <x-slot name="title">Add Vehicle Data Type</x-slot>
-    <x-slot name="heading">Add Vehicle Data Type</x-slot>
+    <x-slot name="title">Vehicles</x-slot>
+    <x-slot name="heading">Vehicles</x-slot>
     {{-- <x-slot name="subheading">Test</x-slot> --}}
 
 
@@ -77,7 +77,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <!-- @can('wards.create') -->
+                @can('vehicles.create')
                     <div class="card-header">
                         <div class="row">
                             <div class="col-sm-6">
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                     </div>
-                <!-- @endcan -->
+                @endcan
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="buttons-datatables" class="table table-bordered nowrap align-middle" style="width:100%">
@@ -107,12 +107,12 @@
                                         <td>{{ $vehicle->type }}</td>
                                         <td>{{ $vehicle->description }}</td>
                                         <td>
-                                            <!-- @can('wards.edit') -->
+                                            @can('vehicles.edit')
                                                 <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="edit"></i></button>
-                                            <!-- @endcan
-                                            @can('wards.delete') -->
+                                            @endcan
+                                            @can('vehicles.delete')
                                                 <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="trash-2"></i> </button>
-                                            <!-- @endcan -->
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach
@@ -137,7 +137,7 @@
 
         var formdata = new FormData(this);
         $.ajax({
-            url: '{{ route('vehicle.store') }}',
+            url: '{{ route('vehicles.store') }}',
             type: 'POST',
             data: formdata,
             contentType: false,
@@ -147,7 +147,7 @@
                 if (!data.error2)
                     swal("Successful!", data.success, "success")
                     .then((action) => {
-                        window.location.href = '{{ route('vehicle.index') }}';
+                        window.location.href = '{{ route('vehicles.index') }}';
                     });
                 else
                     swal("Error!", data.error2, "error");
@@ -174,7 +174,7 @@
     $("#buttons-datatables").on("click", ".edit-element", function(e) {
         e.preventDefault();
         var model_id = $(this).attr("data-id");
-        var url = "{{ route('vehicle.edit', ':model_id') }}";
+        var url = "{{ route('vehicles.edit', ':model_id') }}";
 
         $.ajax({
             url: url.replace(':model_id', model_id),
@@ -209,7 +209,7 @@
             var formdata = new FormData(this);
             formdata.append('_method', 'PUT');
             var model_id = $('#edit_model_id').val();
-            var url = "{{ route('vehicle.update', ':model_id') }}";
+            var url = "{{ route('vehicles.update', ':model_id') }}";
 
             $.ajax({
                 url: url.replace(':model_id', model_id),
@@ -222,7 +222,7 @@
                     if (!data.error2)
                         swal("Successful!", data.success, "success")
                         .then((action) => {
-                            window.location.href = '{{ route('vehicle.index') }}';
+                            window.location.href = '{{ route('vehicles.index') }}';
                         });
                     else
                         swal("Error!", data.error2, "error");
@@ -257,7 +257,7 @@
             .then((willDelete) => {
                 if (willDelete) {
                     var model_id = $(this).attr("data-id");
-                    var url = "{{ route('vehicle.destroy', ':model_id') }}";
+                    var url = "{{ route('vehicles.destroy', ':model_id') }}";
 
                     $.ajax({
                         url: url.replace(':model_id', model_id),

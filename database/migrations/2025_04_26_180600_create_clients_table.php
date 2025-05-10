@@ -15,10 +15,18 @@ return new class extends Migration
             $table->id();
 
             $table->string('name')->nullable();
+            $table->string('gst_no')->nullable();
             $table->string('contact_person')->nullable();
             $table->string('contact_number', 15)->nullable();
+            $table->string('alternate_contact_no')->nullable();
             $table->string('email')->nullable();
-            $table->string('owner_name')->nullable();
+            // $table->string('owner_name')->nullable();
+
+            $table->string('billing_address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('pincode')->nullable();
+            $table->string('state')->nullable();
+
 
             // Static dropdown for billing type
             $table->tinyInteger('billing_type')->default(1)->comment('1=> Immediate, 2=> After Billing');

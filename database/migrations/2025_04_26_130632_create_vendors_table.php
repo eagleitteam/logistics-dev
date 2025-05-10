@@ -14,19 +14,21 @@ return new class extends Migration
     {
         Schema::create('vendors', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('vendor_type')->default(1)->comment('1=> Self, 2=> Vendor');
             $table->string('name')->nullable();           // For VENDOR
             $table->string('vendor_address')->nullable();        // For VENDOR
             $table->string('gst_no')->nullable();
             $table->tinyInteger('tds_applicable')->default(1)->comment('1=> Yes, 2=> No');
 
             $table->decimal('tds_rate', 5, 2)->nullable();        // Allow percentage like 1.00, 2.50, etc.
-            $table->string('vehicle_no')->nullable();
-            $table->foreignIdFor(Vehicle::class)->nullable()->constrained();
 
             $table->string('contact_name')->nullable();           // For VENDOR
             $table->string('contact_no')->nullable();             // For VENDOR
+            $table->string('alternate_contact_no')->nullable();           // For VENDOR
             $table->string('email')->nullable();                  // For VENDOR
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();                  // For VENDOR
+            $table->string('pincode')->nullable();                  // For VENDOR
+            $table->string('state')->nullable();                  // For VENDOR
 
 
             $table->foreignId('created_by')->nullable()->constrained('users');

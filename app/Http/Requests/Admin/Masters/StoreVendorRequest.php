@@ -22,29 +22,25 @@ class StoreVendorRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'vendor_type' => 'required|string|max:255',
-            'vendor_name' => 'required|string|max:255',
-            'vendor_address' => 'required|string',
-            'gst_no' => [
-                'nullable',
-                'string',
-                'max:15',
-                'regex:/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/',
-                Rule::unique('vendors', 'gst_no')->whereNull('deleted_at')
-            ],
-            'tds_applicable' => 'required|boolean',
-            'tds_rate' => 'nullable|numeric|between:0,100|required_if:tds_applicable,true',
-            'contact_name' => 'required|string|max:255',
-            'contact_no' => 'required|string|max:20|regex:/^[0-9]{10,15}$/',
-            'alt_contact_no' => 'nullable|string|max:20|regex:/^[0-9]{10,15}$/',
-            'email' => 'nullable|email|max:255',
-            'city' => 'required|string|max:100',
-            'pin_code' => 'required|string|max:10|regex:/^[0-9]{6}$/',
-            'state' => 'required|string|max:100',
-            'vehicles' => 'nullable|array',
-            'vehicles.*.vehicle_no' => 'required_with:vehicles|string|max:20',
-            'vehicles.*.vehicle_type' => 'required_with:vehicles|string|max:50',
+        return [         
+            'name'                      => 'required|string|max:255',
+            'vendor_address'            => 'required|string',
+            'gst_no'                    =>  [
+                                                'nullable',
+                                                'string',
+                                                'max:15',
+                                                'regex:/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/',
+                                                Rule::unique('vendors', 'gst_no')->whereNull('deleted_at')
+                                            ],
+            'tds_applicable'            => 'required',
+            'tds_rate'                  => 'nullable|numeric|between:0,100|required_if:tds_applicable,true',
+            'contact_name'              => 'required|string|max:255',
+            'contact_no'                => 'required|string|max:20|regex:/^[0-9]{10,15}$/',
+            'alternate_contact_no'      => 'nullable|string|max:20|regex:/^[0-9]{10,15}$/',
+            'email'                     => 'nullable|email|max:255',
+            'city'                      => 'required|string|max:100',
+            'pincode'                   => 'required|string|max:10|regex:/^[0-9]{6}$/',
+            'state'                     => 'required|string|max:100',         
         ];
     }
 

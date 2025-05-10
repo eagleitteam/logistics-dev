@@ -10,92 +10,110 @@
                         <div class="card">
 
                             <div class="card-body">
-                                    <form action="javascript:void(0);">
+                                    <form class="theme-form" name="addForm" id="addForm" enctype="multipart/form-data">
+                                        @csrf
+
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="companyNameinput" class="form-label">Client Company Name</label>
-                                                    <input type="text" class="form-control" placeholder="Client Company Name" id="companyNameinput">
+                                                    <input type="text" class="form-control" placeholder="Client Company Name" id="companyNameinput" name="name">
+                                                    <span class="text-danger invalid name_err"></span>
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="gstNoinput" class="form-label">GST NO</label>
-                                                    <input type="number" class="form-control" placeholder="GST NUMBER" id="gstNoinput">
+                                                    <input type="text" class="form-control" placeholder="GST NUMBER" id="gstNoinput" name="gst_no">
+                                                    <span class="text-danger invalid gst_no_err"></span>
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="contactNameinput" class="form-label">Contact Person Name</label>
-                                                    <input type="text" class="form-control" placeholder="Company Name" id="contactNameinput">
+                                                    <input type="text" class="form-control" placeholder="Company Name" id="contactNameinput" name="contact_person">
+                                                    <span class="text-danger invalid contact_person_err"></span>
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="contactNOinput" class="form-label">Contact Number</label>
-                                                    <input type="number" class="form-control" placeholder="Contact Number" id="contactNOinput">
+                                                    <input type="number" class="form-control" placeholder="Contact Number" id="contactNOinput" name="contact_number">
+                                                    <span class="text-danger invalid contact_number_err"></span>
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="altContactinput" class="form-label">Alternet Contact Number</label>
-                                                    <input type="number" class="form-control" placeholder="GST NUMBER" id="altContactinput">
+                                                    <input type="number" class="form-control" placeholder="GST NUMBER" id="altContactinput" name="alternate_contact_no">
+                                                    <span class="text-danger invalid alternate_contact_no_err"></span>
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="emailidInput" class="form-label">Email Address</label>
-                                                    <input type="email" class="form-control" placeholder="example@gamil.com" id="emailidInput">
+                                                    <input type="email" class="form-control" placeholder="example@gamil.com" id="emailidInput" name="email">
+                                                    <span class="text-danger invalid email_err"></span>
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-12">
                                                 <div class="mb-3">
                                                     <label for="address1ControlTextarea" class="form-label">Billing Address</label>
-                                                    <input type="text" class="form-control" placeholder="Address 1" id="address1ControlTextarea">
+                                                    <input type="text" class="form-control" placeholder="Address 1" id="address1ControlTextarea" name="billing_address">
+                                                    <span class="text-danger invalid billing_address_err"></span>
+
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="cityInput" class="form-label">City</label>
-                                                    <input type="text" class="form-control" placeholder="Enter your city" id="cityInput">
+                                                    <input type="text" class="form-control" placeholder="Enter your city" id="cityInput" name="city">
+                                                    <span class="text-danger invalid city_err"></span>
+
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="pinCodeinput" class="form-label">PIN Code</label>
-                                                    <input type="number" class="form-control" placeholder="Pin Code" id="pinCodeinput">
+                                                    <input type="number" class="form-control" placeholder="Pin Code" id="pinCodeinput" name="pincode">
+                                                    <span class="text-danger invalid pincode_err"></span>
+
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="ForminputState" class="form-label">State</label>
-                                                    <select id="ForminputState" class="form-select" data-choices data-choices-sorting="true">
+                                                    <select id="ForminputState" class="form-select" name="state">
                                                         <option selected>Choose...</option>
                                                         <option>Maharashtra</option>
                                                         <option>Goa</option>
                                                         <option>Karnataka</option>
                                                     </select>
+                                                    <span class="text-danger invalid state_err"></span>
+
                                                 </div>
                                             </div>
                                             <!--end col-->
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="ForminputState" class="form-label">Billing Type</label>
-                                                    <select id="ForminputState" class="form-select" data-choices data-choices-sorting="true">
+                                                    <select id="ForminputState" class="form-select" name="billing_type">
                                                         <option selected>Choose...</option>
-                                                        <option>Immediate</option>
-                                                        <option>Month End</option>
-                                                        <option>Respestive Period</option>
+                                                        <option value="1">Immediate</option>
+                                                        <option value="2">Month End</option>
+                                                        <option value="3">Respestive Period</option>
                                                     </select>
+                                                    <span class="text-danger invalid billing_type_err"></span>
+
                                                 </div>
                                             </div>
                                             <!--end col-->
@@ -120,38 +138,6 @@
 
 </x-admin.layout>
 
-{{-- Add More Vehical Number --}}
-<script>
-    document.getElementById('addVehicleBtn').addEventListener('click', function () {
-        const container = document.getElementById('vehicleContainer');
-
-        // Create Vehical Number input
-        const vehicalNumberDiv = document.createElement('div');
-        vehicalNumberDiv.className = 'col-md-6';
-        vehicalNumberDiv.innerHTML = `
-            <div class="mb-3">
-                <label class="form-label">Vehical Number</label>
-                <input type="text" class="form-control" placeholder="MH 04 GS 0065">
-            </div>
-        `;
-
-        // Create Vehical Type input
-        const vehicalTypeDiv = document.createElement('div');
-        vehicalTypeDiv.className = 'col-md-6';
-        vehicalTypeDiv.innerHTML = `
-            <div class="mb-3">
-                <label class="form-label">Vehical Type</label>
-                <input type="text" class="form-control" placeholder="FT / PICKUP">
-            </div>
-        `;
-
-        // Append both to container
-        container.appendChild(vehicalNumberDiv);
-        container.appendChild(vehicalTypeDiv);
-    });
-</script>
-
-
 {{-- Add --}}
 <script>
     $("#addForm").submit(function(e) {
@@ -160,7 +146,7 @@
 
         var formdata = new FormData(this);
         $.ajax({
-            url: '{{ route('vehicle.store') }}',
+            url: '{{ route('clients.store') }}',
             type: 'POST',
             data: formdata,
             contentType: false,
@@ -170,7 +156,7 @@
                 if (!data.error2)
                     swal("Successful!", data.success, "success")
                     .then((action) => {
-                        window.location.href = '{{ route('vehicle.index') }}';
+                        window.location.href = '{{ route('clients.index') }}';
                     });
                 else
                     swal("Error!", data.error2, "error");
@@ -197,7 +183,7 @@
     $("#buttons-datatables").on("click", ".edit-element", function(e) {
         e.preventDefault();
         var model_id = $(this).attr("data-id");
-        var url = "{{ route('vehicle.edit', ':model_id') }}";
+        var url = "{{ route('clients.edit', ':model_id') }}";
 
         $.ajax({
             url: url.replace(':model_id', model_id),
@@ -232,7 +218,7 @@
             var formdata = new FormData(this);
             formdata.append('_method', 'PUT');
             var model_id = $('#edit_model_id').val();
-            var url = "{{ route('vehicle.update', ':model_id') }}";
+            var url = "{{ route('clients.update', ':model_id') }}";
             //
             $.ajax({
                 url: url.replace(':model_id', model_id),
@@ -245,7 +231,7 @@
                     if (!data.error2)
                         swal("Successful!", data.success, "success")
                         .then((action) => {
-                            window.location.href = '{{ route('vehicle.index') }}';
+                            window.location.href = '{{ route('clients.index') }}';
                         });
                     else
                         swal("Error!", data.error2, "error");
@@ -281,7 +267,7 @@
             .then((justTransfer) => {
                 if (justTransfer) {
                     var model_id = $(this).attr("data-id");
-                    var url = "{{ route('vehicle.destroy', ':model_id') }}";
+                    var url = "{{ route('clients.destroy', ':model_id') }}";
 
                     $.ajax({
                         url: url.replace(':model_id', model_id),

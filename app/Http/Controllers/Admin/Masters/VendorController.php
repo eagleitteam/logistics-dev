@@ -18,7 +18,7 @@ class VendorController extends Controller
     {
         $vendors = Vendor::latest()->get();
 
-        return view('admin.masters.advancedFuelManagement')->with(['vendors' => $vendors]);
+        return view('admin.masters.vendorsNew')->with(['vendors' => $vendors]);
     }
 
     /**
@@ -26,13 +26,6 @@ class VendorController extends Controller
      */
     public function create()
     {
-            $vehicleTypes = DB::table('vehicles')
-                        ->select('id', 'description')
-                        ->where('is_active', 1) // optional filter
-                        ->orderBy('description')
-                        ->get();
-
-            return view('vendors.create', compact('vehicleTypes'));
 
     }
 
@@ -43,29 +36,11 @@ class VendorController extends Controller
     {
         try {
             DB::beginTransaction();
-
             $input = $request->validated();
-
             // Create vendor
             $vendor = Vendor::create(Arr::only($input, Vendor::getFillables()));
-
-            // Create vehicles if present
-            if ($request->has('vehicles') && !empty($input['vehicles'])) {
-                foreach ($input['vehicles'] as $vehicleData) {
-                    $vendor->vehicles()->create([
-                        'vehicle_no' => $vehicleData['vehicle_no'],
-                        'vehicle_type' => $vehicleData['vehicle_type']
-                    ]);
-                }
-            }
-
             DB::commit();
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Vendor created successfully!',
-                'redirect' => route('vendors.index') // or your preferred redirect route
-            ]);
+            return response()->json(['success' => 'Vendor created successfully!']);
 
         } catch (\Exception $e) {
             DB::rollBack();

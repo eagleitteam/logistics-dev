@@ -41,12 +41,12 @@
                 </li>
                 @endcan
 
-                @canany(['wards.view'])
+                @canany(['users.view', 'roles.view','vehicles.view','vendors.view','clients.view','drivers.view'])
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->routeIs('wards.index') || request()->routeIs('departments.index') || request()->routeIs('class.index') || request()->routeIs('bank.index') || request()->routeIs('financial_year.index') || request()->routeIs('allowance.index') || request()->routeIs('deduction.index') || request()->routeIs('loan.index') || request()->routeIs('designation.index') || request()->routeIs('leaveType.index') || request()->routeIs('pay_scale.index') || request()->routeIs('document.index') || request()->routeIs('users.index') || request()->routeIs('roles.index') || request()->routeIs('working-department.index') || request()->routeIs('castes.index') ? 'active' : 'collapsed' }}" href="#sidebarAuth1" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth1">
+                    <a class="nav-link menu-link {{ request()->routeIs('users.index') || request()->routeIs('roles.index') || request()->routeIs('vehicles.index') || request()->routeIs('vendors.index') || request()->routeIs('clients.index') || request()->routeIs('drivers.index') ? 'active' : 'collapsed' }}" href="#sidebarAuth1" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth1">
                         <i class="ri-account-circle-line"></i> <span data-key="t-authentication">Masters</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ request()->routeIs('wards.index') || request()->routeIs('departments.index') || request()->routeIs('class.index') || request()->routeIs('bank.index') || request()->routeIs('financial_year.index') || request()->routeIs('allowance.index') || request()->routeIs('deduction.index') || request()->routeIs('loan.index') || request()->routeIs('designation.index') || request()->routeIs('leaveType.index') || request()->routeIs('pay_scale.index') || request()->routeIs('document.index') || request()->routeIs('users.index') || request()->routeIs('roles.index') || request()->routeIs('working-department.index') || request()->routeIs('castes.index') ? 'show' : '' }}" id="sidebarAuth1">
+                    <div class="collapse menu-dropdown {{ request()->routeIs('users.index') || request()->routeIs('roles.index') || request()->routeIs('vehicles.index') || request()->routeIs('vendors.index') || request()->routeIs('clients.index') || request()->routeIs('drivers.index') ? 'show' : '' }}" id="sidebarAuth1">
                         <ul class="nav nav-sm flex-column">
                             @canany(['users.view', 'roles.view'])
                             <li class="nav-item">
@@ -68,17 +68,26 @@
                                 </div>
                             </li>
                             @endcanany
-                            <!-- @can('wards.view') -->
+                            @can('vehicles.view')
                                 <li class="nav-item">
-                                    <a href="{{ route('vehicle.index') }}" class="nav-link {{ request()->routeIs('vehicle.index') ? 'active' : '' }}" data-key="t-horizontal">Add Vehicle DataType</a>
+                                    <a href="{{ route('vehicles.index') }}" class="nav-link {{ request()->routeIs('vehicles.index') ? 'active' : '' }}" data-key="t-horizontal">Vehicles</a>
                                 </li>
-                            <!-- @endcan -->
-
-                            <!-- @can('wards.view') -->
-                                <li class="nav-item">
-                                <a href="{{ route('vendor.index') }}" class="nav-link {{ request()->routeIs('vendorAddForm.index') ? 'active' : '' }}" data-key="t-horizontal">Add Vendor</a>
-                                </li>
-                            <!-- @endcan -->
+                            @endcan
+                            @can('vendors.view')
+                            <li class="nav-item">
+                                <a href="{{ route('vendors.index') }}" class="nav-link {{ request()->routeIs('vendors.index') ? 'active' : '' }}" data-key="t-horizontal">Vendors</a>
+                            </li>
+                            @endcan
+                            @can('clients.view')
+                            <li class="nav-item">
+                                <a href="{{ route('clients.index') }}" class="nav-link {{ request()->routeIs('clients.index') ? 'active' : '' }}" data-key="t-horizontal">Clients</a>
+                            </li>
+                            @endcan
+                            @can('drivers.view')
+                            <li class="nav-item">
+                                <a href="{{ route('drivers.index') }}" class="nav-link {{ request()->routeIs('drivers.index') ? 'active' : '' }}" data-key="t-horizontal">Drivers</a>
+                            </li>
+                            @endcan
 
                         </ul>
                     </div>
