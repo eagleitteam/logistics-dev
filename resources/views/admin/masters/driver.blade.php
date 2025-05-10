@@ -271,10 +271,7 @@
 
 {{-- Add --}}
 <script>
-        alert("dfdf");
-
     $("#addForm").submit(function(e) {
-        alert("dfdf");
         e.preventDefault();
         $("#addSubmit").prop('disabled', true);
 
