@@ -88,7 +88,11 @@
                                 <a href="{{ route('drivers.index') }}" class="nav-link {{ request()->routeIs('drivers.index') ? 'active' : '' }}" data-key="t-horizontal">Drivers</a>
                             </li>
                             @endcan
-
+                            @can('selfVehicle.view')
+                            <li class="nav-item">
+                                <a href="{{ route('selfVehicle.index') }}" class="nav-link {{ request()->routeIs('selfVehicle.index') ? 'active' : '' }}" data-key="t-horizontal">Self Vehicle</a>
+                            </li>
+                            @endcan
                         </ul>
                     </div>
                 </li>

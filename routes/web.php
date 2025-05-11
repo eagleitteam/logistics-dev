@@ -50,6 +50,7 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::resource('vendors', App\Http\Controllers\Admin\Masters\VendorController::class);
     Route::resource('clients', App\Http\Controllers\Admin\Masters\ClientController::class);
     Route::resource('drivers', App\Http\Controllers\Admin\Masters\DriverController::class);
+    Route::resource('selfVehicle', App\Http\Controllers\Admin\SelfVehicleController::class);
     Route::resource('bank', App\Http\Controllers\Admin\Masters\BankRegisterController::class);
     Route::resource('contact', App\Http\Controllers\Admin\Masters\ContactListController::class);
     Route::resource('group', App\Http\Controllers\Admin\Masters\GroupLedgerController::class);

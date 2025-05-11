@@ -188,7 +188,7 @@
                                                             <div class="mb-3">
                                                                 <label for="TripDate" class="form-label">TAX Start
                                                                     Date</label>
-                                                                <input type="date" class="form-control" id="TripDate">
+                                                                <input type="date" class="form-control" id="TripDate" name="tax_start_date">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -196,7 +196,7 @@
                                                             <div class="mb-3">
                                                                 <label for="TripDate" class="form-label">TAX END
                                                                     Date</label>
-                                                                <input type="date" class="form-control" id="TripDate">
+                                                                <input type="date" class="form-control" id="TripDate" name="tax_end_date">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -204,7 +204,7 @@
                                                             <div class="mb-3">
                                                                 <label for="formFile" class="form-label">Upload Tax
                                                                     Document (PDF)</label>
-                                                                <input class="form-control" type="file" id="formFile">
+                                                                <input class="form-control" type="file" id="formFile" name="tax_file">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -218,7 +218,7 @@
                                                             <div class="mb-3">
                                                                 <label for="TripDate" class="form-label">Insurance Start
                                                                     Date</label>
-                                                                <input type="date" class="form-control" id="TripDate">
+                                                                <input type="date" class="form-control" id="TripDate" name="insurance_start_date">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -226,7 +226,7 @@
                                                             <div class="mb-3">
                                                                 <label for="TripDate" class="form-label">Insurance END
                                                                     Date</label>
-                                                                <input type="date" class="form-control" id="TripDate">
+                                                                <input type="date" class="form-control" id="TripDate" name="insurance_end_date">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -235,7 +235,7 @@
                                                                 <label for="insuranceName" class="form-label">Insurance
                                                                     Company Name</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="insuranceName">
+                                                                    id="insuranceName" name="insurance_company_name">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -243,7 +243,7 @@
                                                             <div class="mb-3">
                                                                 <label for="formFile" class="form-label">Upload
                                                                     Insurance Document (PDF)</label>
-                                                                <input class="form-control" type="file" id="formFile">
+                                                                <input class="form-control" type="file" id="formFile" name="insurance_document">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -257,7 +257,7 @@
                                                             <div class="mb-3">
                                                                 <label for="TripDate" class="form-label">PUC Start
                                                                     Date</label>
-                                                                <input type="date" class="form-control" id="TripDate">
+                                                                <input type="date" class="form-control" id="TripDate" name="puc_start_date">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -265,7 +265,7 @@
                                                             <div class="mb-3">
                                                                 <label for="TripDate" class="form-label">PUC END
                                                                     Date</label>
-                                                                <input type="date" class="form-control" id="TripDate">
+                                                                <input type="date" class="form-control" id="TripDate" name="puc_end_date">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -273,7 +273,7 @@
                                                             <div class="mb-3">
                                                                 <label for="formFile" class="form-label">Upload PUC
                                                                     (PDF)</label>
-                                                                <input class="form-control" type="file" id="formFile">
+                                                                <input class="form-control" type="file" id="formFile" name="puc_file">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -286,7 +286,7 @@
                                                             <div class="mb-3">
                                                                 <label for="TripDate" class="form-label">PERMIT Start
                                                                     Date</label>
-                                                                <input type="date" class="form-control" id="TripDate">
+                                                                <input type="date" class="form-control" id="TripDate" name="permit_start_date">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -294,7 +294,7 @@
                                                             <div class="mb-3">
                                                                 <label for="TripDate" class="form-label">PERMIT END
                                                                     Date</label>
-                                                                <input type="date" class="form-control" id="TripDate">
+                                                                <input type="date" class="form-control" id="TripDate" name="permit_end_date">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -302,7 +302,7 @@
                                                             <div class="mb-3">
                                                                 <label for="formFile" class="form-label">Upload Permit
                                                                     Document (PDF)</label>
-                                                                <input class="form-control" type="file" id="formFile">
+                                                                <input class="form-control" type="file" id="formFile" name="permit_document">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -316,7 +316,7 @@
                                                             <div class="mb-3">
                                                                 <label for="TripDate" class="form-label">National Permit
                                                                     Start Date</label>
-                                                                <input type="date" class="form-control" id="TripDate">
+                                                                <input type="date" class="form-control" id="TripDate" name="national_permit_start_date">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -324,7 +324,7 @@
                                                             <div class="mb-3">
                                                                 <label for="TripDate" class="form-label">National Permit
                                                                     END Date</label>
-                                                                <input type="date" class="form-control" id="TripDate">
+                                                                <input type="date" class="form-control" id="TripDate" name="national_permit_end_date">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -332,7 +332,7 @@
                                                             <div class="mb-3">
                                                                 <label for="formFile" class="form-label">Upload National
                                                                     Permit Document (PDF)</label>
-                                                                <input class="form-control" type="file" id="formFile">
+                                                                <input class="form-control" type="file" id="formFile" name="national_permit_file">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -346,7 +346,7 @@
                                                             <div class="mb-3">
                                                                 <label for="TripDate" class="form-label">Loan Start
                                                                     Date</label>
-                                                                <input type="date" class="form-control" id="TripDate">
+                                                                <input type="date" class="form-control" id="TripDate" name="loan_start_date">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -354,7 +354,7 @@
                                                             <div class="mb-3">
                                                                 <label for="TripDate" class="form-label">Loan END
                                                                     Date</label>
-                                                                <input type="date" class="form-control" id="TripDate">
+                                                                <input type="date" class="form-control" id="TripDate" name="loan_end_date">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -362,7 +362,7 @@
                                                             <div class="mb-3">
                                                                 <label for="TripDate" class="form-label">Bank
                                                                     Name</label>
-                                                                <input type="text" class="form-control" id="TripDate">
+                                                                <input type="text" class="form-control" id="TripDate" name="bank_name">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -370,7 +370,7 @@
                                                             <div class="mb-3">
                                                                 <label for="TripDate" class="form-label">Loan
                                                                     AMT</label>
-                                                                <input type="number" class="form-control" id="TripDate">
+                                                                <input type="number" class="form-control" id="TripDate" name="loan_amt">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -378,14 +378,14 @@
                                                             <div class="mb-3">
                                                                 <label for="TripDate" class="form-label">EMI
                                                                     Count</label>
-                                                                <input type="number" class="form-control" id="TripDate">
+                                                                <input type="number" class="form-control" id="TripDate" name="emi_count">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
                                                         <div class="col-md-4">
                                                             <div class="mb-3">
                                                                 <label for="TripDate" class="form-label">EMI AMT</label>
-                                                                <input type="number" class="form-control" id="TripDate">
+                                                                <input type="number" class="form-control" id="TripDate" name="emi_amt">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -393,7 +393,7 @@
                                                             <div class="mb-3">
                                                                 <label for="TripDate" class="form-label">EMI
                                                                     Date</label>
-                                                                <input type="date" class="form-control" id="TripDate">
+                                                                <input type="date" class="form-control" id="TripDate" name="emi_date">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -401,7 +401,7 @@
                                                             <div class="mb-3">
                                                                 <label for="formFile" class="form-label">Upload Loan
                                                                     Document (PDF)</label>
-                                                                <input class="form-control" type="file" id="formFile">
+                                                                <input class="form-control" type="file" id="formFile" name="loan_document">
                                                             </div>
                                                         </div>
                                                         <!--end col-->
@@ -852,7 +852,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <!-- @can('wards.create') -->
+                 @can('selfVehicle.create')
                 <div class="card-header">
                     <div class="row">
                         <div class="col-sm-6">
@@ -863,7 +863,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- @endcan -->
+                @endcan
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="buttons-datatables" class="table table-bordered nowrap align-middle"
@@ -878,6 +878,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if(!empty($vehicles))
                                 @foreach ($vehicles as $vehicle)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
@@ -885,17 +886,18 @@
                                     <td>{{ $vehicle->vehicle_type }}</td>
                                     <td>{{ $vehicle->fule_type }}</td>
                                     <td>
-                                        <!-- @can('wards.edit') -->
+                                        @can('selfVehicle.edit')
                                         <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle"
                                             data-id="{{ $vehicle->id }}"><i data-feather="edit"></i></button>
-                                        <!-- @endcan
-                                            @can('wards.delete') -->
+                                         @endcan
+                                            @can('selfVehicle.delete')
                                         <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle"
                                             data-id="{{ $vehicle->id }}"><i data-feather="trash-2"></i> </button>
-                                        <!-- @endcan -->
+                                        @endcan
                                     </td>
                                 </tr>
                                 @endforeach
+                                @endif
                         </table>
                     </div>
                 </div>
@@ -917,7 +919,7 @@
 
         var formdata = new FormData(this);
         $.ajax({
-            url: '{{ route('vehicle.store') }}',
+            url: '{{ route('selfVehicle.store') }}',
             type: 'POST',
             data: formdata,
             contentType: false,
@@ -927,7 +929,7 @@
                 if (!data.error2)
                     swal("Successful!", data.success, "success")
                         .then((action) => {
-                            window.location.href = '{{ route('vehicle.index') }}';
+                            window.location.href = '{{ route('selfVehicle.index') }}';
                         });
                 else
                     swal("Error!", data.error2, "error");
@@ -954,7 +956,7 @@
     $("#buttons-datatables").on("click", ".edit-element", function (e) {
         e.preventDefault();
         var model_id = $(this).attr("data-id");
-        var url = "{{ route('vehicle.edit', ':model_id') }}";
+        var url = "{{ route('selfVehicle.edit', ':model_id') }}";
 
         $.ajax({
             url: url.replace(':model_id', model_id),
@@ -965,19 +967,19 @@
             success: function (data, textStatus, jqXHR) {
                 editFormBehaviour();
                 if (!data.error) {
-                    $("#editForm input[name='edit_model_id']").val(data.vehicle.id);
-                    $("#editForm input[name='vehicle_number']").val(data.vehicle.vehicle_number);
-                    $("#editForm input[name='vehicle_type']").val(data.vehicle.vehicle_type);
-                    $("#editForm select[name='fule_type']").val(data.vehicle.fule_type);
-                    $("#editForm input[name='register_date']").val(data.vehicle.register_date);
-                    $("#editForm input[name='chassis_num']").val(data.vehicle.chassis_num);
-                    $("#editForm input[name='eng_num']").val(data.vehicle.eng_num);
-                    $("#editForm input[name='model_num']").val(data.vehicle.model_num);
-                    $("#editForm input[name='toll_stm']").val(data.vehicle.toll_stm);
-                    $("#editForm input[name='remark']").val(data.vehicle.remark);
-                    $("#editForm input[name='f_s_d']").val(data.vehicle.f_s_d);
-                    $("#editForm input[name='f_e_d']").val(data.vehicle.f_e_d);
-                    $("#editForm input[name='file']").val(data.vehicle.file);
+                    $("#editForm input[name='edit_model_id']").val(data.selfVehicle.id);
+                    $("#editForm input[name='vehicle_number']").val(data.selfVehicle.vehicle_number);
+                    $("#editForm input[name='vehicle_type']").val(data.selfVehicle.vehicle_type);
+                    $("#editForm select[name='fule_type']").val(data.selfVehicle.fule_type);
+                    $("#editForm input[name='register_date']").val(data.selfVehicle.register_date);
+                    $("#editForm input[name='chassis_num']").val(data.selfVehicle.chassis_num);
+                    $("#editForm input[name='eng_num']").val(data.selfVehicle.eng_num);
+                    $("#editForm input[name='model_num']").val(data.selfVehicle.model_num);
+                    $("#editForm input[name='toll_stm']").val(data.selfVehicle.toll_stm);
+                    $("#editForm input[name='remark']").val(data.selfVehicle.remark);
+                    $("#editForm input[name='f_s_d']").val(data.selfVehicle.f_s_d);
+                    $("#editForm input[name='f_e_d']").val(data.selfVehicle.f_e_d);
+                    $("#editForm input[name='file']").val(data.selfVehicle.file);
                 } else {
                     alert(data.error);
                 }
@@ -999,7 +1001,7 @@
             var formdata = new FormData(this);
             formdata.append('_method', 'PUT');
             var model_id = $('#edit_model_id').val();
-            var url = "{{ route('vehicle.update', ':model_id') }}";
+            var url = "{{ route('selfVehicle.update', ':model_id') }}";
 
             $.ajax({
                 url: url.replace(':model_id', model_id),
@@ -1012,7 +1014,7 @@
                     if (!data.error2)
                         swal("Successful!", data.success, "success")
                             .then((action) => {
-                                window.location.href = '{{ route('vehicle.index') }}';
+                                window.location.href = '{{ route('selfVehicle.index') }}';
                             });
                     else
                         swal("Error!", data.error2, "error");
@@ -1047,7 +1049,7 @@
             .then((willDelete) => {
                 if (willDelete) {
                     var model_id = $(this).attr("data-id");
-                    var url = "{{ route('vehicle.destroy', ':model_id') }}";
+                    var url = "{{ route('selfVehicle.destroy', ':model_id') }}";
 
                     $.ajax({
                         url: url.replace(':model_id', model_id),
