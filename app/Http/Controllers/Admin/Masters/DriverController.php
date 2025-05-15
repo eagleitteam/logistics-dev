@@ -8,6 +8,8 @@ use App\Models\Driver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use App\Models\statenamewithcode;
+
 
 class DriverController extends Controller
 {
@@ -16,7 +18,11 @@ class DriverController extends Controller
      */
     public function index()
     {
-        return view('admin.masters.driver');
+        // Get distinct state names sorted alphabetically
+         $states = statenamewithcode::select('stateName')->distinct()->orderBy('stateName')->pluck('stateName');
+
+         // Pass both driver and states to the view
+        return view('admin.masters.driver', compact('states'));
     }
 
     /**

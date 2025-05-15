@@ -8,6 +8,7 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use App\Models\statenamewithcode;
 
 class ClientController extends Controller
 {
@@ -16,9 +17,18 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::latest()->get();
+        // $clients = Client::latest()->get();
 
-        return view('admin.masters.client')->with(['clients' => $clients]);
+        // return view('admin.masters.client')->with(['clients' => $clients]);
+
+        // Get all clients (latest first)
+         $clients = Client::latest()->get();
+
+         // Get distinct state names sorted alphabetically
+         $states = statenamewithcode::select('stateName')->distinct()->orderBy('stateName')->pluck('stateName');
+
+        // Pass both clients and states to the view
+         return view('admin.masters.client', compact('clients', 'states'));
     }
 
     /**
@@ -26,7 +36,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+         //
     }
 
     /**
@@ -37,7 +47,7 @@ class ClientController extends Controller
         try {
             DB::beginTransaction();
             $input = $request->validated();
-            // Create vendor
+            // Create Cilent
             $client = Client::create(Arr::only($input, Client::getFillables()));
             DB::commit();
             return response()->json(['success' => 'Client created successfully!']);
@@ -59,24 +69,48 @@ class ClientController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(client $client)
     {
-        //
+        try {
+            return response()->json([
+                'client' => $client,
+                'success' => 'Vendor retrieved successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to retrieve vendor'], 500);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreClientRequest $request, client $client)
     {
-        //
+       try {
+            DB::beginTransaction();
+            $input = $request->validated();
+            $client->update(Arr::only($input, client::getFillables()));
+            DB::commit();
+
+            return response()->json(['success' => 'Vendclientor updated successfully!']);
+        } catch (\Exception $e) {
+            return $this->respondWithAjax($e, 'updating', 'client');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(client $client)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $client->delete();
+            DB::commit();
+
+            return response()->json(['success' => 'client deleted successfully!']);
+        } catch (\Exception $e) {
+            return $this->respondWithAjax($e, 'deleting', 'client');
+        }
     }
 }

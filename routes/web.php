@@ -55,6 +55,10 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::resource('group', App\Http\Controllers\Admin\Masters\GroupLedgerController::class);
     Route::resource('todo', App\Http\Controllers\Admin\Masters\ToDoController::class);
     Route::resource('tripmovment', App\Http\Controllers\Admin\Masters\TripMovmentsController::class);
+    Route::resource('state', App\Http\Controllers\Admin\Masters\StateNameWithCodeController::class);
+    Route::resource('Gstrate', App\Http\Controllers\Admin\Masters\GstrateController::class);
+    Route::resource('Fuel', App\Http\Controllers\Admin\Masters\fuelController::class);
+
 
     // Users Roles n Permissions
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);

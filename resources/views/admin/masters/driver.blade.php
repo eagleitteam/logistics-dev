@@ -94,10 +94,13 @@
                                                 <div class="mb-3">
                                                     <label for="ForminputState" class="form-label">State</label>
                                                     <select id="ForminputState" class="form-select" name="state">
-                                                        <option selected>Choose...</option>
+                                                        @foreach ($states as $state)
+                                                            <option value="{{ $state }}">{{ $state }}</option>
+                                                            @endforeach 
+                                                        <!-- <option selected>Choose...</option>
                                                         <option>Maharashtra</option>
                                                         <option>Goa</option>
-                                                        <option>Karnataka</option>
+                                                        <option>Karnataka</option> -->
                                                     </select>
                                                 </div>
                                             </div>

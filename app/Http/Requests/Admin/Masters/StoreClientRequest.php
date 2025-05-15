@@ -35,7 +35,7 @@ class StoreClientRequest extends FormRequest
             'contact_number' => 'required|string|max:20|regex:/^[0-9]{10,15}$/',
             'alternate_contact_no' => 'nullable|string|max:20|regex:/^[0-9]{10,15}$/',
             'email' => 'nullable|email|max:255',
-            'billing_address' => 'required|string',
+            'billing_address' => 'required|string|max:100',
             'city'                      => 'required|string|max:100',
             'pincode'                   => 'required|string|max:10|regex:/^[0-9]{6}$/',
             'state'                     => 'required|string|max:100',

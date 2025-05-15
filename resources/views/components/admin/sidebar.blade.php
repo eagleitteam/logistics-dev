@@ -4,19 +4,19 @@
         <!-- Dark Logo-->
         <a href="index.html" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="{{ asset('admin/images/logo.png') }}" alt="" height="50" />
+                <img src="{{ asset('admin/images/logo_sm.png') }}" alt="" height="50" />
             </span>
             <span class="logo-lg">
-                <img src="{{ asset('admin/images/logo.png') }}" alt="" height="50" />
+                <img src="{{ asset('admin/images/logo_lg.png') }}" alt="" height="50" />
             </span>
         </a>
         <!-- Light Logo-->
         <a href="index.html" class="logo logo-light">
             <span class="logo-sm">
-                <img src="{{ asset('admin/images/logo.png') }}" alt="" height="50" />
+                <img src="{{ asset('admin/images/logo_sm.png') }}" alt="" height="50" />
             </span>
             <span class="logo-lg">
-                <img src="{{ asset('admin/images/logo.png') }}" alt="" height="50" />
+                <img src="{{ asset('admin/images/logo_lg.png') }}" alt="" height="50" />
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
@@ -41,9 +41,9 @@
                 </li>
                 @endcan
 
-                @canany(['users.view', 'roles.view','vehicles.view','vendors.view','clients.view','drivers.view'])
+                @canany(['users.view', 'roles.view','vehicles.view','vendors.view','clients.view','drivers.view','stateNameWithCode.view'])
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->routeIs('users.index') || request()->routeIs('roles.index') || request()->routeIs('vehicles.index') || request()->routeIs('vendors.index') || request()->routeIs('clients.index') || request()->routeIs('drivers.index') ? 'active' : 'collapsed' }}" href="#sidebarAuth1" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth1">
+                    <a class="nav-link menu-link {{ request()->routeIs('users.index') || request()->routeIs('roles.index') || request()->routeIs('vehicles.index') || request()->routeIs('vendors.index') || request()->routeIs('clients.index') || request()->routeIs('drivers.index') ||  request()->routeIs('stateNameWithCode.index') ? 'active' : 'collapsed' }}" href="#sidebarAuth1" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth1">
                         <i class="ri-account-circle-line"></i> <span data-key="t-authentication">Masters</span>
                     </a>
                     <div class="collapse menu-dropdown {{ request()->routeIs('users.index') || request()->routeIs('roles.index') || request()->routeIs('vehicles.index') || request()->routeIs('vendors.index') || request()->routeIs('clients.index') || request()->routeIs('drivers.index') ? 'show' : '' }}" id="sidebarAuth1">
@@ -88,6 +88,22 @@
                                 <a href="{{ route('drivers.index') }}" class="nav-link {{ request()->routeIs('drivers.index') ? 'active' : '' }}" data-key="t-horizontal">Drivers</a>
                             </li>
                             @endcan
+                            @can('StateNameWithCode.view')
+                            <li class="nav-item">
+                                <a href="{{ route('state.index') }}" class="nav-link {{ request()->routeIs('StateNameWithCode.index') ? 'active' : '' }}" data-key="t-horizontal">State Name With GST Code</a>
+                            </li>
+                            @endcan
+                            @can('Gstrate.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Gstrate.index') }}" class="nav-link {{ request()->routeIs('Gstrate.index') ? 'active' : '' }}" data-key="t-horizontal">GST Rate/Code Master</a>
+                            </li>
+                            @endcan
+                            @can('Fuel.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Fuel.index') }}" class="nav-link {{ request()->routeIs('Fuel.index') ? 'active' : '' }}" data-key="t-horizontal">Advanced Fuel Management</a>
+                            </li>
+                            @endcan
+                           
 
                         </ul>
                     </div>

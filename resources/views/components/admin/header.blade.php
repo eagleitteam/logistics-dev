@@ -6,19 +6,19 @@
                 <div class="navbar-brand-box horizontal-logo">
                     <a href="{{ route('dashboard') }}" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="{{ asset('admin/images/logo.png') }}" alt="" height="22" />
+                            <img src="{{ asset('admin/images/logo_sm.png') }}" alt="" height="22" />
                         </span>
                         <span class="logo-lg">
-                            <img src="{{ asset('admin/images/logo.png') }}" alt="" height="45" />
+                            <img src="{{ asset('admin/images/logo_lg.png') }}" alt="" height="45" />
                         </span>
                     </a>
 
                     <a href="{{ route('dashboard') }}" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="{{ asset('admin/images/logo.png') }}" alt="" height="22" />
+                            <img src="{{ asset('admin/images/logo_sm.png') }}" alt="" height="22" />
                         </span>
                         <span class="logo-lg">
-                            <img src="{{ asset('admin/images/logo.png') }}" alt="" height="45" />
+                            <img src="{{ asset('admin/images/logo_lg.png') }}" alt="" height="45" />
                         </span>
                     </a>
                 </div>
@@ -31,55 +31,22 @@
                     </span>
                 </button>
 
-            </div>
-
-                <div>
-                    <div class="dashboard-header" style="
-                            background: rgba(250, 250, 249, 0.15);
-                            backdrop-filter: blur(12px);
-                            -webkit-backdrop-filter: blur(12px);
-                            color: white;
-                            padding: 08px 15px;
-                            border-radius: 8px;
-                            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-                            margin: 10px 0 20px;
-                            border: 1px solid rgba(255, 255, 255, 0.18);
-                            position: relative;
-                            overflow: hidden;
-                        ">
-                            <h1 style="
-                                margin: 0;
-                                font-family: 'Segoe UI', Arial, sans-serif;
-                                font-weight: 600;
-                                font-size: 1.5rem;
-                                letter-spacing: -0.2px;
-                                position: relative;
-                                z-index: 2;
-                                line-height: 1.2;
-                            ">Customer Relationship Dashboard</h1>
-
-                            <p style="
-                                margin: 6px 0 0;
-                                font-family: 'Segoe UI', Arial, sans-serif;
-                                font-weight: 300;
-                                font-size: 0.85rem;
-                                opacity: 0.9;
-                                position: relative;
-                                z-index: 2;
-                            ">Manage your customer interactions efficiently</p>
-
-                            <div style="
-                                position: absolute;
-                                top: -30px;
-                                right: -30px;
-                                width: 120px;
-                                height: 120px;
-                                background: rgba(255, 255, 255, 0.1);
-                                border-radius: 50%;
-                                z-index: 1;
-                            "></div>
                         </div>
-                </div>
+
+                     <!-- Dashboard Name with Logo -->
+                        <div class="d-flex align-items-center ms-1" id="dashboard-header">
+                            <!-- Logistics Logo -->
+                            <div class="me-2 flex-shrink-0" style="width: 50px;">
+                                <i class="fa-solid fa-truck fa-2x fa-fw" style="color: #212529;"></i>
+                            </div>
+                            
+                            <!-- Dashboard Name -->
+                            <h4 class="mb-0 font-size-18 text-dark fw-semibold text-truncate">
+                                Logistics CRM Application
+                            </h4>
+                        </div>
+                        <!-- end dashboard name -->
+
             <div class="d-flex align-items-center">
                 <div class="dropdown ms-1 topbar-head-dropdown header-item">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

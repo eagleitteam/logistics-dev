@@ -5236,11 +5236,11 @@ code {
 }
 
 :root[data-topbar="dark"] {
-    --vz-header-bg: #ffffff;
-    --vz-header-item-color: rgba(255, 255, 255, 0.85);
-    --vz-header-item-bg: #3c423f;
-    --vz-header-item-sub-color: #a4b0bf;
-    --vz-topbar-user-bg: #3c0039;
+    --vz-header-bg: #85cfdf;
+    --vz-header-item-color: rgba(19, 17, 17, 0.85);
+    --vz-header-item-bg: #022d39;
+    --vz-header-item-sub-color: #000000;
+    --vz-topbar-user-bg: #3ec2d3;
     --vz-topbar-search-bg: rgba(255, 255, 255, 0.05);
     --vz-topbar-search-color: #fff;
     --vz-header-border: #323835;

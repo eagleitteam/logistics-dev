@@ -154,7 +154,68 @@ class PermissionTableSeeder extends Seeder
                 'id' => 28,
                 'name' => 'drivers.delete',
                 'group' => 'drivers',
+            ],
+            [
+                'id' => 29,
+                'name' => 'StateNameWithCode.view',
+                'group' => 'StateNameWithCode',
+            ],
+            [
+                'id' => 30,
+                'name' => 'StateNameWithCode.create',
+                'group' => 'StateNameWithCode',
+            ],
+            [
+                'id' => 31,
+                'name' => 'StateNameWithCode.edit',
+                'group' => 'StateNameWithCode',
+            ],
+            [
+                'id' => 32,
+                'name' => 'StateNameWithCode.delete',
+                'group' => 'StateNameWithCode',
+            ],
+            [
+                'id' => 33,
+                'name' => 'Gstrate.view',
+                'group' => 'Gstrate',
+            ],
+            [
+                'id' => 34,
+                'name' => 'Gstrate.create',
+                'group' => 'Gstrate',
+            ],
+            [
+                'id' => 35,
+                'name' => 'Gstrate.edit',
+                'group' => 'Gstrate',
+            ],
+            [
+                'id' => 36,
+                'name' => 'Gstrate.delete',
+                'group' => 'Gstrate',
+            ],
+            [
+                'id' => 37,
+                'name' => 'Fuel.view',
+                'group' => 'Fuel',
+            ],
+            [
+                'id' => 38,
+                'name' => 'Fuel.create',
+                'group' => 'Fuel',
+            ],
+            [
+                'id' => 39,
+                'name' => 'Fuel.edit',
+                'group' => 'Fuel',
+            ],
+            [
+                'id' => 40,
+                'name' => 'Fuel.delete',
+                'group' => 'Fuel',
             ]
+            
 
 
         ];
