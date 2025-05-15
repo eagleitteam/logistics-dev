@@ -14,7 +14,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="TripDate" class="form-label">Date</label>
-                                        <input type="date" class="form-control" id="TripDate">
+                                        <input type="date" class="form-control" id="TripDate" name="trip_date">
                                     </div>
                                 </div>
                                 <!--end col-->
@@ -25,52 +25,66 @@
                                     </div>
                                 </div>
                                 <!--end col-->
+
                                 <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <label for="VehicalTypeinput" class="form-label">Vehical Type</label>
-                                        <input type="text" class="form-control" placeholder="Vehical Type" id="VehicalTypeinput">
-                                    </div>
+                                    <label class="col-form-label" for="name">Select Vehical Type<span class="text-danger">*</span></label>
+                                    <select class="form-control" id="vehicle_id" name="vehicle_id">
+                                        <option value="">Select Vehical Type</option>
+                                        @foreach ($vehicalTypes as $vehicalType)
+                                            <option value="{{ $vehicalType->id }}">{{ $vehicalType->type }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span class="text-danger invalid vehicle_id_err"></span>
                                 </div>
                                 <!--end col-->
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="origininput" class="form-label">Origin</label>
-                                        <input type="text" class="form-control" placeholder="Origin" id="origininput">
+                                        <input type="text" class="form-control" placeholder="Origin" id="origininput" name="origin">
                                     </div>
                                 </div>
                                 <!--end col-->
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="destinationinput" class="form-label">Destination</label>
-                                        <input type="text" class="form-control" placeholder="Destination" id="destinationinput">
+                                        <input type="text" class="form-control" placeholder="Destination" id="destinationinput" name="destination">
                                     </div>
                                 </div>
                                 <!--end col-->
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="rateinput" class="form-label">Trip Rate</label>
-                                        <input type="number" class="form-control" placeholder="Trip Rate" id="rateinput">
+                                        <input type="number" class="form-control" placeholder="Trip Rate" id="rateinput" name="rate">
                                     </div>
                                 </div>
                                 <!--end col-->
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="clientNameInput" class="form-label">Client Name</label>
-                                        <input type="text" class="form-control" placeholder="Client Name" id="clientNameInput">
-                                    </div>
+
+                                <div class="col-md-4">
+                                    <label class="col-form-label" for="name">Select Client<span class="text-danger">*</span></label>
+                                    <select class="form-control" id="client_id" name="client_id">
+                                        <option value="">Select Client</option>
+                                        @foreach ($clients as $client)
+                                            <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span class="text-danger invalid client_id_err"></span>
                                 </div>
                                 <!--end col-->
                                 <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <label for="driverNameInput" class="form-label">Driver Name</label>
-                                        <input type="text" class="form-control" placeholder="Driver Name" id="driverNameInput">
-                                    </div>
+                                    <label class="col-form-label" for="name">Select Driver<span class="text-danger">*</span></label>
+                                    <select class="form-control" id="driver_id" name="driver_id">
+                                        <option value="">Select Driver</option>
+                                        @foreach ($drivers as $driver)
+                                            <option value="{{ $driver->id }}">{{ $driver->f_name." ".$driver->l_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span class="text-danger invalid client_id_err"></span>
                                 </div>
                                 <!--end col-->
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="driveAllowanceInput" class="form-label">Driver Allowance(As per Trip)</label>
-                                        <input type="number" class="form-control" placeholder="Driver Allowance" id="driveAllowanceInput">
+                                        <input type="number" class="form-control" placeholder="Driver Allowance" id="driveAllowanceInput" name="per_day_allow">
                                     </div>
                                 </div>
                                 <!--end col-->
@@ -107,7 +121,7 @@
 
         var formdata = new FormData(this);
         $.ajax({
-            url: '{{ route('vehicle.store') }}',
+            url: '{{ route('trip-movement.store') }}',
             type: 'POST',
             data: formdata,
             contentType: false,
@@ -117,7 +131,7 @@
                 if (!data.error2)
                     swal("Successful!", data.success, "success")
                     .then((action) => {
-                        window.location.href = '{{ route('vehicle.index') }}';
+                        window.location.href = '{{ route('trip-movement.index') }}';
                     });
                 else
                     swal("Error!", data.error2, "error");
@@ -144,7 +158,7 @@
     $("#buttons-datatables").on("click", ".edit-element", function(e) {
         e.preventDefault();
         var model_id = $(this).attr("data-id");
-        var url = "{{ route('vehicle.edit', ':model_id') }}";
+        var url = "{{ route('trip-movement.edit', ':model_id') }}";
 
         $.ajax({
             url: url.replace(':model_id', model_id),
@@ -179,7 +193,7 @@
             var formdata = new FormData(this);
             formdata.append('_method', 'PUT');
             var model_id = $('#edit_model_id').val();
-            var url = "{{ route('vehicle.update', ':model_id') }}";
+            var url = "{{ route('trip-movement.update', ':model_id') }}";
             //
             $.ajax({
                 url: url.replace(':model_id', model_id),
@@ -192,7 +206,7 @@
                     if (!data.error2)
                         swal("Successful!", data.success, "success")
                         .then((action) => {
-                            window.location.href = '{{ route('vehicle.index') }}';
+                            window.location.href = '{{ route('trip-movement.index') }}';
                         });
                     else
                         swal("Error!", data.error2, "error");
@@ -228,7 +242,7 @@
             .then((justTransfer) => {
                 if (justTransfer) {
                     var model_id = $(this).attr("data-id");
-                    var url = "{{ route('vehicle.destroy', ':model_id') }}";
+                    var url = "{{ route('trip-movement.destroy', ':model_id') }}";
 
                     $.ajax({
                         url: url.replace(':model_id', model_id),

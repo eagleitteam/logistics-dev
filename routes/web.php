@@ -51,11 +51,11 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::resource('clients', App\Http\Controllers\Admin\Masters\ClientController::class);
     Route::resource('drivers', App\Http\Controllers\Admin\Masters\DriverController::class);
     Route::resource('selfVehicle', App\Http\Controllers\Admin\SelfVehicleController::class);
+    Route::resource('trip-movement', App\Http\Controllers\Admin\Masters\TripMovmentsController::class);
     Route::resource('bank', App\Http\Controllers\Admin\Masters\BankRegisterController::class);
     Route::resource('contact', App\Http\Controllers\Admin\Masters\ContactListController::class);
     Route::resource('group', App\Http\Controllers\Admin\Masters\GroupLedgerController::class);
     Route::resource('todo', App\Http\Controllers\Admin\Masters\ToDoController::class);
-    Route::resource('tripmovment', App\Http\Controllers\Admin\Masters\TripMovmentsController::class);
 
     // Users Roles n Permissions
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);

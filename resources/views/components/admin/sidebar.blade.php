@@ -93,6 +93,9 @@
                                 <a href="{{ route('selfVehicle.index') }}" class="nav-link {{ request()->routeIs('selfVehicle.index') ? 'active' : '' }}" data-key="t-horizontal">Self Vehicle</a>
                             </li>
                             @endcan
+                            <li class="nav-item">
+                                <a href="{{ route('trip-movement.index') }}" class="nav-link {{ request()->routeIs('trip-movement.index') ? 'active' : '' }}" data-key="t-horizontal">Trip Movement</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
