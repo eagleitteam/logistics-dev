@@ -5,10 +5,10 @@ namespace App\Http\Controllers\admin\masters;
 use App\Http\Controllers\Admin\Controller;
 use App\Http\Requests\Admin\Masters\StoreClientRequest;
 use App\Models\Client;
+use App\Models\StateNameWithCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use App\Models\statenamewithcode;
 
 class ClientController extends Controller
 {
@@ -24,11 +24,12 @@ class ClientController extends Controller
         // Get all clients (latest first)
          $clients = Client::latest()->get();
 
+        
          // Get distinct state names sorted alphabetically
-         $states = statenamewithcode::select('stateName')->distinct()->orderBy('stateName')->pluck('stateName');
+         $stateNameWithCode = StateNameWithCode::latest()->get();
 
         // Pass both clients and states to the view
-         return view('admin.masters.client', compact('clients', 'states'));
+         return view("admin.masters.client")->with(['clients'=>$clients,'StateNameWithCode'=>$stateNameWithCode]);
     }
 
     /**

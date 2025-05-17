@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Masters;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Masters\StoreVendorRequest;
 use Illuminate\Http\Request;
+use App\Models\StateNameWithCode;
 use App\Models\Vendor;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,11 @@ class VendorController extends Controller
     {
         $vendors = Vendor::latest()->get();
 
-        return view('admin.masters.vendorsNew')->with(['vendors' => $vendors]);
+        // Get distinct state names sorted alphabetically
+         $stateNameWithCode = StateNameWithCode::latest()->get();
+
+
+        return view('admin.masters.vendorsNew')->with(['vendors' => $vendors,'StateNameWithCode'=>$stateNameWithCode]);
     }
 
     /**

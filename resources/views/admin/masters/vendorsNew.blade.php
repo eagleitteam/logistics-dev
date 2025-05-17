@@ -93,10 +93,9 @@
                                     <label for="stateInput" class="form-label">State <span class="text-danger">*</span></label>
                                     <select id="stateInput" class="form-select" name="state" >
                                         <option value="" selected disabled>Choose...</option>
-                                        <option value="Maharashtra">Maharashtra</option>
-                                        <option value="Goa">Goa</option>
-                                        <option value="Karnataka">Karnataka</option>
-                                        <!-- Add more states as needed -->
+                                        @foreach ($StateNameWithCode as $StateNameWithCode)
+                                                <option value="{{ optional($StateNameWithCode)->id }}">{{ optional($StateNameWithCode)->stateName }}</option>
+                                        @endforeach
                                     </select>
                                     <div class="invalid-feedback">Please select a state.</div>
                                 </div>
@@ -230,10 +229,9 @@
                                     <label for="stateInput" class="form-label">State <span class="text-danger">*</span></label>
                                     <select id="stateInput" class="form-select" name="state" >
                                         <option value="" selected disabled>Choose...</option>
-                                        <option value="Maharashtra">Maharashtra</option>
-                                        <option value="Goa">Goa</option>
-                                        <option value="Karnataka">Karnataka</option>
-                                        <!-- Add more states as needed -->
+                                            @foreach ($StateNameWithCode as $StateNameWithCode)
+                                                    <option value="{{ optional($StateNameWithCode)->id }}">{{ optional($StateNameWithCode)->stateName }}</option>
+                                            @endforeach
                                     </select>
                                     <div class="invalid-feedback">Please select a state.</div>
                                 </div>

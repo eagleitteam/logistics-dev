@@ -6,9 +6,10 @@ use App\Http\Controllers\Admin\Controller;
 use App\Http\Requests\Admin\Masters\StoreDriverRequest;
 use App\Models\Driver;
 use Illuminate\Http\Request;
+use App\Models\StateNameWithCode;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use App\Models\statenamewithcode;
+
 
 
 class DriverController extends Controller
@@ -19,10 +20,11 @@ class DriverController extends Controller
     public function index()
     {
         // Get distinct state names sorted alphabetically
-         $states = statenamewithcode::select('stateName')->distinct()->orderBy('stateName')->pluck('stateName');
+         $stateNameWithCode = StateNameWithCode::latest()->get();
+
 
          // Pass both driver and states to the view
-        return view('admin.masters.driver', compact('states'));
+        return view('admin.masters.driver')->with(['StateNameWithCode'=>$stateNameWithCode]);;
     }
 
     /**

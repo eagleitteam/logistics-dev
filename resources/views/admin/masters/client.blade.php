@@ -62,9 +62,9 @@
                             <div class="col-md-4">
                                                     <label class="col-form-label" for="pincode" >State</label>
                                                     <select id="ForminputState" class="form-select" name="state">
-                                                         @foreach ($states as $state)
-                                                            <option value="{{ $state }}">{{ $state }}</option>
-                                                            @endforeach                                   
+                                                         @foreach ($StateNameWithCode as $StateNameWithCode)
+                                                                <option value="{{ $StateNameWithCode->id }}">{{ $StateNameWithCode->stateName }}</option>
+                                                            @endforeach
                                                     </select>
                                                     <span class="text-danger invalid state_err"></span>
 
@@ -157,9 +157,9 @@
                                                     <label class="col-form-label" for="pincode" >State</label>
                                                     <select id="ForminputState" class="form-select" name="state">
                                                         <option selected>Choose...</option>
-                                                        <option>Maharashtra</option>
-                                                        <option>Goa</option>
-                                                        <option>Karnataka</option>
+                                                        @foreach ($StateNameWithCode as $StateNameWithCode)
+                                                        <option value="{{ optional($StateNameWithCode)->id }}">{{ optional($StateNameWithCode)->stateName }}</option>
+                                                        @endforeach
                                                     </select>
                                                     <span class="text-danger invalid state_err"></span>
 

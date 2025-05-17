@@ -103,6 +103,11 @@
                                 <a href="{{ route('Fuel.index') }}" class="nav-link {{ request()->routeIs('Fuel.index') ? 'active' : '' }}" data-key="t-horizontal">Advanced Fuel Management</a>
                             </li>
                             @endcan
+                            @can('Yearmaster.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Yearmaster.index') }}" class="nav-link {{ request()->routeIs('Yearmaster.index') ? 'active' : '' }}" data-key="t-horizontal">Year Master</a>
+                            </li>
+                            @endcan
                            
 
                         </ul>

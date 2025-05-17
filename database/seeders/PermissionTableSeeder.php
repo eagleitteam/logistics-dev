@@ -214,6 +214,36 @@ class PermissionTableSeeder extends Seeder
                 'id' => 40,
                 'name' => 'Fuel.delete',
                 'group' => 'Fuel',
+            ],
+            [
+                'id' => 41,
+                'name' => 'Yearmaster.view',
+                'group' => 'Yearmaster',
+            ],
+            [
+                'id' => 42,
+                'name' => 'Yearmaster.create',
+                'group' => 'Yearmaster',
+            ],
+            [
+                'id' => 43,
+                'name' => 'Yearmaster.edit',
+                'group' => 'Yearmaster',
+            ],
+            [
+                'id' => 44,
+                'name' => 'Yearmaster.delete',
+                'group' => 'Yearmaster',
+            ],
+            [
+                'id' => 44,
+                'name' => 'Yearmaster.delete',
+                'group' => 'Yearmaster',
+            ],
+            [
+                'id' => 45,
+                'name' => 'Yearmaster.status',
+                'group' => 'Yearmaster',
             ]
             
 
