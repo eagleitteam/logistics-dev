@@ -61,8 +61,10 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::resource('Gstrate', App\Http\Controllers\Admin\Masters\GstrateController::class);
     Route::resource('Fuel', App\Http\Controllers\Admin\Masters\fuelController::class);
     // This should go BEFORE the resource route
-Route::post('Yearmaster/{Yearmaster}/toggle-status', [App\Http\Controllers\Admin\Masters\YearmasterController::class, 'toggleStatus'])->name('Yearmaster.toggle-status');
+    Route::post('Yearmaster/{Yearmaster}/toggle-status', [App\Http\Controllers\Admin\Masters\YearmasterController::class, 'toggleStatus'])->name('Yearmaster.toggle-status');
     Route::resource('Yearmaster', App\Http\Controllers\Admin\Masters\YearmasterController::class);
+    Route::resource('Bank-Register', App\Http\Controllers\Admin\Masters\BankRegisterController::class);
+    Route::resource('Voucher-Master', App\Http\Controllers\Admin\Masters\VouchermasterController::class);
 
 
     // Users Roles n Permissions

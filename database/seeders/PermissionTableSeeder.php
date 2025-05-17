@@ -235,35 +235,97 @@ class PermissionTableSeeder extends Seeder
                 'group' => 'Yearmaster',
             ],
             [
-                'id' => 44,
-                'name' => 'Yearmaster.delete',
-                'group' => 'Yearmaster',
-            ],
-            [
                 'id' => 45,
-                'name' => 'Yearmaster.status',
+                'name' => 'YearmasterStatus.create',
                 'group' => 'Yearmaster',
             ],
             [
                 'id' => 46,
+                'name' => 'Yearmaster.status',
+                'group' => 'Yearmaster',
+            ],
+            [
+                'id' => 47,
                 'name' => 'selfVehicle.view',
                 'group' => 'selfVehicle',
             ],
             [
-                'id' => 47,
+                'id' => 48,
                 'name' => 'selfVehicle.create',
                 'group' => 'selfVehicle',
             ],
             [
-                'id' => 48,
+                'id' => 49,
                 'name' => 'selfVehicle.edit',
                 'group' => 'selfVehicle',
             ],
             [
-                'id' => 49,
+                'id' => 50,
                 'name' => 'selfVehicle.delete',
                 'group' => 'selfVehicle',
             ],
+            [
+                'id' => 51,
+                'name' => 'TripMovement.view',
+                'group' => 'TripMovement',
+            ],
+            [
+                'id' => 52,
+                'name' => 'TripMovement.create',
+                'group' => 'TripMovement',
+            ],
+            [
+                'id' => 53,
+                'name' => 'TripMovement.edit',
+                'group' => 'TripMovement',
+            ],
+            [
+                'id' => 54,
+                'name' => 'TripMovement.delete',
+                'group' => 'TripMovement',
+            ],
+            [
+                'id' => 55,
+                'name' => 'BankRegister.view',
+                'group' => 'BankRegister',
+            ],
+            [
+                'id' => 56,
+                'name' => 'BankRegister.create',
+                'group' => 'BankRegister',
+            ],
+            [
+                'id' => 57,
+                'name' => 'BankRegister.edit',
+                'group' => 'BankRegister',
+            ],
+            [
+                'id' => 58,
+                'name' => 'BankRegister.delete',
+                'group' => 'BankRegister',
+            ],
+            [
+                'id' => 59,
+                'name' => 'Vouchermaster.view',
+                'group' => 'Vouchermaster',
+            ],
+            [
+                'id' => 60,
+                'name' => 'Vouchermaster.create',
+                'group' => 'Vouchermaster',
+            ],
+            [
+                'id' => 61,
+                'name' => 'Vouchermaster.edit',
+                'group' => 'Vouchermaster',
+            ],
+            [
+                'id' => 62,
+                'name' => 'Vouchermaster.delete',
+                'group' => 'Vouchermaster',
+            ],
+            
+           
             
 
 

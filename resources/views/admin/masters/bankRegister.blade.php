@@ -15,7 +15,7 @@
                         <div class="mb-3 row">
                             <div class="col-md-4">
                                 <label for="FormSelectBankType" class="form-label">Bank Type<span class="text-danger">*</span></label>
-                                                    <select id="FormSelectBankType" class="form-select" data-choices data-choices-sorting="true">
+                                                    <select id="FormSelectBankType" name="act_type" class="form-select" data-choices data-choices-sorting="true">
                                                         <option value="1" selected>Current Account</option>
                                                         <option value="2" >Overdraft Account</option>
                                                         <option value="3" >Saving Account</option>
@@ -131,7 +131,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <!-- @can('wards.create') -->
+                @can('BankRegister.create')
                     <div class="card-header">
                         <div class="row">
                             <div class="col-sm-6">
@@ -142,11 +142,44 @@
                             </div>
                         </div>
                     </div>
-                <!-- @endcan -->
+                @endcan
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="buttons-datatables" class="table table-bordered nowrap align-middle" style="width:100%">
-                           
+                            <thead>
+                                <tr>
+                                    <th>Sr No.</th>
+                                    <th>Account Type</th>
+                                    <th>Bank Name</th>
+                                    <th>Bank Branch</th>
+                                    <th>Bank Account No</th>
+                                    <th>Bank IFSC Code</th>
+                                    <th>Remark</th>
+                                    <th>status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($bankregisters as $bank)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $bank->act_type }}</td>
+                                        <td>{{ $bank->Bank_Name }}</td>
+                                        <td>{{ $bank->BankBranch }}</td>
+                                        <td>{{ $bank->BankAccountNo }}</td>
+                                        <td>{{ $bank->BankIFSCCode }}</td>
+                                        <td>{{ $bank->Remark }}</td>
+                                        <td>{{ $bank->status }}</td>
+                                        <td>
+                                            @can('BankRegister.edit')
+                                                <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle" data-id="{{ $bank->id }}"><i data-feather="edit"></i></button>
+                                            @endcan
+                                            @can('BankRegister.delete')
+                                                <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle" data-id="{{ $bank->id }}"><i data-feather="trash-2"></i> </button>
+                                            @endcan
+                                        </td>
+                                    </tr>
+                                @endforeach
                         </table>
                     </div>
                 </div>
@@ -168,7 +201,7 @@
 
         var formdata = new FormData(this);
         $.ajax({
-            url: '{{ route('vehicle.store') }}',
+            url: '{{ route('Bank-Register.store') }}',
             type: 'POST',
             data: formdata,
             contentType: false,
@@ -178,7 +211,7 @@
                 if (!data.error2)
                     swal("Successful!", data.success, "success")
                     .then((action) => {
-                        window.location.href = '{{ route('vehicle.index') }}';
+                        window.location.href = '{{ route('Bank-Register.index') }}';
                     });
                 else
                     swal("Error!", data.error2, "error");
@@ -205,7 +238,7 @@
     $("#buttons-datatables").on("click", ".edit-element", function(e) {
         e.preventDefault();
         var model_id = $(this).attr("data-id");
-        var url = "{{ route('vehicle.edit', ':model_id') }}";
+        var url = "{{ route('Bank-Register.edit', ':model_id') }}";
 
         $.ajax({
             url: url.replace(':model_id', model_id),
@@ -240,7 +273,7 @@
             var formdata = new FormData(this);
             formdata.append('_method', 'PUT');
             var model_id = $('#edit_model_id').val();
-            var url = "{{ route('vehicle.update', ':model_id') }}";
+            var url = "{{ route('Bank-Register.update', ':model_id') }}";
 
             $.ajax({
                 url: url.replace(':model_id', model_id),
@@ -253,7 +286,7 @@
                     if (!data.error2)
                         swal("Successful!", data.success, "success")
                         .then((action) => {
-                            window.location.href = '{{ route('vehicle.index') }}';
+                            window.location.href = '{{ route('Bank-Register.index') }}';
                         });
                     else
                         swal("Error!", data.error2, "error");
@@ -280,7 +313,7 @@
     $("#buttons-datatables").on("click", ".rem-element", function(e) {
         e.preventDefault();
         swal({
-                title: "Are you sure to delete this vehicle type?",
+                title: "Are you sure to delete this BankRegister type?",
                 icon: "warning",
                 buttons: ["Cancel", "Confirm"],
                 dangerMode: true,
@@ -288,7 +321,7 @@
             .then((willDelete) => {
                 if (willDelete) {
                     var model_id = $(this).attr("data-id");
-                    var url = "{{ route('vehicle.destroy', ':model_id') }}";
+                    var url = "{{ route('Bank-Register.destroy', ':model_id') }}";
 
                     $.ajax({
                         url: url.replace(':model_id', model_id),

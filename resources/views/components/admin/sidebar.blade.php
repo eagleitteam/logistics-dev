@@ -94,8 +94,12 @@
                             </li>
                             @endcan
                             <li class="nav-item">
-                                <a href="{{ route('trip-movement.create') }}" class="nav-link {{ request()->routeIs('trip-movement.create') ? 'active' : '' }}" data-key="t-horizontal">Trip Movement</a>
-                            </li>                            @can('StateNameWithCode.view')
+                                <a href="{{ route('trip-movement.create') }}" class="nav-link {{ request()->routeIs('trip-movement.create') ? 'active' : '' }}" data-key="t-horizontal">Add Trip Movement Entry</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('trip-movement.index') }}" class="nav-link {{ request()->routeIs('trip-movement.index') ? 'active' : '' }}" data-key="t-horizontal">Trip Movement List</a>
+                            </li>                               
+                            @can('StateNameWithCode.view')
                             <li class="nav-item">
                                 <a href="{{ route('state.index') }}" class="nav-link {{ request()->routeIs('StateNameWithCode.index') ? 'active' : '' }}" data-key="t-horizontal">State Name With GST Code</a>
                             </li>
@@ -113,6 +117,16 @@
                             @can('Yearmaster.view')
                             <li class="nav-item">
                                 <a href="{{ route('Yearmaster.index') }}" class="nav-link {{ request()->routeIs('Yearmaster.index') ? 'active' : '' }}" data-key="t-horizontal">Year Master</a>
+                            </li>
+                            @endcan
+                            @can('BankRegister.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Bank-Register.index') }}" class="nav-link {{ request()->routeIs('Bank-Register.index') ? 'active' : '' }}" data-key="t-horizontal">Add Bank Master</a>
+                            </li>
+                            @endcan
+                            @can('Vouchermaster.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Voucher-Master.index') }}" class="nav-link {{ request()->routeIs('Voucher-Master.index') ? 'active' : '' }}" data-key="t-horizontal">Voucher's Master</a>
                             </li>
                             @endcan
                            

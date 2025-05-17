@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\admin\masters;
+namespace App\Http\Controllers\Admin\Masters;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Admin\Masters\StoreBankregisterRequest;
-use App\Http\Requests\Admin\Masters\UpdateBankregistereRequest;
-use App\Models\Bankregister;
+use App\Http\Requests\Admin\Masters\StoreVouchermasterRequest;
+use App\Http\Requests\Admin\Masters\UpdateVouchermasterRequest;
+use App\Models\Vouchermaster;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
-class BankRegisterController extends Controller
+class VouchermasterController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $bankregisters = Bankregister::latest()->get();
-        return view('admin.masters.bankRegister', compact('bankregisters'));
+        $vouchermasters = vouchermaster::latest()->get();
+        return view('admin.masters.voucherMaster', compact('vouchermasters'));
     }
 
     /**
@@ -32,19 +32,19 @@ class BankRegisterController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBankregisterRequest $request)
+    public function store(StoreVouchermasterRequest $request)
     {
         try {
             DB::beginTransaction();
             $input = $request->validated();
-            Bankregister::create(Arr::only($input, Bankregister::getFillables()));
+            vouchermaster::create(Arr::only($input, vouchermaster::getFillables()));
             DB::commit();
 
-            return response()->json(['success' => 'Bankregister created successfully!']);
+            return response()->json(['success' => 'vouchermaster created successfully!']);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
-                'error' => 'Error creating Bankregister: ' . $e->getMessage()
+                'error' => 'Error creating vouchermaster: ' . $e->getMessage()
             ], 500);
         }
     }

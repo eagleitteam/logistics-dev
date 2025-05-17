@@ -18,7 +18,8 @@ class TripMovmentsController extends Controller
      */
     public function index()
     {
-
+        $trip_movements = TripMovement::latest()->get();
+        return view('admin.masters.tripMovementList')->with(['trip_movement' => $trip_movements]);
     }
 
     /**
@@ -58,7 +59,7 @@ class TripMovmentsController extends Controller
      */
     public function show(string $id)
     {
-        //
+       
     }
 
     /**
