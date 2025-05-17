@@ -14,8 +14,6 @@ return new class extends Migration
     {
         Schema::create('self_vehicles', function (Blueprint $table) {
             $table->id();
-
-            $table->string('vehicle_number')->nullable();
             $table->foreignIdFor(Vehicle::class)->nullable()->constrained();
             $table->tinyInteger('fule_type')->default(0)->comment('1 => Diesel, 2 => CNG 3=> Electrical');
             $table->date('register_date')->nullable();

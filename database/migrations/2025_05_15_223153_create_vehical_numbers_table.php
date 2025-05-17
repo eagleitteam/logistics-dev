@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->string('vehicle_number')->nullable();
             $table->tinyInteger('from')->default(0)->comment('1 => vendor, 2 =>self');
-
+            $table->integer('reference_id');
 
             $table->foreignId('created_by')->nullable()->constrained('users');
             $table->foreignId('updated_by')->nullable()->constrained('users');

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSelfVehicleRequest;
 use App\Models\SelfVehicle;
+use App\Models\VehicalNumber;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +18,9 @@ class SelfVehicleController extends Controller
      */
     public function index()
     {
-        return view('admin.Masters.selfVehicalDetailView');
+        $vehicalTypes = Vehicle::latest()->get();
+        $selfVehicals = SelfVehicle::with('vehicleNumber','vehicleType')->latest()->get();
+        return view('admin.Masters.selfVehicalDetailView')->with(['vehicalTypes' => $vehicalTypes,'selfVehicals' => $selfVehicals]);
     }
 
     /**
@@ -36,7 +40,16 @@ class SelfVehicleController extends Controller
             DB::beginTransaction();
             $input = $request->validated();
             // Create vendor
-            $vendor = SelfVehicle::create(Arr::only($input, SelfVehicle::getFillables()));
+            $selfVehical = SelfVehicle::create(Arr::only($input, SelfVehicle::getFillables()));
+
+            // Prepare and save vehicle number
+            $arr = [
+                'vehicle_number' => $input['vehicle_number'],
+                'from'           => 2, // for self
+                'reference_id'   => $selfVehical->id,
+            ];
+
+        VehicalNumber::create($arr);
             DB::commit();
             return response()->json(['success' => 'Self Vehicle created successfully!']);
 

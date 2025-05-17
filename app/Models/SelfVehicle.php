@@ -12,6 +12,16 @@ class SelfVehicle extends BaseModel
 
     protected $fillable = ['vehicle_number','vehicle_id','fule_type','register_date','chassis_num','eng_num','model_num','toll_stm','remark','f_s_d','f_e_d','file','tax_start_date','tax_end_date','tax_file','insurance_start_date','insurance_end_date','insurance_company_name','insurance_document','puc_start_date','puc_end_date','puc_file','permit_start_date','permit_end_date','permit_document','national_permit_start_date','national_permit_end_date','national_permit_file','loan_start_date','loan_end_date','bank_name','loan_amt','emi_count','emi_amt','emi_date','loan_document'];
 
+    public function vehicleNumber()
+    {
+        return $this->hasOne(VehicalNumber::class, 'reference_id', 'id');
+    }
+
+    public function vehicleType()
+    {
+        return $this->hasOne(Vehicle::class, 'id', 'vehicle_id');
+    }
+
     public static function booted()
     {
         static::created(function (self $user)

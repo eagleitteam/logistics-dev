@@ -20,13 +20,18 @@
                                     placeholder="Enter Vehicle Number">
                                 <span class="text-danger invalid vehicle_number_err"></span>
                             </div>
+
                             <div class="col-md-4">
-                                <label class="col-form-label" for="vehicle_type">Vehicle Type <span
-                                        class="text-danger">*</span></label>
-                                <input class="form-control" id="type" name="vehicle_type" type="vehicle_type"
-                                    placeholder="Enter Vehicle Type">
-                                <span class="text-danger invalid vehicle_type_err"></span>
+                                <label class="col-form-label" for="name">Select Vehical Type<span class="text-danger">*</span></label>
+                                <select class="form-control" id="vehicle_id" name="vehicle_id">
+                                    <option value="">Select Vehical Type</option>
+                                    @foreach ($vehicalTypes as $vehicalType)
+                                        <option value="{{ $vehicalType->id }}">{{ $vehicalType->type }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="text-danger invalid vehicle_id_err"></span>
                             </div>
+
                             <div class="col-md-4">
                                 <label for="FormSelectBankType" class="form-label">Fule Type<span
                                         class="text-danger">*</span></label>
@@ -878,26 +883,34 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(!empty($vehicles))
-                                @foreach ($vehicles as $vehicle)
+                                @foreach ($selfVehicals as $selfVehical)
+                                    @php
+                                       
+                                        $fuelType = '';
+                                        if($selfVehical->fule_type == 1)
+                                            $fuelType = 'Diesel';
+                                        elseif($selfVehical->fule_type == 2)
+                                            $fuelType = 'CNG';
+                                        elseif($selfVehical->fule_type == 3)
+                                            $fuelType = 'Electric';
+                                    @endphp
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $vehicle->vehicle_number }}</td>
-                                    <td>{{ $vehicle->vehicle_type }}</td>
-                                    <td>{{ $vehicle->fule_type }}</td>
+                                    <td>{{ $selfVehical?->vehicleNumber?->vehicle_number }}</td>
+                                    <td>{{ $selfVehical?->vehicleType?->type }}</td>
+                                    <td>{{ $fuelType }}</td>
                                     <td>
                                         @can('selfVehicle.edit')
                                         <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle"
-                                            data-id="{{ $vehicle->id }}"><i data-feather="edit"></i></button>
+                                            data-id="{{ $selfVehical->id }}"><i data-feather="edit"></i></button>
                                          @endcan
                                             @can('selfVehicle.delete')
                                         <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle"
-                                            data-id="{{ $vehicle->id }}"><i data-feather="trash-2"></i> </button>
+                                            data-id="{{ $selfVehical->id }}"><i data-feather="trash-2"></i> </button>
                                         @endcan
                                     </td>
                                 </tr>
                                 @endforeach
-                                @endif
                         </table>
                     </div>
                 </div>
