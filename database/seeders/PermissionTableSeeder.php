@@ -243,7 +243,27 @@ class PermissionTableSeeder extends Seeder
                 'id' => 45,
                 'name' => 'Yearmaster.status',
                 'group' => 'Yearmaster',
-            ]
+            ],
+            [
+                'id' => 46,
+                'name' => 'selfVehicle.view',
+                'group' => 'selfVehicle',
+            ],
+            [
+                'id' => 47,
+                'name' => 'selfVehicle.create',
+                'group' => 'selfVehicle',
+            ],
+            [
+                'id' => 48,
+                'name' => 'selfVehicle.edit',
+                'group' => 'selfVehicle',
+            ],
+            [
+                'id' => 49,
+                'name' => 'selfVehicle.delete',
+                'group' => 'selfVehicle',
+            ],
             
 
 
