@@ -18,11 +18,7 @@ class TripMovmentsController extends Controller
      */
     public function index()
     {
-        $vehicalTypes = Vehicle::latest()->get();
-        $clients = Client::latest()->get();
-        $drivers = Driver::latest()->get();
 
-        return view("admin.masters.tripMovement")->with(['vehicalTypes' => $vehicalTypes,'clients'=>$clients,'drivers'=>$drivers]);;
     }
 
     /**
@@ -30,7 +26,12 @@ class TripMovmentsController extends Controller
      */
     public function create()
     {
-        //
+        $vehicalTypes = Vehicle::latest()->get();
+        $clients = Client::latest()->get();
+        $drivers = Driver::latest()->get();
+
+        return view("admin.masters.tripMovement")->with(['vehicalTypes' => $vehicalTypes,'clients'=>$clients,'drivers'=>$drivers]);;
+
     }
 
     /**
@@ -82,5 +83,7 @@ class TripMovmentsController extends Controller
     public function destroy(string $id)
     {
         //
-    }
+    }   
+
+    
 }

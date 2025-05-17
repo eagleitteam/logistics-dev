@@ -94,7 +94,7 @@
                             </li>
                             @endcan
                             <li class="nav-item">
-                                <a href="{{ route('trip-movement.index') }}" class="nav-link {{ request()->routeIs('trip-movement.index') ? 'active' : '' }}" data-key="t-horizontal">Trip Movement</a>
+                                <a href="{{ route('trip-movement.create') }}" class="nav-link {{ request()->routeIs('trip-movement.create') ? 'active' : '' }}" data-key="t-horizontal">Trip Movement</a>
                             </li>                            @can('StateNameWithCode.view')
                             <li class="nav-item">
                                 <a href="{{ route('state.index') }}" class="nav-link {{ request()->routeIs('StateNameWithCode.index') ? 'active' : '' }}" data-key="t-horizontal">State Name With GST Code</a>
