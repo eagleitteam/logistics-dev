@@ -134,7 +134,6 @@ class PermissionTableSeeder extends Seeder
                 'name' => 'clients.delete',
                 'group' => 'clients',
             ],
-
             [
                 'id' => 25,
                 'name' => 'drivers.view',

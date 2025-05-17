@@ -88,7 +88,14 @@
                                 <a href="{{ route('drivers.index') }}" class="nav-link {{ request()->routeIs('drivers.index') ? 'active' : '' }}" data-key="t-horizontal">Drivers</a>
                             </li>
                             @endcan
-                            @can('StateNameWithCode.view')
+                            @can('selfVehicle.view')
+                            <li class="nav-item">
+                                <a href="{{ route('selfVehicle.index') }}" class="nav-link {{ request()->routeIs('selfVehicle.index') ? 'active' : '' }}" data-key="t-horizontal">Self Vehicle</a>
+                            </li>
+                            @endcan
+                            <li class="nav-item">
+                                <a href="{{ route('trip-movement.index') }}" class="nav-link {{ request()->routeIs('trip-movement.index') ? 'active' : '' }}" data-key="t-horizontal">Trip Movement</a>
+                            </li>                            @can('StateNameWithCode.view')
                             <li class="nav-item">
                                 <a href="{{ route('state.index') }}" class="nav-link {{ request()->routeIs('StateNameWithCode.index') ? 'active' : '' }}" data-key="t-horizontal">State Name With GST Code</a>
                             </li>

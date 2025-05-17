@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Masters;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Client;
-use App\Models\Driver;
-use App\Models\TripMovement;
+use App\Http\Requests\StoreSelfVehicleRequest;
+use App\Models\SelfVehicle;
+use App\Models\VehicalNumber;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
-class TripMovmentsController extends Controller
+class SelfVehicleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +19,8 @@ class TripMovmentsController extends Controller
     public function index()
     {
         $vehicalTypes = Vehicle::latest()->get();
-        $clients = Client::latest()->get();
-        $drivers = Driver::latest()->get();
-
-        return view("admin.masters.tripMovement")->with(['vehicalTypes' => $vehicalTypes,'clients'=>$clients,'drivers'=>$drivers]);;
+        $selfVehicals = SelfVehicle::with('vehicleNumber','vehicleType')->latest()->get();
+        return view('admin.Masters.selfVehicalDetailView')->with(['vehicalTypes' => $vehicalTypes,'selfVehicals' => $selfVehicals]);
     }
 
     /**
@@ -36,19 +34,28 @@ class TripMovmentsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreSelfVehicleRequest $request)
     {
-        try {
+         try {
             DB::beginTransaction();
             $input = $request->validated();
             // Create vendor
-            $trip = TripMovement::create(Arr::only($input, TripMovement::getFillables()));
+            $selfVehical = SelfVehicle::create(Arr::only($input, SelfVehicle::getFillables()));
+
+            // Prepare and save vehicle number
+            $arr = [
+                'vehicle_number' => $input['vehicle_number'],
+                'from'           => 2, // for self
+                'reference_id'   => $selfVehical->id,
+            ];
+
+        VehicalNumber::create($arr);
             DB::commit();
-            return response()->json(['success' => 'Trip created successfully!']);
+            return response()->json(['success' => 'Self Vehicle created successfully!']);
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return $this->respondWithAjax($e, 'creating', 'Trip');
+            return $this->respondWithAjax($e, 'creating', 'Self Vehicle');
         }
     }
 
