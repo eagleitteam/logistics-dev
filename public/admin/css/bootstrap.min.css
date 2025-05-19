@@ -5534,7 +5534,7 @@ fieldset:disabled .btn {
     --vz-card-cap-padding-y: 1rem;
     --vz-card-cap-padding-x: 1rem;
     --vz-card-cap-bg: var(--vz-secondary-bg);
-    --vz-card-bg: #0d3e6e;
+    --vz-card-bg: var(--vz-secondary-bg);
     --vz-card-img-overlay-padding: 1rem;
     --vz-card-group-margin: calc(1.5rem * 0.5);
     position: relative;

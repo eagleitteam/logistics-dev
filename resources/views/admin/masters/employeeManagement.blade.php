@@ -82,7 +82,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($employees as $employee)
+                                        @foreach ($employeemanagements as $employee)
                                         <tr>
                                                 <td>{{ $employee->emp_id }}</td>
                                                 <td>{{ $employee->name }}</td>
@@ -151,7 +151,7 @@
                     <h5 class="modal-title" id="addEmployeeModalLabel"><i class="fas fa-user-plus me-2"></i>Add Employee</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="employeeForm" method="POST" action="{{ route('employees.store') }}">
+                <form id="employeeForm" method="POST" action="{{ route('Employee-Management.store') }}">
                     @csrf
                     <div class="modal-body">
                         <div class="row mb-3">

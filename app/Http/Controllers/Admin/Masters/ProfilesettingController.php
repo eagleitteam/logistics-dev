@@ -4,15 +4,20 @@ namespace App\Http\Controllers\Admin\Masters;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\Masters\StoreProfilesettingRequest;
+use App\Models\Profilesetting;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
-class GroupLedgerController extends Controller
+class ProfilesettingController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.masters.groupandLedgerMaster');
+        $profilesettings = profilesetting::latest()->get();
+        return view('admin.masters.profileSetting', compact('profilesettings'));
     }
 
     /**
@@ -26,9 +31,21 @@ class GroupLedgerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProfilesettingRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $input = $request->validated();
+            profilesetting::create(Arr::only($input, profilesetting::getFillables()));
+            DB::commit();
+
+            return response()->json(['success' => 'profilesetting created successfully!']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'error' => 'Error creating profilesetting: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     /**

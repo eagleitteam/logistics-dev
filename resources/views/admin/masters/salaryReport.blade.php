@@ -217,7 +217,7 @@
                 
                 // AJAX request
                 $.ajax({
-                    url: '{{ route("salary.reports.generate") }}',
+                    url: '{{ route("Salary-Report.index") }}',
                     type: 'POST',
                     data: {
                         '_token': '{{ csrf_token() }}',
@@ -257,13 +257,13 @@
             // PDF and Excel export buttons
             $(".card-header button.btn-primary").click(function() {
                 // PDF generation
-                window.location.href = '{{ route("salary.reports.pdf") }}?type=' + $("#reportType").val() + 
+                window.location.href = '{{ route("Salary-Report.index") }}?type=' + $("#reportType").val() + 
                     '&period=' + $("#reportPeriod").val() + '&employee_type=' + $("#employeeType").val();
             });
             
             $(".card-header button.btn-success").click(function() {
                 // Excel export
-                window.location.href = '{{ route("salary.reports.excel") }}?type=' + $("#reportType").val() + 
+                window.location.href = '{{ route("Salary-Report.index") }}?type=' + $("#reportType").val() + 
                     '&period=' + $("#reportPeriod").val() + '&employee_type=' + $("#employeeType").val();
             });
         });

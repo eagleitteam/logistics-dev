@@ -129,6 +129,61 @@
                                 <a href="{{ route('Voucher-Master.index') }}" class="nav-link {{ request()->routeIs('Voucher-Master.index') ? 'active' : '' }}" data-key="t-horizontal">Voucher's Master</a>
                             </li>
                             @endcan
+                            @can('Attendancemanagement.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Attendance-Management.index') }}" class="nav-link {{ request()->routeIs('Attendance-Management.index') ? 'active' : '' }}" data-key="t-horizontal">Attendance Management</a>
+                            </li>
+                            @endcan
+                            @can('Companyprofile.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Company-Profile.index') }}" class="nav-link {{ request()->routeIs('Company-Profile.index') ? 'active' : '' }}" data-key="t-horizontal">Company Profile Setting</a>
+                            </li>
+                            @endcan
+                            @can('ContactList.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Contact-List.index') }}" class="nav-link {{ request()->routeIs('Contact-List.index') ? 'active' : '' }}" data-key="t-horizontal">Conatct List</a>
+                            </li>
+                            @endcan
+                            @can('Employeemanagement.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Employee-Management.index') }}" class="nav-link {{ request()->routeIs('Employee-Management.index') ? 'active' : '' }}" data-key="t-horizontal">Employee Management</a>
+                            </li>
+                            @endcan
+                            @can('Groupandledgermaster.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Ledger-Master.index') }}" class="nav-link {{ request()->routeIs('Ledger-Master.index') ? 'active' : '' }}" data-key="t-horizontal">Group & Ledger Master</a>
+                            </li>
+                            @endcan
+                            @can('Payrollpaymentmanagement.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Payroll-Payment-Management.index') }}" class="nav-link {{ request()->routeIs('Payroll-Payment-Management.index') ? 'active' : '' }}" data-key="t-horizontal">Payroll Payment Management</a>
+                            </li>
+                            @endcan
+                            @can('Payrollslip.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Payroll-Slip.index') }}" class="nav-link {{ request()->routeIs('Payroll-Slip.index') ? 'active' : '' }}" data-key="t-horizontal">Salary Procee & Slip Management</a>
+                            </li>
+                            @endcan
+                            @can('Profilesetting.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Profile-Setting.index') }}" class="nav-link {{ request()->routeIs('Profile-Setting.index') ? 'active' : '' }}" data-key="t-horizontal">Profile Setting</a>
+                            </li>
+                            @endcan
+                            @can('Salaryreport.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Salary-Report.index') }}" class="nav-link {{ request()->routeIs('Salary-Report.index') ? 'active' : '' }}" data-key="t-horizontal">Salary Report</a>
+                            </li>
+                            @endcan
+                            @can('TaxOnsalaryreport.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Salary-on-Tax-Report.index') }}" class="nav-link {{ request()->routeIs('Salary-on-Tax-Report.index') ? 'active' : '' }}" data-key="t-horizontal">Salary On Tax Report</a>
+                            </li>
+                            @endcan
+                            @can('VendorHasVehicle.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Link-Vehical-With-Vender.index') }}" class="nav-link {{ request()->routeIs('Link-Vehical-With-Vender.index') ? 'active' : '' }}" data-key="t-horizontal">Link Vehical With Vender</a>
+                            </li>
+                            @endcan
                            
 
                         </ul>

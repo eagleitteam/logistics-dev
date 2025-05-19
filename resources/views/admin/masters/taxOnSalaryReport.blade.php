@@ -285,7 +285,7 @@
             // Example AJAX call structure:
             /*
             $.ajax({
-                url: '{{ route("tax.getTdsReports") }}',
+                url: '{{ route("Salary-on-Tax-Report.index") }}',
                 type: 'GET',
                 data: {
                     financialYear: $('#financialYear').val(),
@@ -313,7 +313,7 @@
             // Example AJAX call structure:
             /*
             $.ajax({
-                url: '{{ route("tax.getPtReports") }}',
+                url: '{{ route("Salary-on-Tax-Report.index") }}',
                 type: 'GET',
                 data: {
                     financialYear: $('#ptFinancialYear').val(),

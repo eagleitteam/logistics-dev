@@ -63,7 +63,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-6" style="background-color: #0d3e6e;">
                                     <div class="p-lg-5 p-4">
 
                                         <div class="text-center">

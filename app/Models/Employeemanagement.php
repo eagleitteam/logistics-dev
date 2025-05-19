@@ -6,12 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
-class Vendorhasvehicle extends BaseModel
+class Employeemanagement extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['vendor_id', 'vehicle_number','vehicle_id'];
-
+    protected $fillable = ['empname'];
 
     public static function booted()
     {

@@ -773,7 +773,7 @@
         
         var formdata = new FormData(this);
         $.ajax({
-            url: '{{ route("attendance.store") }}',
+            url: '{{ route("Attendance-Management.store") }}',
             type: 'POST',
             data: formdata,
             contentType: false,

@@ -615,7 +615,7 @@
                 
                 // AJAX request to save settings
                 $.ajax({
-                    url: '{{ route("company.settings.save") }}',
+                    url: '{{ route("Company-Profile.index") }}',
                     type: 'POST',
                     data: allData,
                     headers: {
@@ -640,7 +640,7 @@
                 e.preventDefault();
                 
                 $.ajax({
-                    url: '{{ route("company.locations.store") }}',
+                    url: '{{ route("Company-Profile.store") }}',
                     type: 'POST',
                     data: $(this).serialize(),
                     headers: {
@@ -667,7 +667,7 @@
                 e.preventDefault();
                 
                 $.ajax({
-                    url: '{{ route("company.departments.store") }}',
+                    url: '{{ route("Company-Profile.store") }}',
                     type: 'POST',
                     data: $(this).serialize(),
                     headers: {
@@ -694,7 +694,7 @@
                 e.preventDefault();
                 
                 $.ajax({
-                    url: '{{ route("company.holidays.store") }}',
+                    url: '{{ route("Company-Profile.store") }}',
                     type: 'POST',
                     data: $(this).serialize(),
                     headers: {
@@ -738,7 +738,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: '{{ route("company.locations.destroy", "") }}/' + locationId,
+                            url: '{{ route("Company-Profile.destroy", "") }}/' + locationId,
                             type: 'DELETE',
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

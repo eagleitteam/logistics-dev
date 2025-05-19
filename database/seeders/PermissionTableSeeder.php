@@ -324,7 +324,226 @@ class PermissionTableSeeder extends Seeder
                 'name' => 'Vouchermaster.delete',
                 'group' => 'Vouchermaster',
             ],
-            
+            [
+                'id' => 63,
+                'name' => 'Attendancemanagement.view',
+                'group' => 'Attendancemanagement',
+            ],
+            [
+                'id' => 64,
+                'name' => 'Attendancemanagement.create',
+                'group' => 'Attendancemanagement',
+            ],
+            [
+                'id' => 65,
+                'name' => 'Attendancemanagement.edit',
+                'group' => 'Attendancemanagement',
+            ],
+            [
+                'id' => 66,
+                'name' => 'Attendancemanagement.delete',
+                'group' => 'Attendancemanagement',
+            ],
+            [
+                'id' => 67,
+                'name' => 'Companyprofile.view',
+                'group' => 'Companyprofile',
+            ],
+            [
+                'id' => 68,
+                'name' => 'Companyprofile.create',
+                'group' => 'Companyprofile',
+            ],
+            [
+                'id' => 69,
+                'name' => 'Companyprofile.edit',
+                'group' => 'Companyprofile',
+            ],
+            [
+                'id' => 70,
+                'name' => 'Companyprofile.delete',
+                'group' => 'Companyprofile',
+            ],
+            [
+                'id' => 67,
+                'name' => 'ContactList.view',
+                'group' => 'ContactList',
+            ],
+            [
+                'id' => 68,
+                'name' => 'ContactList.create',
+                'group' => 'ContactList',
+            ],
+            [
+                'id' => 69,
+                'name' => 'ContactList.edit',
+                'group' => 'ContactList',
+            ],
+            [
+                'id' => 70,
+                'name' => 'ContactList.delete',
+                'group' => 'ContactList',
+            ],
+            [
+                'id' => 71,
+                'name' => 'Employeemanagement.view',
+                'group' => 'Employeemanagement',
+            ],
+            [
+                'id' => 72,
+                'name' => 'Employeemanagement.create',
+                'group' => 'Employeemanagement',
+            ],
+            [
+                'id' => 73,
+                'name' => 'Employeemanagement.edit',
+                'group' => 'Employeemanagement',
+            ],
+            [
+                'id' => 74,
+                'name' => 'Employeemanagement.delete',
+                'group' => 'Employeemanagement',
+            ],
+            [
+                'id' => 75,
+                'name' => 'Groupandledgermaster.view',
+                'group' => 'Groupandledgermaster',
+            ],
+            [
+                'id' => 76,
+                'name' => 'Groupandledgermaster.create',
+                'group' => 'Groupandledgermaster',
+            ],
+            [
+                'id' => 77,
+                'name' => 'Groupandledgermaster.edit',
+                'group' => 'Groupandledgermaster',
+            ],
+            [
+                'id' => 78,
+                'name' => 'Groupandledgermaster.delete',
+                'group' => 'Groupandledgermaster',
+            ],
+            [
+                'id' => 79,
+                'name' => 'Payrollpaymentmanagement.view',
+                'group' => 'Payrollpaymentmanagement',
+            ],
+            [
+                'id' => 80,
+                'name' => 'Payrollpaymentmanagement.create',
+                'group' => 'Payrollpaymentmanagement',
+            ],
+            [
+                'id' => 81,
+                'name' => 'Payrollpaymentmanagement.edit',
+                'group' => 'Payrollpaymentmanagement',
+            ],
+            [
+                'id' => 82,
+                'name' => 'Payrollpaymentmanagement.delete',
+                'group' => 'Payrollpaymentmanagement',
+            ],
+            [
+                'id' => 83,
+                'name' => 'Payrollslip.view',
+                'group' => 'Payrollslip',
+            ],
+            [
+                'id' => 84,
+                'name' => 'Payrollslip.create',
+                'group' => 'Payrollslip',
+            ],
+            [
+                'id' => 85,
+                'name' => 'Payrollslip.edit',
+                'group' => 'Payrollslip',
+            ],
+            [
+                'id' => 86,
+                'name' => 'Payrollslip.delete',
+                'group' => 'Payrollslip',
+            ],
+            [
+                'id' => 87,
+                'name' => 'Profilesetting.view',
+                'group' => 'Profilesetting',
+            ],
+            [
+                'id' => 88,
+                'name' => 'Profilesetting.create',
+                'group' => 'Profilesetting',
+            ],
+            [
+                'id' => 89,
+                'name' => 'Profilesetting.edit',
+                'group' => 'Profilesetting',
+            ],
+            [
+                'id' => 90,
+                'name' => 'Profilesetting.delete',
+                'group' => 'Profilesetting',
+            ],
+            [
+                'id' => 91,
+                'name' => 'Salaryreport.view',
+                'group' => 'Salaryreport',
+            ],
+            [
+                'id' => 92,
+                'name' => 'Salaryreport.create',
+                'group' => 'Salaryreport',
+            ],
+            [
+                'id' => 93,
+                'name' => 'Salaryreport.edit',
+                'group' => 'Salaryreport',
+            ],
+            [
+                'id' => 94,
+                'name' => 'Salaryreport.delete',
+                'group' => 'Salaryreport',
+            ],
+            [
+                'id' => 91,
+                'name' => 'TaxOnsalaryreport.view',
+                'group' => 'TaxOnsalaryreport',
+            ],
+            [
+                'id' => 92,
+                'name' => 'TaxOnsalaryreport.create',
+                'group' => 'TaxOnsalaryreport',
+            ],
+            [
+                'id' => 93,
+                'name' => 'TaxOnsalaryreport.edit',
+                'group' => 'TaxOnsalaryreport',
+            ],
+            [
+                'id' => 94,
+                'name' => 'TaxOnsalaryreport.delete',
+                'group' => 'TaxOnsalaryreport',
+            ],
+            [
+                'id' => 95,
+                'name' => 'VendorHasVehicle.view',
+                'group' => 'VendorHasVehicle',
+            ],
+            [
+                'id' => 96,
+                'name' => 'VendorHasVehicle.create',
+                'group' => 'VendorHasVehicle',
+            ],
+            [
+                'id' => 97,
+                'name' => 'VendorHasVehicle.edit',
+                'group' => 'VendorHasVehicle',
+            ],
+            [
+                'id' => 98,
+                'name' => 'VendorHasVehicle.delete',
+                'group' => 'VendorHasVehicle',
+            ],
            
             
 

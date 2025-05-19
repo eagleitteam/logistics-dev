@@ -574,7 +574,7 @@
 
         var formdata = new FormData(this);
         $.ajax({
-            url: '{{ route('vehicle.store') }}',
+            url: '{{ route('Profile-Setting.store') }}',
             type: 'POST',
             data: formdata,
             contentType: false,
@@ -584,7 +584,7 @@
                 if (!data.error2)
                     swal("Successful!", data.success, "success")
                     .then((action) => {
-                        window.location.href = '{{ route('vehicle.index') }}';
+                        window.location.href = '{{ route('Profile-Setting.index') }}';
                     });
                 else
                     swal("Error!", data.error2, "error");
@@ -611,7 +611,7 @@
     $("#buttons-datatables").on("click", ".edit-element", function(e) {
         e.preventDefault();
         var model_id = $(this).attr("data-id");
-        var url = "{{ route('vehicle.edit', ':model_id') }}";
+        var url = "{{ route('Profile-Setting.edit', ':model_id') }}";
 
         $.ajax({
             url: url.replace(':model_id', model_id),
@@ -646,7 +646,7 @@
             var formdata = new FormData(this);
             formdata.append('_method', 'PUT');
             var model_id = $('#edit_model_id').val();
-            var url = "{{ route('vehicle.update', ':model_id') }}";
+            var url = "{{ route('Profile-Setting.update', ':model_id') }}";
             //
             $.ajax({
                 url: url.replace(':model_id', model_id),
@@ -659,7 +659,7 @@
                     if (!data.error2)
                         swal("Successful!", data.success, "success")
                         .then((action) => {
-                            window.location.href = '{{ route('vehicle.index') }}';
+                            window.location.href = '{{ route('Profile-Setting.index') }}';
                         });
                     else
                         swal("Error!", data.error2, "error");
@@ -695,7 +695,7 @@
             .then((justTransfer) => {
                 if (justTransfer) {
                     var model_id = $(this).attr("data-id");
-                    var url = "{{ route('vehicle.destroy', ':model_id') }}";
+                    var url = "{{ route('Profile-Setting.destroy', ':model_id') }}";
 
                     $.ajax({
                         url: url.replace(':model_id', model_id),

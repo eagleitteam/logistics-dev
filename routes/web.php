@@ -54,7 +54,6 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::resource('trip-movement', App\Http\Controllers\Admin\Masters\TripMovmentsController::class);
     Route::resource('bank', App\Http\Controllers\Admin\Masters\BankRegisterController::class);
     Route::resource('contact', App\Http\Controllers\Admin\Masters\ContactListController::class);
-    Route::resource('group', App\Http\Controllers\Admin\Masters\GroupLedgerController::class);
     Route::resource('todo', App\Http\Controllers\Admin\Masters\ToDoController::class);
     Route::resource('tripmovment', App\Http\Controllers\Admin\Masters\TripMovmentsController::class);
     Route::resource('state', App\Http\Controllers\Admin\Masters\StateNameWithCodeController::class);
@@ -65,6 +64,18 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::resource('Yearmaster', App\Http\Controllers\Admin\Masters\YearmasterController::class);
     Route::resource('Bank-Register', App\Http\Controllers\Admin\Masters\BankRegisterController::class);
     Route::resource('Voucher-Master', App\Http\Controllers\Admin\Masters\VouchermasterController::class);
+    Route::resource('Attendance-Management', App\Http\Controllers\Admin\Masters\AttendancemanagementController::class);
+    Route::resource('Company-Profile', App\Http\Controllers\Admin\Masters\CompanyprofileController::class);
+    Route::resource('Contact-List', App\Http\Controllers\Admin\Masters\ContactListController::class);
+    Route::resource('Employee-Management', App\Http\Controllers\Admin\Masters\EmployeemanagementController::class);
+    Route::resource('Ledger-Master', App\Http\Controllers\Admin\Masters\GroupandledgermasterController::class);
+    Route::resource('Payroll-Payment-Management', App\Http\Controllers\Admin\Masters\PayrollpaymentmanagementController::class);
+    Route::resource('Payroll-Slip', App\Http\Controllers\Admin\Masters\PayrollslipController::class);
+    Route::resource('Profile-Setting', App\Http\Controllers\Admin\Masters\ProfilesettingController::class);
+    Route::resource('Salary-Report', App\Http\Controllers\Admin\Masters\SalaryreportController::class);
+    Route::resource('Salary-on-Tax-Report', App\Http\Controllers\Admin\Masters\TaxOnsalaryreportController::class);
+    Route::resource('Link-Vehical-With-Vender', App\Http\Controllers\Admin\Masters\VendorhasvehicleController::class);
+
 
 
     // Users Roles n Permissions

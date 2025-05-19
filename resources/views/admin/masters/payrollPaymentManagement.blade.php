@@ -564,7 +564,7 @@
             
             var formdata = new FormData(this);
             $.ajax({
-                url: '{{ route("payments.store") }}',
+                url: '{{ route("Payroll-Payment-Management.store") }}',
                 type: 'POST',
                 data: formdata,
                 contentType: false,

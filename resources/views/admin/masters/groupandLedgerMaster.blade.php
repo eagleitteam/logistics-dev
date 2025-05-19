@@ -104,7 +104,7 @@
                                                                     <div class="row">
                                                                         <div class="col-lg-12">
                                                                             <div class="card">
-                                                                                <!-- @can('wards.create') -->
+                                                                                @can('Groupandledgermaster.create')
                                                                                     <div class="card-header">
                                                                                         <div class="row">
                                                                                             <div class="col-sm-6">
@@ -115,7 +115,7 @@
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                <!-- @endcan -->
+                                                                                @endcan
                                                                                 <div class="card-body">
                                                                                     <div class="table-responsive">
                                                                                         <table id="buttons-datatables" class="table table-bordered nowrap align-middle" style="width:100%">
@@ -128,18 +128,18 @@
                                                                                                 </tr>
                                                                                             </thead>
                                                                                             <tbody>
-                                                                                                @foreach ($vehicles as $vehicle)
+                                                                                                @foreach ($groupandledgermasters as $groupandledgermaster)
                                                                                                     <tr>
                                                                                                         <td>{{ $loop->iteration }}</td>
-                                                                                                        <td>{{ $vehicle->type }}</td>
-                                                                                                        <td>{{ $vehicle->description }}</td>
+                                                                                                        <td>{{ $groupandledgermaster->group }}</td>
+                                                                                                        
                                                                                                         <td>
-                                                                                                            <!-- @can('wards.edit') -->
+                                                                                                            @can('Groupandledgermaster.edit')
                                                                                                                 <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="edit"></i></button>
-                                                                                                            <!-- @endcan
-                                                                                                            @can('wards.delete') -->
+                                                                                                            @endcan
+                                                                                                            @can('Groupandledgermaster.delete')
                                                                                                                 <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="trash-2"></i> </button>
-                                                                                                            <!-- @endcan -->
+                                                                                                            @endcan
                                                                                                         </td>
                                                                                                     </tr>
                                                                                                 @endforeach
@@ -228,7 +228,7 @@
                                                                     <div class="row">
                                                                         <div class="col-lg-12">
                                                                             <div class="card">
-                                                                                <!-- @can('wards.create') -->
+                                                                                @can('Groupandledgermaster.create')
                                                                                     <div class="card-header">
                                                                                         <div class="row">
                                                                                             <div class="col-sm-6">
@@ -239,7 +239,7 @@
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                <!-- @endcan -->
+                                                                                @endcan
                                                                                 <div class="card-body">
                                                                                     <div class="table-responsive">
                                                                                         <table id="buttons-datatables" class="table table-bordered nowrap align-middle" style="width:100%">
@@ -252,18 +252,18 @@
                                                                                                 </tr>
                                                                                             </thead>
                                                                                             <tbody>
-                                                                                                @foreach ($vehicles as $vehicle)
+                                                                                                @foreach ($groupandledgermasters as $groupandledgermaster)
                                                                                                     <tr>
                                                                                                         <td>{{ $loop->iteration }}</td>
-                                                                                                        <td>{{ $vehicle->type }}</td>
-                                                                                                        <td>{{ $vehicle->description }}</td>
+                                                                                                        <td>{{ $groupandledgermaster->type }}</td>
+                                                                                                        <td>{{ $groupandledgermaster->description }}</td>
                                                                                                         <td>
-                                                                                                            <!-- @can('wards.edit') -->
+                                                                                                            @can('Groupandledgermaster.edit')
                                                                                                                 <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="edit"></i></button>
-                                                                                                            <!-- @endcan
-                                                                                                            @can('wards.delete') -->
+                                                                                                            @endcan
+                                                                                                            @can('Groupandledgermaster.delete')
                                                                                                                 <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="trash-2"></i> </button>
-                                                                                                            <!-- @endcan -->
+                                                                                                            @endcan
                                                                                                         </td>
                                                                                                     </tr>
                                                                                                 @endforeach
@@ -353,7 +353,7 @@
                                                                     <div class="row">
                                                                         <div class="col-lg-12">
                                                                             <div class="card">
-                                                                                <!-- @can('wards.create') -->
+                                                                                @can('Groupandledgermaster.create')
                                                                                     <div class="card-header">
                                                                                         <div class="row">
                                                                                             <div class="col-sm-6">
@@ -364,7 +364,7 @@
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                <!-- @endcan -->
+                                                                                @endcan
                                                                                 <div class="card-body">
                                                                                     <div class="table-responsive">
                                                                                         <table id="buttons-datatables" class="table table-bordered nowrap align-middle" style="width:100%">
@@ -377,18 +377,18 @@
                                                                                                 </tr>
                                                                                             </thead>
                                                                                             <tbody>
-                                                                                                @foreach ($vehicles as $vehicle)
+                                                                                                @foreach ($groupandledgermasters as $groupandledgermaster)
                                                                                                     <tr>
                                                                                                         <td>{{ $loop->iteration }}</td>
-                                                                                                        <td>{{ $vehicle->type }}</td>
-                                                                                                        <td>{{ $vehicle->description }}</td>
+                                                                                                        <td>{{ $groupandledgermaster->type }}</td>
+                                                                                                        <td>{{ $groupandledgermaster->description }}</td>
                                                                                                         <td>
-                                                                                                            <!-- @can('wards.edit') -->
+                                                                                                            @can('Groupandledgermaster.edit')
                                                                                                                 <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="edit"></i></button>
-                                                                                                            <!-- @endcan
-                                                                                                            @can('wards.delete') -->
+                                                                                                            @endcan
+                                                                                                            @can('Groupandledgermaster.delete')
                                                                                                                 <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="trash-2"></i> </button>
-                                                                                                            <!-- @endcan -->
+                                                                                                            @endcan
                                                                                                         </td>
                                                                                                     </tr>
                                                                                                 @endforeach
@@ -435,7 +435,7 @@
 
         var formdata = new FormData(this);
         $.ajax({
-            url: '{{ route('vehicle.store') }}',
+            url: '{{ route('Ledger-Master.store') }}',
             type: 'POST',
             data: formdata,
             contentType: false,
@@ -445,7 +445,7 @@
                 if (!data.error2)
                     swal("Successful!", data.success, "success")
                     .then((action) => {
-                        window.location.href = '{{ route('vehicle.index') }}';
+                        window.location.href = '{{ route('Ledger-Master.index') }}';
                     });
                 else
                     swal("Error!", data.error2, "error");
@@ -472,7 +472,7 @@
     $("#buttons-datatables").on("click", ".edit-element", function(e) {
         e.preventDefault();
         var model_id = $(this).attr("data-id");
-        var url = "{{ route('vehicle.edit', ':model_id') }}";
+        var url = "{{ route('Ledger-Master.edit', ':model_id') }}";
 
         $.ajax({
             url: url.replace(':model_id', model_id),
@@ -507,7 +507,7 @@
             var formdata = new FormData(this);
             formdata.append('_method', 'PUT');
             var model_id = $('#edit_model_id').val();
-            var url = "{{ route('vehicle.update', ':model_id') }}";
+            var url = "{{ route('Ledger-Master.update', ':model_id') }}";
 
             $.ajax({
                 url: url.replace(':model_id', model_id),
@@ -520,7 +520,7 @@
                     if (!data.error2)
                         swal("Successful!", data.success, "success")
                         .then((action) => {
-                            window.location.href = '{{ route('vehicle.index') }}';
+                            window.location.href = '{{ route('Ledger-Master.index') }}';
                         });
                     else
                         swal("Error!", data.error2, "error");
@@ -555,7 +555,7 @@
             .then((willDelete) => {
                 if (willDelete) {
                     var model_id = $(this).attr("data-id");
-                    var url = "{{ route('vehicle.destroy', ':model_id') }}";
+                    var url = "{{ route('Ledger-Master.destroy', ':model_id') }}";
 
                     $.ajax({
                         url: url.replace(':model_id', model_id),
