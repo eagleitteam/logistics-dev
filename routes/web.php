@@ -75,6 +75,7 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::resource('Salary-Report', App\Http\Controllers\Admin\Masters\SalaryreportController::class);
     Route::resource('Salary-on-Tax-Report', App\Http\Controllers\Admin\Masters\TaxOnsalaryreportController::class);
     Route::resource('Link-Vehical-With-Vender', App\Http\Controllers\Admin\Masters\VendorhasvehicleController::class);
+    Route::resource('Cash-Memo', App\Http\Controllers\Admin\Masters\CashmemoController::class);
 
 
 

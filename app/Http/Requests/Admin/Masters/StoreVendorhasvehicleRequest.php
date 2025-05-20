@@ -22,8 +22,11 @@ class StoreVendorhasvehicleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => 'required',
-            'description' => 'required',
+                'vendor_id' => 'required|exists:vendors,id',
+                'Vehicle_id' => 'required|string|max:20',
+                'vehicle_number' => 'required|string|max:20',
+                'capacity' => 'numeric',
+                'status' => 'required|in:active,maintenance,inactive',
         ];
     }
 }

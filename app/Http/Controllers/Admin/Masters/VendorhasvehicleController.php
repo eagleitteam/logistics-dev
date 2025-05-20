@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Masters\StoreVendorhasvehicleRequest;
 use App\Http\Requests\Admin\Masters\UpdateVendorhasvehicleRequest;
 use App\Models\Vendorhasvehicle;
+use App\Models\Vendor;
+use App\Models\Vehicle;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +20,15 @@ class VendorhasvehicleController extends Controller
     public function index()
     {
         $vendorhasvehicles = vendorhasvehicle::latest()->get();
-        return view('admin.masters.VendorHasVehicle', compact('vendorhasvehicles'));
+        //<... return view('admin.masters.VendorHasVehicle', compact('vendorhasvehicles')); ..>
+
+        // Get all Vendor (latest first)
+         $vendors = Vendor::latest()->get();
+        // Get all Vehical Type (latest first)
+         $vehicles = Vehicle::latest()->get();
+
+        // Pass both Vendor and states to the view
+         return view("admin.masters.VendorHasVehicle")->with(['vendorhasvehicle'=>$vendorhasvehicles ,'Vendor'=>$vendors, 'Vehicle'=>$vehicles]);
     }
 
     /**

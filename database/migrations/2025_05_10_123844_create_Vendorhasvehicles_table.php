@@ -17,8 +17,10 @@ return new class extends Migration
             $table->id();
 
             $table->foreignIdFor(Vendor::class)->nullable()->constrained();
-            $table->unsignedInteger('vehicle_number')->nullable();
+            $table->string('vehicle_number')->nullable();
             $table->foreignIdFor(Vehicle::class)->nullable()->constrained();
+            $table->string('capacity')->nullable();
+            $table->string('status')->nullable();
         
             $table->foreignId('created_by')->nullable()->constrained('users');
             $table->foreignId('updated_by')->nullable()->constrained('users');

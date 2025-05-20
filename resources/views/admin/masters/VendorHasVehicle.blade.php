@@ -1,287 +1,367 @@
 <x-admin.layout>
-    <x-slot name="title">Vender Vehical</x-slot>
-    <x-slot name="heading">Vender Vehical</x-slot>
-    {{-- <x-slot name="subheading">Test</x-slot> --}}
+    <x-slot name="title">Vendor Vehicles Management</x-slot>
+    <x-slot name="heading">Vendor Vehicles Management</x-slot>
 
-
-                <div class="row">
-                    <div class="col-xl-3 col-md-6">
-                        <!-- card -->
-                        <div class="card card-animate">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-grow-1">
-                                        <p class="text-uppercase fw-medium text-muted mb-0">Invoices Genrated</p>
-                                    </div>
-                                    <div class="flex-shrink-0">
-                                        <h5 class="text-success fs-14 mb-0">
-                                            <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +89.24 %
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-end justify-content-between mt-4">
-                                    <div>
-                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4">$<span class="counter-value" data-target="559.25">0</span>k</h4>
-                                        <span class="badge bg-warning me-1">2,258</span> <span class="text-muted">Invoices sent</span>
-                                    </div>
-                                    <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title bg-light rounded fs-3">
-                                            <i data-feather="file-text" class="text-primary icon-dual-primary"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div><!-- end card body -->
-                        </div><!-- end card -->
-                    </div><!-- end col -->
-
-                    <div class="col-xl-3 col-md-6">
-                        <!-- card -->
-                        <div class="card card-animate">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-grow-1">
-                                        <p class="text-uppercase fw-medium text-muted mb-0">REC PMT AGN Invoices</p>
-                                    </div>
-                                    <div class="flex-shrink-0">
-                                        <h5 class="text-danger fs-14 mb-0">
-                                            <i class="ri-arrow-right-down-line fs-13 align-middle"></i> +8.09 %
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-end justify-content-between mt-4">
-                                    <div>
-                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4">$<span class="counter-value" data-target="409.66">0</span>k</h4>
-                                        <span class="badge bg-warning me-1">1,958</span> <span class="text-muted">Paid by clients</span>
-                                    </div>
-                                    <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title bg-light rounded fs-3">
-                                            <i data-feather="check-square" class="text-primary icon-dual-primary"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div><!-- end card body -->
-                        </div><!-- end card -->
-                    </div><!-- end col -->
-
-                    <div class="col-xl-3 col-md-6">
-                        <!-- card -->
-                        <div class="card card-animate">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-grow-1">
-                                        <p class="text-uppercase fw-medium text-muted mb-0">Outstanding Invoices</p>
-                                    </div>
-                                    <div class="flex-shrink-0">
-                                        <h5 class="text-danger fs-14 mb-0">
-                                            <i class="ri-arrow-right-down-line fs-13 align-middle"></i> +9.01 %
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-end justify-content-between mt-4">
-                                    <div>
-                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4">$<span class="counter-value" data-target="136.98">0</span>k</h4>
-                                        <span class="badge bg-warning me-1">338</span> <span class="text-muted">Unpaid by clients</span>
-                                    </div>
-                                    <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title bg-light rounded fs-3">
-                                            <i data-feather="clock" class="text-primary icon-dual-primary"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div><!-- end card body -->
-                        </div><!-- end card -->
-                    </div><!-- end col -->
-
-                    <div class="col-xl-3 col-md-6">
-                        <!-- card -->
-                        <div class="card card-animate">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-grow-1">
-                                        <p class="text-uppercase fw-medium text-muted mb-0">CN AGN Invoices</p>
-                                    </div>
-                                    <div class="flex-shrink-0">
-                                        <h5 class="text-success fs-14 mb-0">
-                                            <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +7.55 %
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-end justify-content-between mt-4">
-                                    <div>
-                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4">$<span class="counter-value" data-target="84.20">0</span>k</h4>
-                                        <span class="badge bg-warning me-1">502</span> <span class="text-muted">Cancelled by clients</span>
-                                    </div>
-                                    <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title bg-light rounded fs-3">
-                                            <i data-feather="x-octagon" class="text-primary icon-dual-primary"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div><!-- end card body -->
-                        </div><!-- end card -->
-                    </div><!-- end col -->
-                </div> <!-- end row-->
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card" id="invoiceList">
-                            <div class="card-header border-0">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card-title mb-0 flex-grow-1">Invoices</h5>
-                                    <div class="flex-shrink-0">
-                                        <div class="d-flex gap-2 flex-wrap">
-                                            <button class="btn btn-danger" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
-                                            <a href="apps-invoices-create.html" class="btn btn-primary"><i class="ri-add-line align-bottom me-1"></i> Create Invoice</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body bg-light-subtle border border-dashed border-start-0 border-end-0">
-                                <form>
-                                    <div class="row g-3">
-                                        <div class="col-xxl-5 col-sm-12">
-                                            <div class="search-box">
-                                                <input type="text" class="form-control search bg-light border-light" placeholder="Search for customer, email, country, status or something...">
-                                                <i class="ri-search-line search-icon"></i>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-xxl-3 col-sm-4">
-                                            <input type="text" class="form-control bg-light border-light" id="datepicker-range" placeholder="Select date">
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-xxl-3 col-sm-4">
-                                            <div class="input-light">
-                                                <select class="form-control" data-choices data-choices-search-false name="choices-single-default" id="idStatus">
-                                                    <option value="">Status</option>
-                                                    <option value="all" selected>All</option>
-                                                    <option value="Unpaid">Unpaid</option>
-                                                    <option value="Paid">Paid</option>
-                                                    <option value="Cancel">Cancel</option>
-                                                    <option value="Refund">Refund</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-
-                                        <div class="col-xxl-1 col-sm-4">
-                                            <button type="button" class="btn btn-primary w-100" onclick="SearchData();">
-                                                <i class="ri-equalizer-fill me-1 align-bottom"></i> Filters
-                                            </button>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                </form>
-                            </div>
-                            <div class="card-body">
-                                <div>
-                                    <div class="table-responsive table-card">
-                                        <table class="table align-middle table-nowrap" id="invoiceTable">
-                                            <thead class="text-muted">
-                                                <tr>
-                                                    <th scope="col" style="width: 50px;">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                                        </div>
-                                                    </th>
-                                                    <th class="sort text-uppercase" data-sort="invoice_No">Inv No</th>
-                                                    <th class="sort text-uppercase" data-sort="customer_name">Client Name</th>
-                                                    <th class="sort text-uppercase" data-sort="date">Date</th>
-                                                    <th class="sort text-uppercase" data-sort="amount">Amount</th>
-                                                    <th class="sort text-uppercase" data-sort="TDS">TDS</th>
-                                                    <th class="sort text-uppercase" data-sort="Net_Balance_PMT">Net Balance PMT</th>
-                                                    <th class="sort text-uppercase" data-sort="Payment_Status">Payment Status</th>
-                                                    <th class="sort text-uppercase" data-sort="PMT_REC_AMT">PMT REC AMT</th>
-                                                    <th class="sort text-uppercase" data-sort="PMT_REC_Date">PMT REC Date</th>
-                                                    <th class="sort text-uppercase" data-sort="Nature">Nature</th>
-                                                    <th class="sort text-uppercase" data-sort="Remark">Remark</th>
-                                                    <th class="sort text-uppercase" data-sort="action">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="list form-check-all" id="invoice-list-data">
-
-                                            </tbody>
-                                        </table>
-                                        <div class="noresult" style="display: none">
-                                            <div class="text-center">
-                                                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#8c68cd,secondary:#4788ff" style="width:75px;height:75px"></lord-icon>
-                                                <h5 class="mt-2">Sorry! No Result Found</h5>
-                                                <p class="text-muted mb-0">We've searched more than 150+ invoices We did not find any invoices for you search.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-end mt-3">
-                                        <div class="pagination-wrap hstack gap-2">
-                                            <a class="page-item pagination-prev disabled" href="#">
-                                                Previous
-                                            </a>
-                                            <ul class="pagination listjs-pagination mb-0"></ul>
-                                            <a class="page-item pagination-next" href="#">
-                                                Next
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Modal -->
-                                <div class="modal fade flip" id="deleteOrder" tabindex="-1" aria-labelledby="deleteOrderLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-body p-5 text-center">
-                                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#405189,secondary:#f06548" style="width:90px;height:90px"></lord-icon>
-                                                <div class="mt-4 text-center">
-                                                    <h4>You are about to delete a order ?</h4>
-                                                    <p class="text-muted fs-15 mb-4">Deleting your order will remove all of your information from our database.</p>
-                                                    <div class="hstack gap-2 justify-content-center remove">
-                                                        <button class="btn btn-link link-success fw-medium text-decoration-none" id="deleteRecord-close" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</button>
-                                                        <button class="btn btn-danger" id="delete-record">Yes, Delete It</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end modal -->
-                            </div>
+    {{-- Top bar --}}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <h3><i class="fas fa-truck me-2"></i> Vendor Vehicles Management</h3>
                         </div>
-
-                    </div>
-                    <!--end col-->
-
-
-        <footer class="footer border-top">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <script>document.write(new Date().getFullYear())</script> © Velzon.
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="text-sm-end d-none d-sm-block">
-                            Design & Develop by Themesbrand
+                        <div class="col-md-6 text-end">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addVehicleModal">
+                                <i class="fas fa-plus me-2"></i>Add Vehicle
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </footer>
+        </div>
     </div>
-    <!-- end main content-->
+    {{-- END --}}
 
+    {{-- Vendor selector --}}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4">
+                            <label for="vendorSelect" class="form-label">Vendor Name</label>
+                            <select class="form-control" id="vendorSelect" required>
+                                <option value="">Select Vendor</option>
+                                @foreach ($Vendor as $vendor)
+                                    <option value="{{ optional($vendor)->id }}">{{ optional($vendor)->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- END --}}
 
+    {{-- Vendor Statistics --}}
+    <div class="row" id="vendorStatsRow" style="display: none;">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 id="vendorTitle">Vendor Statistics</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="stat-card">
+                                <h3>Total Vehicles</h3>
+                                <p id="totalVehicles">0</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-card">
+                                <h3>Active Vehicles</h3>
+                                <p id="activeVehicles">0</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-card">
+                                <h3>In Maintenance</h3>
+                                <p id="maintenanceVehicles">0</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-card">
+                                <h3>Inactive Vehicles</h3>
+                                <p id="inactiveVehicles">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-lg-12">
+                            <h5>Vehicle Type Distribution</h5>
+                            <div id="typeDistribution" class="row">
+                                <!-- Vehicle type distribution will be added here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- END --}}
 
+    {{-- Vehicles Table --}}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                            <h4>Vendor Vehicles List</h4>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="float-end">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="vendorVehiclesTable" class="table table-bordered nowrap align-middle" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Sr No</th>
+                                    <th>Vendor Name</th>
+                                    <th>Vehicle Type</th>
+                                    <th>Vehicle Number</th>
+                                    <th>Capacity</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data will be loaded via AJAX -->
+                                 <tbody>
+                                @foreach ($vendorhasvehicle as $vendorhasvehi)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $vendorhasvehi->vendor_id }}</td>
+                                        <td>{{ $vendorhasvehi->vehicle_number }}</td>
+                                        <td>{{ $vendorhasvehi->vehicle_id  }}</td>
+                                        <td>{{ $vendorhasvehi->capacity }}</td>
+                                        <td>{{ $vendorhasvehi->status }}</td>
+                                        <td>
+                                            @can('VendorHasVehicle.edit')
+                                                <button class="edit-element btn btn-secondary px-2 py-1" title="Edit vendorhasvehicle" data-id="{{ $vendorhasvehi->id }}"><i data-feather="edit"></i></button>
+                                            @endcan
+                                            @can('VendorHasVehicle.delete')
+                                                <button class="btn btn-danger rem-element px-2 py-1" title="Delete vendorhasvehicle" data-id="{{ $vendorhasvehi->id }}"><i data-feather="trash-2"></i> </button>
+                                            @endcan
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- END --}}
 
+    <!-- Add Vehicle Modal -->
+    <div class="modal fade" id="addVehicleModal" tabindex="-1" aria-labelledby="addVehicleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addVehicleModalLabel">Add New Vehicle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="theme-form" name="vendorVehicleForm" id="vendorVehicleForm" enctype="multipart/form-data">
+                    @csrf
+                
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label for="vendorNameModal">Vendor Name</label>
+                            <select id="vendorNameModal" name="vendor_id"  class="form-control">
+                                <option value="">Select Vendor</option>
+                                @foreach ($Vendor as $vendor)
+                                    <option value="{{ optional($vendor)->id }}">{{ optional($vendor)->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div id="vehiclesContainer">
+                            <div class="vehicle-container card mb-3">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="vehicle-title">Vehicle #1</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-3">
+                                                <label for="vehicleType1">Vehicle Type</label>
+                                                <select id="vehicleType1" name="Vehicle_id" class="form-control" >
+                                                    <option value="">Select Type</option>
+                                                    @foreach ($Vehicle as $VehicleType)
+                                                        <option value="{{ optional($VehicleType)->id }}">{{ optional($VehicleType)->type }}</option>
+                                                     @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-3">
+                                                <label for="vehicleNumber1">Vehicle Number</label>
+                                                <input type="text" name="vehicle_number" id="vehicleNumber1" class="form-control" placeholder="e.g. MH01AB1234" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-3">
+                                                <label for="capacity1">Capacity (kg)</label>
+                                                <input type="number" name="capacity" id="capacity1" class="form-control" placeholder="e.g. 1000">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-3">
+                                                <label for="status1">Status</label>
+                                                <select id="status1" name="status" class="form-control">
+                                                    <option value="active">Active</option>
+                                                    <option value="maintenance">Maintenance</option>
+                                                    <option value="inactive">Inactive</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <button type="button" id="addMoreVehicles" class="btn btn-secondary">
+                                <i class="fas fa-plus me-2"></i> Add More Vehicles
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="addSubmit">
+                            <i class="fas fa-save me-2"></i> Save Vehicles
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Vehicle Modal -->
+    <div class="modal fade" id="editVehicleModal" tabindex="-1" aria-labelledby="editVehicleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editVehicleModalLabel">Edit Vehicle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editVehicleForm">
+                    <input type="hidden" id="editVehicleId">
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label for="editVehicleType">Vehicle Type</label>
+                            <select id="editVehicleType" class="form-control" required>
+                                <option value="">Select Type</option>
+                                <option value="truck">Truck</option>
+                                <option value="van">Van</option>
+                                <option value="trailer">Trailer</option>
+                                <option value="container">Container</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="editVehicleNumber">Vehicle Number</label>
+                            <input type="text" id="editVehicleNumber" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="editCapacity">Capacity (kg)</label>
+                            <input type="number" id="editCapacity" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="editStatus">Status</label>
+                            <select id="editStatus" class="form-control" required>
+                                <option value="active">Active</option>
+                                <option value="maintenance">Maintenance</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </x-admin.layout>
 
+<!-- CSS -->
+<style>
+    .stat-card {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
 
-{{-- Add --}}
+    .stat-card h3 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    .stat-card p {
+        font-size: 24px;
+        font-weight: bold;
+        color: #3498db;
+    }
+
+    .vehicle-type-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .vehicle-type-name {
+        font-weight: 600;
+        color: #34495e;
+    }
+
+    .vehicle-type-count {
+        background-color: #ecf0f1;
+        padding: 3px 8px;
+        border-radius: 10px;
+        font-size: 12px;
+    }
+
+    .badge-success {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .badge-warning {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .badge-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    .badge-info {
+        background-color: #d1ecf1;
+        color: #0c5460;
+    }
+</style>
+
+<!-- add Vendor Vehicle Entry -->
 <script>
-    $("#addForm").submit(function(e) {
+    $("#vendorVehicleForm").submit(function(e) {
         e.preventDefault();
         $("#addSubmit").prop('disabled', true);
 
         var formdata = new FormData(this);
+        console.log(formdata);
         $.ajax({
-            url: '{{ route('vehicle.store') }}',
+            url: '{{ route('Link-Vehical-With-Vender.store') }}',
             type: 'POST',
             data: formdata,
             contentType: false,
@@ -291,7 +371,7 @@
                 if (!data.error2)
                     swal("Successful!", data.success, "success")
                     .then((action) => {
-                        window.location.href = '{{ route('vehicle.index') }}';
+                        window.location.href = '{{ route('Link-Vehical-With-Vender.index') }}';
                     });
                 else
                     swal("Error!", data.error2, "error");
@@ -313,123 +393,230 @@
 </script>
 
 
-<!-- Edit -->
-<script>
-    $("#buttons-datatables").on("click", ".edit-element", function(e) {
-        e.preventDefault();
-        var model_id = $(this).attr("data-id");
-        var url = "{{ route('vehicle.edit', ':model_id') }}";
 
-        $.ajax({
-            url: url.replace(':model_id', model_id),
-            type: 'GET',
-            data: {
-                '_token': "{{ csrf_token() }}"
-            },
-            success: function(data, textStatus, jqXHR) {
-                editFormBehaviour();
-                if (!data.error) {
-                    $("#editForm input[name='edit_model_id']").val(data.ward.id);
-                    $("#editForm input[name='name']").val(data.ward.name);
-                    $("#editForm input[name='initial']").val(data.ward.initial);
-                } else {
-                    alert(data.error);
-                }
-            },
-            error: function(error, jqXHR, textStatus, errorThrown) {
-                alert("Some thing went wrong");
-            },
+<!-- Appending the script to add more vehicles dynamically -->
+<script>
+      // Add more vehicles functionality
+        var vehicleCount = 1;
+        $('#addMoreVehicles').click(function() {
+            vehicleCount++;
+            var newVehicle = `
+                <div class="vehicle-container card mb-3">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="vehicle-title">Vehicle #${vehicleCount}</span>
+                            <button type="button" class="btn btn-sm btn-danger remove-vehicle">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="vehicleType${vehicleCount}">Vehicle Type</label>
+                                    <select id="vehicleType${vehicleCount}" name="Vehicle_id" class="form-control" required>
+                                        <option value="">Select Type</option>
+                                        @foreach ($Vehicle as $VehicleType)
+                                            <option value="{{ optional($VehicleType)->id }}">{{ optional($VehicleType)->type }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="vehicleNumber${vehicleCount}">Vehicle Number</label>
+                                    <input type="text" id="vehicleNumber${vehicleCount}" name="vehicle_number" class="form-control" placeholder="e.g. MH01AB1234" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="capacity${vehicleCount}">Capacity (kg)</label>
+                                    <input type="number" id="capacity${vehicleCount}" name="capacity" class="form-control" placeholder="e.g. 1000" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="status${vehicleCount}">Status</label>
+                                    <select id="status${vehicleCount}" name="status" class="form-control" required>
+                                        <option value="active">Active</option>
+                                        <option value="maintenance">Maintenance</option>
+                                        <option value="inactive">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            $('#vehiclesContainer').append(newVehicle);
         });
-    });
+
+        // Remove vehicle
+        $(document).on('click', '.remove-vehicle', function() {
+            if (confirm('Are you sure you want to remove this vehicle?')) {
+                $(this).closest('.vehicle-container').remove();
+                // Renumber remaining vehicles
+                $('.vehicle-container').each(function(index) {
+                    $(this).find('.vehicle-title').text('Vehicle #' + (index + 1));
+                });
+                vehicleCount = $('.vehicle-container').length;
+            }
+        });
 </script>
 
-
-<!-- Update -->
+<!-- display data as per vender selection -->
 <script>
     $(document).ready(function() {
-        $("#editForm").submit(function(e) {
-            e.preventDefault();
-            $("#editSubmit").prop('disabled', true);
-            var formdata = new FormData(this);
-            formdata.append('_method', 'PUT');
-            var model_id = $('#edit_model_id').val();
-            var url = "{{ route('vehicle.update', ':model_id') }}";
-            //
-            $.ajax({
-                url: url.replace(':model_id', model_id),
-                type: 'POST',
-                data: formdata,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                    $("#editSubmit").prop('disabled', false);
-                    if (!data.error2)
-                        swal("Successful!", data.success, "success")
-                        .then((action) => {
-                            window.location.href = '{{ route('vehicle.index') }}';
-                        });
-                    else
-                        swal("Error!", data.error2, "error");
-                },
-                statusCode: {
-                    422: function(responseObject, textStatus, jqXHR) {
-                        $("#editSubmit").prop('disabled', false);
-                        resetErrors();
-                        printErrMsg(responseObject.responseJSON.errors);
-                    },
-                    500: function(responseObject, textStatus, errorThrown) {
-                        $("#editSubmit").prop('disabled', false);
-                        swal("Error occured!", "Something went wrong please try again", "error");
-                    }
-                }
-            });
-
+        // Initialize DataTable with server-rendered data
+        var table = $('#vendorVehiclesTable').DataTable({
+            responsive: true,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+            // Use server-rendered data (disable DataTables processing)
+            processing: false,
+            serverSide: false,
+            // Map the columns to your actual data structure
+            columns: [
+                { data: 'sr_no' }, // Sr No (auto-generated in loop)
+                { data: 'vendor_id' }, // Vendor ID
+                { data: 'vehicle_number' }, // Vehicle Number
+                { data: 'vehicle_id' }, // Vehicle Type ID
+                { data: 'capacity' }, // Capacity
+                { data: 'status' }, // Status
+                { data: 'actions', orderable: false } // Actions
+            ]
         });
-    });
-</script>
 
+        // Vendor selection change handler
+        $('#vendorSelect').change(function() {
+            var vendorId = $(this).val();
+            
+            if (vendorId) {
+                // Show statistics panel
+                $('#vendorStatsRow').show();
+                
+                // Filter the table to show only selected vendor's vehicles
+                table.column(1).search(vendorId).draw();
+                
+                // Calculate statistics based on filtered data
+                updateVendorStatistics(vendorId);
+                
+                // Update vendor title
+                var vendorName = $(this).find('option:selected').text();
+                $('#vendorTitle').text(vendorName + ' - Vehicle Statistics');
+            } else {
+                // Hide statistics panel if no vendor selected
+                $('#vendorStatsRow').hide();
+                // Show all rows in table
+                table.column(1).search('').draw();
+                // Reset statistics
+                resetStatistics();
+            }
+        });
 
-<!-- Delete -->
-<script>
-    $("#buttons-datatables").on("click", ".rem-element", function(e) {
-        e.preventDefault();
-        swal({
-                title: "Are you sure to delete this ward?",
-                // text: "Make sure if you have filled Vendor details before proceeding further",
-                icon: "info",
-                buttons: ["Cancel", "Confirm"]
-            })
-            .then((justTransfer) => {
-                if (justTransfer) {
-                    var model_id = $(this).attr("data-id");
-                    var url = "{{ route('vehicle.destroy', ':model_id') }}";
-
-                    $.ajax({
-                        url: url.replace(':model_id', model_id),
-                        type: 'POST',
-                        data: {
-                            '_method': "DELETE",
-                            '_token': "{{ csrf_token() }}"
-                        },
-                        success: function(data, textStatus, jqXHR) {
-                            if (!data.error && !data.error2) {
-                                swal("Success!", data.success, "success")
-                                    .then((action) => {
-                                        window.location.reload();
-                                    });
-                            } else {
-                                if (data.error) {
-                                    swal("Error!", data.error, "error");
-                                } else {
-                                    swal("Error!", data.error2, "error");
-                                }
-                            }
-                        },
-                        error: function(error, jqXHR, textStatus, errorThrown) {
-                            swal("Error!", "Something went wrong", "error");
-                        },
-                    });
-                }
+        // Function to update vendor statistics
+        function updateVendorStatistics(vendorId) {
+            // Get all rows (including hidden ones)
+            var allRows = table.rows().data();
+            
+            // Filter rows for the selected vendor
+            var filteredRows = allRows.filter(function(row) {
+                return vendorId ? row.vendor_id == vendorId : true;
             });
+            
+            var totalVehicles = filteredRows.count();
+            var activeVehicles = 0;
+            var maintenanceVehicles = 0;
+            var inactiveVehicles = 0;
+            var typeDistribution = {};
+            
+            // Calculate statistics
+            filteredRows.each(function(row) {
+                var status = row.status.toLowerCase();
+                
+                // Count statuses
+                if (status.includes('active')) {
+                    activeVehicles++;
+                } else if (status.includes('maintenance')) {
+                    maintenanceVehicles++;
+                } else if (status.includes('inactive')) {
+                    inactiveVehicles++;
+                }
+                
+                // Get vehicle type name (we'll need to map IDs to names)
+                var vehicleTypeId = row.vehicle_id;
+                var vehicleTypeName = getVehicleTypeName(vehicleTypeId);
+                
+                // Count vehicle types
+                if (!typeDistribution[vehicleTypeName]) {
+                    typeDistribution[vehicleTypeName] = 0;
+                }
+                typeDistribution[vehicleTypeName]++;
+            });
+            
+            // Update statistics display
+            $('#totalVehicles').text(totalVehicles);
+            $('#activeVehicles').text(activeVehicles);
+            $('#maintenanceVehicles').text(maintenanceVehicles);
+            $('#inactiveVehicles').text(inactiveVehicles);
+            
+            // Update type distribution
+            updateTypeDistribution(typeDistribution);
+        }
+
+        // Helper function to get vehicle type name from ID
+        function getVehicleTypeName(vehicleTypeId) {
+            // This should match your $Vehicle data structure
+            // You might need to pass this from PHP or create a lookup object
+            var vehicleTypes = {
+                @foreach($Vehicle as $type)
+                    {{ $type->id }}: '{{ $type->type }}',
+                @endforeach
+            };
+            return vehicleTypes[vehicleTypeId] || 'Unknown';
+        }
+
+        // Function to reset statistics
+        function resetStatistics() {
+            $('#totalVehicles').text('0');
+            $('#activeVehicles').text('0');
+            $('#maintenanceVehicles').text('0');
+            $('#inactiveVehicles').text('0');
+            $('#typeDistribution').html('');
+        }
+
+        // Function to update type distribution display
+        function updateTypeDistribution(distribution) {
+            var typeDistributionHtml = '';
+            for (var type in distribution) {
+                typeDistributionHtml += `
+                    <div class="col-md-3">
+                        <div class="vehicle-type-item">
+                            <span class="vehicle-type-name">${type}</span>
+                            <span class="vehicle-type-count">${distribution[type]}</span>
+                        </div>
+                    </div>
+                `;
+            }
+            $('#typeDistribution').html(typeDistributionHtml);
+        }
+
+        // Search functionality
+        $('#searchInput').keyup(function() {
+            table.search($(this).val()).draw();
+            // Update statistics if a vendor is selected
+            if ($('#vendorSelect').val()) {
+                updateVendorStatistics($('#vendorSelect').val());
+            }
+        });
+
+        // Initial statistics calculation for all data
+        updateVendorStatistics();
     });
 </script>
+

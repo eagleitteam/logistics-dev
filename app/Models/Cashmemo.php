@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
-class Vendorhasvehicle extends BaseModel
+
+class Cashmemo extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['vendor_id', 'vehicle_number','Vehicle_id','capacity','status'];
-
+    protected $fillable = ['memo_no','memo_date', 'client_name','vehicle_no','vehicle_type','challan_no','origin','destination','rate','toll_charges','unloading_charges','handling_charges','other_expenses','balance_amount','payment_status','advance_amount','advance_date','note'];
 
     public static function booted()
     {

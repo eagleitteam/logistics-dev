@@ -184,6 +184,11 @@
                                 <a href="{{ route('Link-Vehical-With-Vender.index') }}" class="nav-link {{ request()->routeIs('Link-Vehical-With-Vender.index') ? 'active' : '' }}" data-key="t-horizontal">Link Vehical With Vender</a>
                             </li>
                             @endcan
+                            @can('CashMemo.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Cash-Memo.index') }}" class="nav-link {{ request()->routeIs('Cash-Memo.index') ? 'active' : '' }}" data-key="t-horizontal">Cash Memo</a>
+                            </li>
+                            @endcan
                            
 
                         </ul>
