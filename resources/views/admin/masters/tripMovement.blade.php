@@ -18,12 +18,19 @@
                                     </div>
                                 </div>
                                 <!--end col-->
-                                <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <label for="vehicalNoinput" class="form-label">Vehical NO</label>
-                                        <input type="text" class="form-control" placeholder="MH 04 GS 0065" id="vehicalNoinput">
-                                    </div>
-                                </div>
+                                
+                                    <div class="col-md-4">
+                                                    <label class="col-form-label" for="pincode" >Vehical Number</label>
+                                                    <select id="ForminputState" class="form-select" name="vehicle_no">
+                                                        <option value="">Select Vehical Number</option>
+                                                         @foreach ($VehicalNumber as $VehicalNumber)
+                                                                <option value="{{ $VehicalNumber->id }}">{{ $VehicalNumber->vehicle_number }}</option>
+                                                            @endforeach
+                                                    </select>
+                                                    <span class="text-danger invalid state_err"></span>
+
+                                                </div>
+                                
                                 <!--end col-->
 
                                 <div class="col-md-4">
@@ -63,8 +70,8 @@
                                     <label class="col-form-label" for="name">Select Client<span class="text-danger">*</span></label>
                                     <select class="form-control" id="client_id" name="client_id">
                                         <option value="">Select Client</option>
-                                        @foreach ($clients as $client)
-                                            <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                        @foreach ($clients as $clients)
+                                            <option value="{{ $clients->id }}">{{ $clients->name }}</option>
                                         @endforeach
                                     </select>
                                     <span class="text-danger invalid client_id_err"></span>

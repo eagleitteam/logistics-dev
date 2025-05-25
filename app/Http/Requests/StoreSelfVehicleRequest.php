@@ -29,7 +29,7 @@ class StoreSelfVehicleRequest extends FormRequest
             'chassis_num'                        => 'required',
             'eng_num'                        => 'required',
             'model_num'                        => 'required',
-            'toll_stm'                        => 'required',
+            'toll_stm'                        => 'nullable',
             'remark'                        => 'nullable',
             'f_s_d'                        => 'nullable',
             'f_e_d'                        => 'nullable',

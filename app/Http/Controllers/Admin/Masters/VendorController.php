@@ -17,7 +17,7 @@ class VendorController extends Controller
      */
     public function index()
     {
-        $vendors = Vendor::latest()->get();
+        $vendors = Vendor::with('states')->latest()->get();
 
         // Get distinct state names sorted alphabetically
          $stateNameWithCode = StateNameWithCode::latest()->get();
@@ -38,7 +38,10 @@ class VendorController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreVendorRequest $request)
-    {
+    {   
+       
+        
+
         try {
             DB::beginTransaction();
             $input = $request->validated();
@@ -80,7 +83,7 @@ class VendorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreVendorRequest $request, Vendor $vendor)
+    public function update(UpdateVendorRequest $request, Vendor $vendor)
     {
         try {
             DB::beginTransaction();

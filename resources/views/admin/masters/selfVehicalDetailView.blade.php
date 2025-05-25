@@ -1,6 +1,6 @@
 <x-admin.layout>
-    <x-slot name="title">Self Vehical's Details</x-slot>
-    <x-slot name="heading">Self Vehical's Details</x-slot>
+    <x-slot name="title">Self Vehical's Master</x-slot>
+    <x-slot name="heading">Self Vehical's Master</x-slot>
     {{-- <x-slot name="subheading">Test</x-slot> --}}
 
 
@@ -48,6 +48,7 @@
                                 <div class="mb-3">
                                     <label for="register_date" class="form-label">Register Date</label>
                                     <input type="date" class="form-control" id="register_date" name="register_date">
+                                    <span class="text-danger invalid register_date_err"></span>
                                 </div>
                             </div>
                             <!--end col-->
@@ -73,17 +74,15 @@
                                 <span class="text-danger invalid model_num_err"></span>
                             </div>
                             <div class="col-md-4">
-                                <label class="col-form-label" for="toll_stm">Toll STM Link With <span
-                                        class="text-danger">*</span></label>
+                                <label class="col-form-label" for="toll_stm">Toll STM Link With </label>
                                 <input class="form-control" id="toll_stm" name="toll_stm" type="text"
-                                    placeholder="Enter Toll STM Link With">
+                                    placeholder="Enter Refrance Toll STM Link With">
                                 <span class="text-danger invalid toll_stm_err"></span>
                             </div>
                             <div class="col-md-4">
-                                <label class="col-form-label" for="remark">Remark <span
-                                        class="text-danger">*</span></label>
+                                <label class="col-form-label" for="remark">Remark </label>
                                 <input class="form-control" id="remark" name="remark" type="text"
-                                    placeholder="Enter Remarkss">
+                                    placeholder="Enter Remarks">
                                 <span class="text-danger invalid remark_err"></span>
                             </div>
                             <br><br><br>
@@ -441,7 +440,7 @@
                 @csrf
                 <section class="card">
                     <header class="card-header">
-                        <h4 class="card-title">Edit Ward</h4>
+                        <h4 class="card-title">Edit Self Vehical Details</h4>
                     </header>
 
                     <div class="card-body py-2">
@@ -503,15 +502,13 @@
                                 <span class="text-danger invalid model_num_err"></span>
                             </div>
                             <div class="col-md-4">
-                                <label class="col-form-label" for="toll_stm">Toll STM Link With <span
-                                        class="text-danger">*</span></label>
+                                <label class="col-form-label" for="toll_stm">Toll STM Link With </label>
                                 <input class="form-control" id="toll_stm" name="toll_stm" type="text"
                                     placeholder="Enter Toll STM Link With">
                                 <span class="text-danger invalid toll_stm_err"></span>
                             </div>
                             <div class="col-md-4">
-                                <label class="col-form-label" for="remark">Remark <span
-                                        class="text-danger">*</span></label>
+                                <label class="col-form-label" for="remark">Remark </label>
                                 <input class="form-control" id="remark" name="remark" type="text"
                                     placeholder="Enter Remarkss">
                                 <span class="text-danger invalid remark_err"></span>
@@ -853,6 +850,422 @@
         </div>
     </div>
 
+    {{-- view Form --}}
+    <div class="row" id="viewContainer" style="display:none;">
+        <div class="col">
+            <form class="form-horizontal form-bordered" method="post" id="editForm">
+                @csrf
+                <section class="card">
+                    <header class="card-header">
+                        <h4 class="card-title">Edit Self Vehical Details</h4>
+                    </header>
+
+                    <div class="card-body py-2">
+
+                        <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
+                        <div class="mb-3 row">
+                            <div class="col-md-4">
+                                <label class="col-form-label" for="vehicle_number">Vehicle Number <span
+                                        class="text-danger">*</span></label>
+                                <input class="form-control" id="vehicle_number" name="vehicle_number" type="text"
+                                    placeholder="Enter Vehicle Number">
+                                <span class="text-danger invalid vehicle_number_err"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-form-label" for="vehicle_type">Vehicle Type <span
+                                        class="text-danger">*</span></label>
+                                <input class="form-control" id="vehicle_type" name="vehicle_type" type="text"
+                                    placeholder="Enter Vehicle Type">
+                                <span class="text-danger invalid vehicle_type_err"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="FormSelectBankType" class="form-label">Fule Type<span
+                                        class="text-danger">*</span></label>
+                                <select id="fule_type" name="fule_type" class="form-select" data-choices
+                                    data-choices-sorting="true">
+                                    <option>Select from list</option>
+                                    <option value="1">Diesel</option>
+                                    <option value="2">CNG</option>
+                                    <option value="3">Electrcal</option>
+                                </select>
+                                <span class="text-danger invalid fule_type_err"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="TripDate" class="form-label">Register Date</label>
+                                    <input type="date" class="form-control" id="register_date" name="register_date">
+                                </div>
+                            </div>
+                            <!--end col-->
+                            <div class="col-md-4">
+                                <label class="col-form-label" for="chassis_num">Chassis Number <span
+                                        class="text-danger">*</span></label>
+                                <input class="form-control" id="chassis_num" name="chassis_num" type="text"
+                                    placeholder="Enter Chassis Number">
+                                <span class="text-danger invalid chassis_num_err"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-form-label" for="eng_num">Engine Number <span
+                                        class="text-danger">*</span></label>
+                                <input class="form-control" id="eng_num" name="eng_num" type="text"
+                                    placeholder="Enter Engine Number">
+                                <span class="text-danger invalid eng_num_err"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-form-label" for="model_num">Model Number <span
+                                        class="text-danger">*</span></label>
+                                <input class="form-control" id="model_num" name="model_num" type="text"
+                                    placeholder="Enter Model Number">
+                                <span class="text-danger invalid model_num_err"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-form-label" for="toll_stm">Toll STM Link With </label>
+                                <input class="form-control" id="toll_stm" name="toll_stm" type="text"
+                                    placeholder="Enter Toll STM Link With">
+                                <span class="text-danger invalid toll_stm_err"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-form-label" for="remark">Remark </label>
+                                <input class="form-control" id="remark" name="remark" type="text"
+                                    placeholder="Enter Remarkss">
+                                <span class="text-danger invalid remark_err"></span>
+                            </div>
+                            <br><br><br>
+                            {{-- Start Tab Menu --}}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <header class="card-header">
+                                        <h5 class="mb-3">Other Details tabs</h5>
+                                    </header>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <ul class="nav nav-pills arrow-navtabs nav-success bg-light mb-3 justify-content-between w-100"
+                                                role="tablist">
+                                                <li class="nav-item ">
+                                                    <a class="nav-link active" data-bs-toggle="tab"
+                                                        href="#arrow-fitness" role="tab">
+                                                        <span class="d-block  d-sm-none"><i
+                                                                class="mdi mdi-home-variant"></i></span>
+                                                        <span class="d-none  d-sm-block">Fitness</span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item ">
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#arrow-tax"
+                                                        role="tab">
+                                                        <span class="d-block  d-sm-none"><i
+                                                                class="mdi mdi-account"></i></span>
+                                                        <span class="d-none  d-sm-block">Tax</span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item ">
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#arrow-insurance"
+                                                        role="tab">
+                                                        <span class="d-block  d-sm-none"><i
+                                                                class="mdi mdi-email"></i></span>
+                                                        <span class="d-none  d-sm-block">Insurance</span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item ">
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#arrow-permit"
+                                                        role="tab">
+                                                        <span class="d-block  d-sm-none"><i
+                                                                class="mdi mdi-email"></i></span>
+                                                        <span class="d-none  d-sm-block">Permit Details</span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item ">
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#arrow-puc"
+                                                        role="tab">
+                                                        <span class="d-block  d-sm-none"><i
+                                                                class="mdi mdi-email"></i></span>
+                                                        <span class="d-none  d-sm-block">PUC Details</span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item ">
+                                                    <a class="nav-link" data-bs-toggle="tab"
+                                                        href="#arrow-NationalPermit" role="tab">
+                                                        <span class="d-block  d-sm-none"><i
+                                                                class="mdi mdi-email"></i></span>
+                                                        <span class="d-none  d-sm-block">National Permit Details</span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item ">
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#arrow-loanDetails"
+                                                        role="tab">
+                                                        <span class="d-block  d-sm-none"><i
+                                                                class="mdi mdi-email"></i></span>
+                                                        <span class="d-none  d-sm-block">Loan Details</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <!-- Tab panes -->
+                                            <div class="tab-content text-muted ">
+                                                {{-- Fitness Tab --}}
+                                                <div class="tab-pane active" id="arrow-fitness" role="tabpanel">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">Fitness Start
+                                                                    Date</label>
+                                                                <input type="date" class="form-control" id="f_s_d" name="f_s_d">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">Fitness END
+                                                                    Date</label>
+                                                                <input type="date" class="form-control" id="f_e_d" name="f_e_d">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="mb-3">
+                                                            <label for="formFile" class="form-label">Upload Fitness
+                                                                Document (PDF)</label>
+                                                            <input class="form-control" type="file" id="file" name="file">
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                </div>
+
+                                                {{-- Tax Tab --}}
+                                                <div class="tab-pane " id="arrow-tax" role="tabpanel">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">TAX Start
+                                                                    Date</label>
+                                                                <input type="date" class="form-control" id="TripDate">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">TAX END
+                                                                    Date</label>
+                                                                <input type="date" class="form-control" id="TripDate">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="formFile" class="form-label">Upload Tax
+                                                                    Document (PDF)</label>
+                                                                <input class="form-control" type="file" id="formFile">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                    </div>
+                                                </div>
+
+                                                {{-- Insurance Tab --}}
+                                                <div class="tab-pane " id="arrow-insurance" role="tabpanel">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">Insurance Start
+                                                                    Date</label>
+                                                                <input type="date" class="form-control" id="TripDate">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">Insurance END
+                                                                    Date</label>
+                                                                <input type="date" class="form-control" id="TripDate">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="insuranceName" class="form-label">Insurance
+                                                                    Company Name</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="insuranceName">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="formFile" class="form-label">Upload
+                                                                    Insurance Document (PDF)</label>
+                                                                <input class="form-control" type="file" id="formFile">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                    </div>
+                                                </div>
+
+                                                {{-- PUC Tab --}}
+                                                <div class="tab-pane " id="arrow-puc" role="tabpanel">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">PUC Start
+                                                                    Date</label>
+                                                                <input type="date" class="form-control" id="TripDate">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">PUC END
+                                                                    Date</label>
+                                                                <input type="date" class="form-control" id="TripDate">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="formFile" class="form-label">Upload PUC
+                                                                    (PDF)</label>
+                                                                <input class="form-control" type="file" id="formFile">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                    </div>
+                                                </div>
+                                                {{-- PERMIT Tab --}}
+                                                <div class="tab-pane " id="arrow-permit" role="tabpanel">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">PERMIT Start
+                                                                    Date</label>
+                                                                <input type="date" class="form-control" id="TripDate">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">PERMIT END
+                                                                    Date</label>
+                                                                <input type="date" class="form-control" id="TripDate">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="formFile" class="form-label">Upload Permit
+                                                                    Document (PDF)</label>
+                                                                <input class="form-control" type="file" id="formFile">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                    </div>
+                                                </div>
+
+                                                {{-- NATIONAL PERMIT Tab --}}
+                                                <div class="tab-pane " id="arrow-NationalPermit" role="tabpanel">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">National Permit
+                                                                    Start Date</label>
+                                                                <input type="date" class="form-control" id="TripDate">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">National Permit
+                                                                    END Date</label>
+                                                                <input type="date" class="form-control" id="TripDate">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="formFile" class="form-label">Upload National
+                                                                    Permit Document (PDF)</label>
+                                                                <input class="form-control" type="file" id="formFile">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                    </div>
+                                                </div>
+
+                                                {{-- Loan Details Tab --}}
+                                                <div class="tab-pane " id="arrow-loanDetails" role="tabpanel">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">Loan Start
+                                                                    Date</label>
+                                                                <input type="date" class="form-control" id="TripDate">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">Loan END
+                                                                    Date</label>
+                                                                <input type="date" class="form-control" id="TripDate">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">Bank
+                                                                    Name</label>
+                                                                <input type="text" class="form-control" id="TripDate">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">Loan
+                                                                    AMT</label>
+                                                                <input type="number" class="form-control" id="TripDate">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-2">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">EMI
+                                                                    Count</label>
+                                                                <input type="number" class="form-control" id="TripDate">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">EMI AMT</label>
+                                                                <input type="number" class="form-control" id="TripDate">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="TripDate" class="form-label">EMI
+                                                                    Date</label>
+                                                                <input type="date" class="form-control" id="TripDate">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <label for="formFile" class="form-label">Upload Loan
+                                                                    Document (PDF)</label>
+                                                                <input class="form-control" type="file" id="formFile">
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="card-footer">
+                                                    <button class="btn btn-primary" id="editSubmit">Submit</button>
+                                                    <button type="reset" class="btn btn-warning">Reset</button>
+                                                </div>
+                </section>
+            </form>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-lg-12">
@@ -901,11 +1314,15 @@
                                     <td>{{ $fuelType }}</td>
                                     <td>
                                         @can('selfVehicle.edit')
-                                        <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle"
+                                        <button class="edit-element btn btn-success px-2 py-1" title="View Vehicle Details"
+                                            data-id="{{ $selfVehical->id }}"><i data-feather="eye"></i></button>
+                                         @endcan
+                                        @can('selfVehicle.edit')
+                                        <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle Entry"
                                             data-id="{{ $selfVehical->id }}"><i data-feather="edit"></i></button>
                                          @endcan
                                             @can('selfVehicle.delete')
-                                        <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle"
+                                        <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle Entry"
                                             data-id="{{ $selfVehical->id }}"><i data-feather="trash-2"></i> </button>
                                         @endcan
                                     </td>

@@ -70,27 +70,27 @@
                             @endcanany
                             @can('vehicles.view')
                                 <li class="nav-item">
-                                    <a href="{{ route('vehicles.index') }}" class="nav-link {{ request()->routeIs('vehicles.index') ? 'active' : '' }}" data-key="t-horizontal">Vehicles</a>
+                                    <a href="{{ route('vehicles.index') }}" class="nav-link {{ request()->routeIs('vehicles.index') ? 'active' : '' }}" data-key="t-horizontal">Add Vehicles Type Master</a>
                                 </li>
                             @endcan
                             @can('vendors.view')
                             <li class="nav-item">
-                                <a href="{{ route('vendors.index') }}" class="nav-link {{ request()->routeIs('vendors.index') ? 'active' : '' }}" data-key="t-horizontal">Vendors</a>
+                                <a href="{{ route('vendors.index') }}" class="nav-link {{ request()->routeIs('vendors.index') ? 'active' : '' }}" data-key="t-horizontal"> Vendor Master</a>
                             </li>
                             @endcan
                             @can('clients.view')
                             <li class="nav-item">
-                                <a href="{{ route('clients.index') }}" class="nav-link {{ request()->routeIs('clients.index') ? 'active' : '' }}" data-key="t-horizontal">Clients</a>
+                                <a href="{{ route('clients.index') }}" class="nav-link {{ request()->routeIs('clients.index') ? 'active' : '' }}" data-key="t-horizontal"> Client Master</a>
                             </li>
                             @endcan
                             @can('drivers.view')
                             <li class="nav-item">
-                                <a href="{{ route('drivers.index') }}" class="nav-link {{ request()->routeIs('drivers.index') ? 'active' : '' }}" data-key="t-horizontal">Drivers</a>
+                                <a href="{{ route('drivers.index') }}" class="nav-link {{ request()->routeIs('drivers.index') ? 'active' : '' }}" data-key="t-horizontal">Add New Drivers</a>
                             </li>
                             @endcan
                             @can('selfVehicle.view')
                             <li class="nav-item">
-                                <a href="{{ route('selfVehicle.index') }}" class="nav-link {{ request()->routeIs('selfVehicle.index') ? 'active' : '' }}" data-key="t-horizontal">Self Vehicle</a>
+                                <a href="{{ route('selfVehicle.index') }}" class="nav-link {{ request()->routeIs('selfVehicle.index') ? 'active' : '' }}" data-key="t-horizontal">Self Vehicle Master</a>
                             </li>
                             @endcan
                             <li class="nav-item">

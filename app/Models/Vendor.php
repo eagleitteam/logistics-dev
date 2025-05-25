@@ -11,6 +11,12 @@ class Vendor extends BaseModel
 
     protected $fillable = ['name','vendor_address','gst_no','tds_applicable','tds_rate','contact_name','contact_no','alternate_contact_no','email','city','pincode','state'];
 
+    public function states()
+    {
+        return $this->belongsTo(StateNameWithCode::class, 'state');
+    }
+
+
     public static function booted()
     {
         static::created(function (self $user)

@@ -34,7 +34,7 @@ class CashmemoController extends Controller
             $vehiclenumbers = Vehicle::latest()->get();
 
         // Pass both clients and states to the view
-         return view("admin.masters.cashMemo")->with(['cashmemo'=>$cashmemos,'Vehicletype'=>$vehicles,'clients'=>$clients,'Vehicleno'=>$vehiclenumbers]);
+         return view("admin.masters.cashMemo")->with(['cashmemo'=>$cashmemos,'Vehicle'=>$vehicles,'clients'=>$clients,'Vehicle'=>$vehiclenumbers]);
     }
 
     /**
@@ -75,12 +75,13 @@ class CashmemoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(cashmemo $cashmemos)
-    {
+    public function edit(cashmemo $cashmemo, Request $request)
+    { 
+        $cashMemores = cashmemo::find($request->model_id);
         try {
             return response()->json([
-                'cashmemo' => $cashmemos,
-                'success' => 'Vendor retrieved successfully'
+                'memo' => $cashMemores,
+                'success' => 'cashmemo retrieved successfully'
             ]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to retrieve cashmemo'], 500);
@@ -90,7 +91,7 @@ class CashmemoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreClientRequest $request, cashmemo $cashmemos)
+    public function update(StoreCashmemoRequest $request, cashmemo $cashmemos)
     {
        try {
             DB::beginTransaction();
@@ -107,9 +108,10 @@ class CashmemoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(cashmemo $cashmemos)
+    public function destroy(cashmemo  $cashmemos, Request $request)
     {
         try {
+            $cashmemos = cashmemo::find($request->model_id);
             DB::beginTransaction();
             $cashmemos->delete();
             DB::commit();

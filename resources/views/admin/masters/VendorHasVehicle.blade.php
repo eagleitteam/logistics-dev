@@ -28,17 +28,35 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
+                    <form action="{{ route('Link-Vehical-With-Vender.index')  }}" method="GET" id="vendorFilterForm">
+                    @csrf
                     <div class="row align-items-center">
                         <div class="col-lg-4">
                             <label for="vendorSelect" class="form-label">Vendor Name</label>
-                            <select class="form-control" id="vendorSelect" required>
+                            <select class="form-control" id="vendorSelect" name="vendor_id" required>
                                 <option value="">Select Vendor</option>
                                 @foreach ($Vendor as $vendor)
-                                    <option value="{{ optional($vendor)->id }}">{{ optional($vendor)->name }}</option>
+                                    <option value="{{ optional($vendor)->id }}" {{ ($vendorId == $vendor->id) ? 'Selected':'' }} >{{ optional($vendor)->name }}</option>
                                 @endforeach
                             </select>
                         </div>
+                        
+                        <div class="col-lg-2">
+                            <button type="submit" id="searchbtn"  class="btn btn-primary" data-bs-toggle="modal">
+                                <i class="fas fa-plus me-2"></i>Search Vehicles
+                            </button>
+                        </div>
+                        
+                        
+<div class="col-lg-2">
+    <a href="{{ route('Link-Vehical-With-Vender.index') }}" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>Refresh
+    </a>
+</div>
+
+                        
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -46,36 +64,37 @@
     {{-- END --}}
 
     {{-- Vendor Statistics --}}
-    <div class="row" id="vendorStatsRow" style="display: none;">
+    <div class="row" id="vendorStatsRow" style="display: block;">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 id="vendorTitle">Vendor Statistics</h4>
+                    <h4 id="vendorTitle">{{ $vendorhasvehicle[0]->vendor->name ?? 'All' }} Vendor Statistics</h4>
+
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="stat-card">
                                 <h3>Total Vehicles</h3>
-                                <p id="totalVehicles">0</p>
+                                <p id="totalVehicles">{{ $totalVehicles }}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="stat-card">
                                 <h3>Active Vehicles</h3>
-                                <p id="activeVehicles">0</p>
+                                <p id="activeVehicles">{{ $activeVehicles }}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="stat-card">
                                 <h3>In Maintenance</h3>
-                                <p id="maintenanceVehicles">0</p>
+                                <p id="maintenanceVehicles">{{ $maintenanceVehicles }}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="stat-card">
                                 <h3>Inactive Vehicles</h3>
-                                <p id="inactiveVehicles">0</p>
+                                <p id="inactiveVehicles">{{ $inactiveVehicles }}</p>
                             </div>
                         </div>
                     </div>
@@ -136,7 +155,7 @@
                                         <td>{{ $vendorhasvehi->status }}</td>
                                         <td>
                                             @can('VendorHasVehicle.edit')
-                                                <button class="edit-element btn btn-secondary px-2 py-1" title="Edit vendorhasvehicle" data-id="{{ $vendorhasvehi->id }}"><i data-feather="edit"></i></button>
+                                                <button class="edit-element btn btn-secondary px-2 py-1" title="Edit vendorhasvehicle" data-id="{{ $vendorhasvehi->id }}" data-bs-toggle="modal" data-bs-target="#editVehicleModal"><i data-feather="edit"></i></button>
                                             @endcan
                                             @can('VendorHasVehicle.delete')
                                                 <button class="btn btn-danger rem-element px-2 py-1" title="Delete vendorhasvehicle" data-id="{{ $vendorhasvehi->id }}"><i data-feather="trash-2"></i> </button>
@@ -164,6 +183,94 @@
                 <form class="theme-form" name="vendorVehicleForm" id="vendorVehicleForm" enctype="multipart/form-data">
                     @csrf
                 
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label for="vendorNameModal">Vendor Name</label>
+                            <select id="vendorNameModal" name="vendor_id"  class="form-control">
+                                <option value="">Select Vendor</option>
+                                @foreach ($Vendor as $vendor)
+                                    <option value="{{ optional($vendor)->id }}">{{ optional($vendor)->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div id="vehiclesContainer">
+                            <div class="vehicle-container card mb-3">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="vehicle-title">Vehicle #1</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-3">
+                                                <label for="vehicleType1">Vehicle Type</label>
+                                                <select id="vehicleType1" name="Vehicle_id[]" class="form-control" >
+                                                    <option value="">Select Type</option>
+                                                    @foreach ($Vehicle as $VehicleType)
+                                                        <option value="{{ optional($VehicleType)->id }}">{{ optional($VehicleType)->type }}</option>
+                                                     @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-3">
+                                                <label for="vehicleNumber1">Vehicle Number</label>
+                                                <input type="text" name="vehicle_number[]" id="vehicleNumber1" class="form-control" placeholder="e.g. MH01AB1234" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-3">
+                                                <label for="capacity1">Capacity (kg)</label>
+                                                <input type="number" name="capacity[]" id="capacity1" class="form-control" placeholder="e.g. 1000">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-3">
+                                                <label for="status1">Status</label>
+                                                <select id="status1" name="status[]" class="form-control">
+                                                    <option value="active">Active</option>
+                                                    <option value="maintenance">Maintenance</option>
+                                                    <option value="inactive">Inactive</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <button type="button" id="addMoreVehicles" class="btn btn-secondary">
+                                <i class="fas fa-plus me-2"></i> Add More Vehicles
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="addSubmit">
+                            <i class="fas fa-save me-2"></i> Save Vehicles
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Vehicle Modal -->
+    <div class="modal fade" id="editVehicleModal" tabindex="-1" aria-labelledby="editVehicleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editVehicleModalLabel">Edit Vehicle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                 <form class="form-horizontal form-bordered" method="post" id="editForm">
+                @csrf
+                    <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
                     <div class="modal-body">
                         <div class="form-group mb-3">
                             <label for="vendorNameModal">Vendor Name</label>
@@ -228,55 +335,6 @@
                             <button type="button" id="addMoreVehicles" class="btn btn-secondary">
                                 <i class="fas fa-plus me-2"></i> Add More Vehicles
                             </button>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="addSubmit">
-                            <i class="fas fa-save me-2"></i> Save Vehicles
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Edit Vehicle Modal -->
-    <div class="modal fade" id="editVehicleModal" tabindex="-1" aria-labelledby="editVehicleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editVehicleModalLabel">Edit Vehicle</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form id="editVehicleForm">
-                    <input type="hidden" id="editVehicleId">
-                    <div class="modal-body">
-                        <div class="form-group mb-3">
-                            <label for="editVehicleType">Vehicle Type</label>
-                            <select id="editVehicleType" class="form-control" required>
-                                <option value="">Select Type</option>
-                                <option value="truck">Truck</option>
-                                <option value="van">Van</option>
-                                <option value="trailer">Trailer</option>
-                                <option value="container">Container</option>
-                            </select>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="editVehicleNumber">Vehicle Number</label>
-                            <input type="text" id="editVehicleNumber" class="form-control" required>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="editCapacity">Capacity (kg)</label>
-                            <input type="number" id="editCapacity" class="form-control" required>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="editStatus">Status</label>
-                            <select id="editStatus" class="form-control" required>
-                                <option value="active">Active</option>
-                                <option value="maintenance">Maintenance</option>
-                                <option value="inactive">Inactive</option>
-                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -359,7 +417,7 @@
         $("#addSubmit").prop('disabled', true);
 
         var formdata = new FormData(this);
-        console.log(formdata);
+         
         $.ajax({
             url: '{{ route('Link-Vehical-With-Vender.store') }}',
             type: 'POST',
@@ -392,7 +450,133 @@
     });
 </script>
 
+<!-- Edit -->
+<script>
+    $("#vendorVehiclesTable").on("click", ".edit-element", function(e) {
+        e.preventDefault();
+        var model_id = $(this).attr("data-id");
+        var url = "{{ route('Link-Vehical-With-Vender.edit', ':model_id') }}";
 
+        $.ajax({
+            url: url.replace(':model_id', model_id),
+            type: 'GET',
+            data: {
+                'model_id': model_id,
+                '_token': "{{ csrf_token() }}"
+            },
+            success: function(data, textStatus, jqXHR) {
+                editFormBehaviour();
+                if (!data.error) {
+                    $("#editForm select[name='vendor_id']").val(data.vendorhasvehicle.vendor_id).trigger('change');
+                    $("#editForm select[name='Vehicle_id']").val(data.vendorhasvehicle.vehicle_id).trigger('change');
+                    $("#editForm input[name='vehicle_number']").val(data.vendorhasvehicle.vehicle_number);
+                    $("#editForm input[name='vehicle_id']").val(data.vendorhasvehicle.vehicle_id);
+                    $("#editForm input[name='capacity']").val(data.vendorhasvehicle.capacity);
+                    $("#editForm select[name='status']").val(data.vendorhasvehicle.status).trigger('change');
+
+                } else {
+                    alert(data.error);
+                }
+            },
+            error: function(error, jqXHR, textStatus, errorThrown) {
+                alert("Something went wrong");
+            },
+        });
+    });
+</script>
+
+
+<!-- Update -->
+<script>
+    $(document).ready(function() {
+        $("#editForm").submit(function(e) {
+            e.preventDefault();
+            $("#editSubmit").prop('disabled', true);
+            var formdata = new FormData(this);
+            formdata.append('_method', 'PUT');
+            var model_id = $('#edit_model_id').val();
+            var url = "{{ route('Link-Vehical-With-Vender.update', ':model_id') }}";
+
+            $.ajax({
+                url: url.replace(':model_id', model_id),
+                type: 'POST',
+                data: formdata,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    $("#editSubmit").prop('disabled', false);
+                    if (!data.error2)
+                        swal("Successful!", data.success, "success")
+                        .then((action) => {
+                            window.location.href = '{{ route('Link-Vehical-With-Vender.index') }}';
+                        });
+                    else
+                        swal("Error!", data.error2, "error");
+                },
+                statusCode: {
+                    422: function(responseObject, textStatus, jqXHR) {
+                        $("#editSubmit").prop('disabled', false);
+                        resetErrors();
+                        printErrMsg(responseObject.responseJSON.errors);
+                    },
+                    500: function(responseObject, textStatus, errorThrown) {
+                        $("#editSubmit").prop('disabled', false);
+                        swal("Error occurred!", "Something went wrong please try again", "error");
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+
+
+<!-- Delete -->
+<script>
+    $("#vendorVehiclesTable").on("click", ".rem-element", function(e) {
+        e.preventDefault();
+        swal({
+                title: "Are you sure to delete this Vehical Entry?",
+                icon: "warning",
+                buttons: ["Cancel", "Confirm"],
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    var model_id = $(this).attr("data-id");
+                    alert(model_id);
+                    var url = "{{ route('Link-Vehical-With-Vender.destroy', ':model_id') }}";
+
+                    $.ajax({
+                        url: url.replace(':model_id', model_id),
+                        type: 'POST',
+                        data: {
+                            'model_id': model_id,
+                            '_method': "DELETE",
+                            '_token': "{{ csrf_token() }}"
+                        },
+                        success: function(data, textStatus, jqXHR) {
+                            if (!data.error && !data.error2) {
+                                swal("Success!", data.success, "success")
+                                    .then((action) => {
+                                        window.location.reload();
+                                    });
+                            } else {
+                                if (data.error) {
+                                    swal("Error!", data.error, "error");
+                                } else {
+                                    swal("Error!", data.error2, "error");
+                                }
+                            }
+                        },
+                        error: function(error, jqXHR, textStatus, errorThrown) {
+                            swal("Error!", "Something went wrong", "error");
+                        },
+                    });
+                }
+            });
+    });
+</script>
 
 <!-- Appending the script to add more vehicles dynamically -->
 <script>
@@ -415,7 +599,7 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="vehicleType${vehicleCount}">Vehicle Type</label>
-                                    <select id="vehicleType${vehicleCount}" name="Vehicle_id" class="form-control" required>
+                                    <select id="vehicleType${vehicleCount}" name="Vehicle_id[]" class="form-control" required>
                                         <option value="">Select Type</option>
                                         @foreach ($Vehicle as $VehicleType)
                                             <option value="{{ optional($VehicleType)->id }}">{{ optional($VehicleType)->type }}</option>
@@ -426,7 +610,7 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="vehicleNumber${vehicleCount}">Vehicle Number</label>
-                                    <input type="text" id="vehicleNumber${vehicleCount}" name="vehicle_number" class="form-control" placeholder="e.g. MH01AB1234" required>
+                                    <input type="text" id="vehicleNumber${vehicleCount}" name="vehicle_number[]" class="form-control" placeholder="e.g. MH01AB1234" required>
                                 </div>
                             </div>
                         </div>
@@ -434,13 +618,13 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="capacity${vehicleCount}">Capacity (kg)</label>
-                                    <input type="number" id="capacity${vehicleCount}" name="capacity" class="form-control" placeholder="e.g. 1000" required>
+                                    <input type="number" id="capacity${vehicleCount}" name="capacity[]" class="form-control" placeholder="e.g. 1000" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="status${vehicleCount}">Status</label>
-                                    <select id="status${vehicleCount}" name="status" class="form-control" required>
+                                    <select id="status${vehicleCount}" name="status[]" class="form-control" required>
                                         <option value="active">Active</option>
                                         <option value="maintenance">Maintenance</option>
                                         <option value="inactive">Inactive</option>
@@ -468,32 +652,32 @@
 </script>
 
 <!-- display data as per vender selection -->
-<script>
-    $(document).ready(function() {
-        // Initialize DataTable with server-rendered data
-        var table = $('#vendorVehiclesTable').DataTable({
-            responsive: true,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ],
-            // Use server-rendered data (disable DataTables processing)
-            processing: false,
-            serverSide: false,
-            // Map the columns to your actual data structure
-            columns: [
-                { data: 'sr_no' }, // Sr No (auto-generated in loop)
-                { data: 'vendor_id' }, // Vendor ID
-                { data: 'vehicle_number' }, // Vehicle Number
-                { data: 'vehicle_id' }, // Vehicle Type ID
-                { data: 'capacity' }, // Capacity
-                { data: 'status' }, // Status
-                { data: 'actions', orderable: false } // Actions
-            ]
-        });
+<!-- <script>
+    // $(document).ready(function() {
+    //     // Initialize DataTable with server-rendered data
+    //     var table = $('#vendorVehiclesTable').DataTable({
+    //         responsive: true,
+    //         dom: 'Bfrtip',
+    //         buttons: [
+    //             'copy', 'csv', 'excel', 'pdf', 'print'
+    //         ],
+    //         // Use server-rendered data (disable DataTables processing)
+    //         processing: false,
+    //         serverSide: false,
+    //         // Map the columns to your actual data structure
+    //         columns: [
+    //             { data: 'sr_no' }, // Sr No (auto-generated in loop)
+    //             { data: 'vendor_id' }, // Vendor ID
+    //             { data: 'vehicle_number' }, // Vehicle Number
+    //             { data: 'vehicle_id' }, // Vehicle Type ID
+    //             { data: 'capacity' }, // Capacity
+    //             { data: 'status' }, // Status
+    //             { data: 'actions', orderable: false } // Actions
+    //         ]
+    //     });
 
         // Vendor selection change handler
-        $('#vendorSelect').change(function() {
+        $('#searchbtn').change(function() {
             var vendorId = $(this).val();
             
             if (vendorId) {
@@ -618,5 +802,49 @@
         // Initial statistics calculation for all data
         updateVendorStatistics();
     });
+</script> -->
+
+<!-- display data as per vender selection -->
+ <script>
+$(document).on('change', '#vendorSelect', function () {
+    var vendorId = $(this).val();
+
+    if (vendorId) {
+        $.ajax({
+            url: "{{ route('get_vendor_details') }}",
+            type: "GET",
+            data: {
+                vendorId: vendorId
+            },
+            success: function(response) {
+                if (response.success) {
+                   // Set vendor name in the h4 title
+                    $('#vendorNameText').text(response.vendorDetails.name);
+                   $('#vendorStatsRow').show();
+                } else {
+                    alert(response.message);
+                    // If vendor not selected, hide the stats
+                    $('#vendorStatsRow').hide();
+                    $('#vendorNameText').text('');
+                }
+            },
+            error: function(xhr) {
+                alert("Something went wrong while fetching vendor data.");
+                console.error(xhr.responseText);
+            }
+        });
+    }
+});
+</script>
+
+<script>
+$(document).ready(function () {
+    const storedVendorId = sessionStorage.getItem('selectedVendorId');
+    
+    if (storedVendorId) {
+        $('#vendorSelect').val(storedVendorId).trigger('change');
+        $('#vendorStatsRow').show(); // show stats row if vendor was previously selected
+    }
+});
 </script>
 

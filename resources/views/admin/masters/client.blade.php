@@ -1,6 +1,6 @@
 <x-admin.layout>
-    <x-slot name="title">Sate Name With State Code Master</x-slot>
-    <x-slot name="heading">Sate Name With State Code Master</x-slot>
+    <x-slot name="title"> Client Master</x-slot>
+    <x-slot name="heading"> Client Master</x-slot>
     {{-- <x-slot name="subheading">Test</x-slot> --}}
 
 
@@ -19,11 +19,26 @@
                                 <input class="form-control" id="name" name="name" type="text" placeholder="Enter Client Company Name">
                                 <span class="text-danger invalid name_err"></span>
                             </div>
-                            <div class="col-md-4">
+                            <!-- <div class="col-md-4">
                                 <label class="col-form-label" for="gst_no">GST NO <span class="text-danger">*</span></label>
                                 <input class="form-control" id="gst_no" name="gst_no" type="text" placeholder="Enter GST NO">
                                 <span class="text-danger invalid gst_no_err"></span>
-                            </div>
+                            </div> -->
+                            <!-- GST Registered Checkbox -->
+                            <!-- GST Registered Checkbox Container -->
+                                <div class="col-md-4" id="gst_checkbox_container">
+                                    <br> 
+                                    <label class="col-form-label" for="gst_registered">
+                                        <input  type="checkbox" id="gst_registered"> GST Registered
+                                    </label>
+                                </div>
+
+                                <!-- GST NO Input (initially hidden) -->
+                                <div class="col-md-4" id="gst_no_container" style="display: none;">
+                                    <label class="col-form-label" for="gst_no">GST NO <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="gst_no" name="gst_no" type="text" placeholder="Enter GST NO">
+                                    <span class="text-danger invalid gst_no_err"></span>
+                                </div>
                             <div class="col-md-4">
                                 <label class="col-form-label" for="email">Email Address <span class="text-danger">*</span></label>
                                 <input class="form-control" id="email" name="email" type="email" placeholder="Enter Email Address">
@@ -47,7 +62,7 @@
                             <div class="col-md-12">
                                 <label class="col-form-label" for="billing_address">Billing Address <span class="text-danger">*</span></label>
                                 <input class="form-control" id="billing_address" name="billing_address" type="text" placeholder="Enter Billing Address">
-                                <span class="text-danger invalid alternate_contact_no_err"></span>
+                                <span class="text-danger invalid billing_address_err"></span>
                             </div>
                             <div class="col-md-4">
                                 <label class="col-form-label" for="city">City <span class="text-danger">*</span></label>
@@ -167,10 +182,8 @@
                         <div class="col-md-4">
                                                     <label class="col-form-label" for="billing_type" >Billing Type</label>
                                                     <select id="ForminputState" class="form-select" name="billing_type">
-                                                        <option selected>Choose...</option>
-                                                        <option value="1">Immediate</option>
-                                                        <option value="2">Month End</option>
-                                                        <option value="3">Respestive Period</option>
+                                                        <option value="">Choose...</option>
+                                                        
                                                     </select>
                                                     <span class="text-danger invalid billing_type_err"></span>
 
@@ -435,6 +448,21 @@
     });
 </script>
 
+<!-- GST Registered Checkbox -->
+<script>
+    $(document).ready(function () {
+    $('#gst_registered').change(function () {
+        if ($(this).is(':checked')) {
+            // Hide the checkbox container
+            $('#gst_checkbox_container').hide();
 
+            // Show GST NO input
+            $('#gst_no_container').slideDown();
+        }
+    });
 
+    
+});
+
+</script>
 

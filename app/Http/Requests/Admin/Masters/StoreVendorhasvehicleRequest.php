@@ -23,10 +23,12 @@ class StoreVendorhasvehicleRequest extends FormRequest
     {
         return [
                 'vendor_id' => 'required|exists:vendors,id',
-                'Vehicle_id' => 'required|string|max:20',
-                'vehicle_number' => 'required|string|max:20',
-                'capacity' => 'numeric',
-                'status' => 'required|in:active,maintenance,inactive',
+                'Vehicle_id' => 'required|array|max:20',
+                'vehicle_number' => 'required|array|max:20',
+                'capacity' => 'required|array|max:20',
+                'status' => 'required|array',
+                'status.*' => 'in:active,maintenance,inactive',
+
         ];
     }
 }

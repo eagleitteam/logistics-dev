@@ -11,11 +11,13 @@
                         <div class="col-md-6">
                             <h3><i class="fas fa-receipt me-2"></i> Cash Memo Management System</h3>
                         </div>
+                        @can('CashMemo.create')
                         <div class="col-md-6 text-end">
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMemoModal">
                                 <i class="fas fa-plus me-2"></i>Add Cash Memo
                             </button>
                         </div>
+                         @endcan
                     </div>
                 </div>
             </div>
@@ -88,79 +90,65 @@
                         <table id="cash-memo-datatable" class="table table-bordered nowrap align-middle" style="width:100%">
                             <thead class="table-light">
                                 <tr>
+                                    <th>Sr No</th>
                                     <th>Memo No</th>
                                     <th>Date</th>
                                     <th>Client Name</th>
                                     <th>Vehicle No</th>
-                                    <th>Amount</th>
+                                    <th>Vehicle Type</th>
+                                    <th>Origin</th>
+                                    <th>Destination</th>
+                                    <th>Rate</th>
+                                    <th>All Exp</th>
+                                    <th>Adv AMT</th>
+                                    <th>Adv Date</th>
+                                    <th>Bal Amt</th>
                                     <th>Status</th>
+                                    <th>Note</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($cashmemo as $memo)
                                 <tr>
-                                    <td>CM-2023-105</td>
-                                    <td>15 Oct 2023</td>
-                                    <td>ABC Corporation</td>
-                                    <td>MH12 AB 1234</td>
-                                    <td>₹12,750.00</td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $memo->memo_no }}</td>
+                                    <td>{{ $memo->memo_date }}</td>
+                                    <td>{{ $memo->client_name }}</td>
+                                    <td>{{ $memo->vehicle_no }}</td>
+                                    <td>{{ $memo->vehicle_type }}</td>
+                                    <td>{{ $memo->origin }}</td>
+                                    <td>{{ $memo->destination }}</td>
+                                    <td>{{ $memo->rate }}</td>
+                                    <td>{{ $memo->toll_charges }}</td>
+                                    <td>{{ $memo->advance_amount }}</td>
+                                    <td>{{ $memo->advance_date }}</td>
+                                    <td>{{ $memo->balance_amount }}</td>
                                     <td><span class="badge bg-success">Paid</span></td>
+                                    <td>{{ $memo->note }}</td>
+                                    
+                                    
                                     <td>
                                         <div class="d-flex gap-2">
-                                            <button class="btn btn-sm btn-info view-btn" data-bs-toggle="modal" data-bs-target="#viewMemoModal">
+                                            @can('CashMemo.edit')
+                                            <button class="btn btn-sm btn-info view-btn" data-bs-toggle="modal" title="Edit memo" data-id="{{ $memo->id }}" data-bs-target="#viewMemoModal">
                                                 <i class="fas fa-eye"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-warning edit-btn" data-bs-toggle="modal" data-bs-target="#editMemoModal">
+                                             @endcan
+                                             @can('CashMemo.edit')
+                                            <button  class="btn btn-sm btn-warning edit-btn" data-bs-toggle="modal" title="Edit memo" data-id="{{ $memo->id }}" data-bs-target="#editMemoModal">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-danger delete-btn">
+                                             @endcan
+                                             @can('CashMemo.delete')
+                                            <button class="btn btn-sm btn-danger delete-btn" data-id="{{ $memo->id }}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
+                                             @endcan
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>CM-2023-104</td>
-                                    <td>14 Oct 2023</td>
-                                    <td>XYZ Logistics</td>
-                                    <td>DL4C CD 5678</td>
-                                    <td>₹8,450.00</td>
-                                    <td><span class="badge bg-warning text-dark">Pending</span></td>
-                                    <td>
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-sm btn-info view-btn" data-bs-toggle="modal" data-bs-target="#viewMemoModal">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-warning edit-btn" data-bs-toggle="modal" data-bs-target="#editMemoModal">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-danger delete-btn">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>CM-2023-103</td>
-                                    <td>13 Oct 2023</td>
-                                    <td>Global Traders</td>
-                                    <td>KA03 EF 9012</td>
-                                    <td>₹15,320.00</td>
-                                    <td><span class="badge bg-primary">Partial</span></td>
-                                    <td>
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-sm btn-info view-btn" data-bs-toggle="modal" data-bs-target="#viewMemoModal">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-warning edit-btn" data-bs-toggle="modal" data-bs-target="#editMemoModal">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-danger delete-btn">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -177,7 +165,8 @@
                     <h5 class="modal-title" id="addMemoModalLabel">Add New Cash Memo</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="addMemoForm">
+                <form class="theme-form" name="addForm" id="addForm" enctype="multipart/form-data">
+                    @csrf
                     <div class="modal-body">
                         <div class="row g-3">
                             <div class="col-md-6">
@@ -187,22 +176,22 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="memoDate" class="form-label">Date</label>
-                                <input type="date" class="form-control" id="memoDate" name="memo_date" required>
+                                <input type="date" class="form-control" id="memoDate" name="memo_date" >
                                 <span class="text-danger invalid memo_date_err"></span>
                             </div>
                             <div class="col-md-6">
                                 <label for="clientName" class="form-label">Client Name</label>
-                                <input type="text" class="form-control" id="clientName" name="client_name" required>
+                                <input type="text" class="form-control" id="clientName" name="client_name" >
                                 <span class="text-danger invalid client_name_err"></span>
                             </div>
                             <div class="col-md-6">
                                 <label for="vehicleNo" class="form-label">Vehicle Number</label>
-                                <input type="text" class="form-control" id="vehicleNo" name="vehicle_no" required>
+                                <input type="text" class="form-control" id="vehicleNo" name="vehicle_no" >
                                 <span class="text-danger invalid vehicle_no_err"></span>
                             </div>
                             <div class="col-md-6">
                                 <label for="vehicleType" class="form-label">Vehicle Type</label>
-                                <select class="form-select" id="vehicleType" name="vehicle_type" required>
+                                <select class="form-select" id="vehicleType" name="vehicle_type" >
                                     <option value="">Select Vehicle Type</option>
                                     <option>Open Truck</option>
                                     <option>Container</option>
@@ -217,17 +206,17 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="origin" class="form-label">Origin From</label>
-                                <input type="text" class="form-control" id="origin" name="origin" required>
+                                <input type="text" class="form-control" id="origin" name="origin" >
                                 <span class="text-danger invalid origin_err"></span>
                             </div>
                             <div class="col-md-6">
                                 <label for="destination" class="form-label">Destination</label>
-                                <input type="text" class="form-control" id="destination" name="destination" required>
+                                <input type="text" class="form-control" id="destination" name="destination" >
                                 <span class="text-danger invalid destination_err"></span>
                             </div>
                             <div class="col-md-4">
                                 <label for="rate" class="form-label">Rate</label>
-                                <input type="number" class="form-control" id="rate" name="rate" required>
+                                <input type="number" class="form-control" id="rate" name="rate" >
                                 <span class="text-danger invalid rate_err"></span>
                             </div>
                             <div class="col-md-4">
@@ -236,7 +225,7 @@
                                 <span class="text-danger invalid toll_charges_err"></span>
                             </div>
                             <div class="col-md-4">
-                                <label for="unloading" class="form-label">Unloading Charges</label>
+                                <label for="unloading" class="form-label">Loading / Unloading Charges</label>
                                 <input type="number" class="form-control" id="unloading" name="unloading_charges" value="0">
                                 <span class="text-danger invalid unloading_charges_err"></span>
                             </div>
@@ -255,11 +244,35 @@
                                 <input type="number" class="form-control" id="advanceAmount" name="advance_amount" value="0">
                                 <span class="text-danger invalid advance_amount_err"></span>
                             </div>
+                            <div class="col-md-4">
+                                <label for="edit-advance-date" class="form-label">Advance Date</label>
+                                <input type="date" class="form-control" id="edit-advance-date" name="advance_date">
+                                <span class="text-danger invalid advance_date_err"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="edit-status" class="form-label">Status</label>
+                                <select class="form-select" id="edit-status" name="payment_status">
+                                    <option value="paid">Paid</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="partial">Partial</option>
+                                </select>
+                                <span class="text-danger invalid payment_status_err"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="advanceAmount" class="form-label">Balance Amount</label>
+                                <input type="number" class="form-control" id="advanceAmount" name="balance_amount" value="0">
+                                <span class="text-danger invalid balance_amount_err"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="destination" class="form-label">Note</label>
+                                <input type="text" class="form-control" id="destination" name="note">
+                                <span class="text-danger invalid note_err"></span>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Save Cash Memo</button>
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="addSubmit" class="btn btn-primary">Save Cash Memo</button>
                     </div>
                 </form>
             </div>
@@ -422,13 +435,17 @@
     {{-- Edit Memo Modal --}}
     <div class="modal fade" id="editMemoModal" tabindex="-1" aria-labelledby="editMemoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
+            <form class="form-horizontal form-bordered" method="post" id="editForm">
+                @csrf
+                <section class="card">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editMemoModalLabel">Edit Cash Memo</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="editMemoForm">
-                    <input type="hidden" id="edit-memo-id" name="id">
+                
+                    <!-- <input type="hidden" id="edit-memo-id" name="id"> -->
+                    <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
                     <div class="modal-body">
                         <div class="row g-3">
                             <div class="col-md-6">
@@ -520,17 +537,213 @@
                                 </select>
                                 <span class="text-danger invalid status_err"></span>
                             </div>
+                            <div class="col-md-4">
+                                <label for="edit-status" class="form-label">Status</label>
+                                <select class="form-select" id="edit-status" name="payment_status">
+                                    <option value="paid">Paid</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="partial">Partial</option>
+                                </select>
+                                <span class="text-danger invalid payment_status_err"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="advanceAmount" class="form-label">Balance Amount</label>
+                                <input type="number" class="form-control" id="advanceAmount" name="balance_amount" value="0">
+                                <span class="text-danger invalid balance_amount_err"></span>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Update Cash Memo</button>
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" id="editSubmit" class="btn btn-primary">Update Cash Memo</button>
                     </div>
-                </form>
+                
             </div>
+            </section>
+            </form>
         </div>
     </div>
 </x-admin.layout>
+
+{{-- Add --}}
+<script>
+    $("#addForm").submit(function(e) {
+        e.preventDefault();
+        $("#addSubmit").prop('disabled', true);
+
+        var formdata = new FormData(this);
+        $.ajax({
+            url: '{{ route('Cash-Memo.store') }}',
+            type: 'POST',
+            data: formdata,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                $("#addSubmit").prop('disabled', false);
+                if (!data.error2)
+                    swal("Successful!", data.success, "success")
+                    .then((action) => {
+                        window.location.href = '{{ route('Cash-Memo.index') }}';
+                    });
+                else
+                    swal("Error!", data.error2, "error");
+            },
+            statusCode: {
+                422: function(responseObject, textStatus, jqXHR) {
+                    $("#addSubmit").prop('disabled', false);
+                    resetErrors();
+                    printErrMsg(responseObject.responseJSON.errors);
+                },
+                500: function(responseObject, textStatus, errorThrown) {
+                    $("#addSubmit").prop('disabled', false);
+                    swal("Error occured!", "Something went wrong please try again", "error");
+                }
+            }
+        });
+
+    });
+</script>
+
+<!-- Edit -->
+<script>
+    $("#cash-memo-datatable").on("click", ".edit-btn", function(e) {
+        e.preventDefault();
+        var model_id = $(this).attr("data-id");
+        var url = "{{ route('Cash-Memo.edit', ':model_id') }}";
+
+        $.ajax({
+            url: url.replace(':model_id', model_id),
+            type: 'GET',
+            data: {
+                'model_id': model_id,
+                '_token': "{{ csrf_token() }}"
+            },
+            success: function(data, textStatus, jqXHR) {
+                editFormBehaviour();
+                if (!data.error) {
+                    
+                    $("#editForm input[name='edit_model_id']").val(data.memo.id);
+                    $("#editForm input[name='memo_no']").val(data.memo.memo_no);
+                    $("#editForm input[name='memo_date']").val(data.memo.memo_date);
+                    $("#editForm input[name='client_name']").val(data.memo.client_name);
+                    $("#editForm input[name='vehicle_no']").val(data.memo.vehicle_no);
+                    $("#editForm input[name='vehicle_type']").val(data.memo.vehicle_type);
+                    $("#editForm input[name='challan_no']").val(data.memo.challan_no);
+                    $("#editForm input[name='origin']").val(data.memo.origin);
+                    $("#editForm input[name='destination']").val(data.memo.destination);
+                    $("#editForm input[name='rate']").val(data.memo.rate);
+                    $("#editForm input[name='toll_charges']").val(data.memo.toll_charges);
+                    $("#editForm input[name='unloading_charges']").val(data.memo.unloading_charges);
+                    $("#editForm input[name='handling_charges']").val(data.memo.handling_charges);
+                    $("#editForm input[name='other_expenses']").val(data.memo.other_expenses);
+                    $("#editForm input[name='advance_amount']").val(data.memo.advance_amount);
+                    $("#editForm input[name='advance_date']").val(data.memo.advance_date);
+                    $("#editForm input[name='balance_amount']").val(data.memo.balance_amount);
+                    $("#editForm input[name='status']").val(data.memo.status);
+                    $("#editForm input[name='note']").val(data.memo.note);
+                } else {
+                    alert(data.error);
+                }
+            },
+            error: function(error, jqXHR, textStatus, errorThrown) {
+                alert("Something went wrong");
+            },
+        });
+    });
+</script>
+
+
+<!-- Update -->
+<script>
+    $(document).ready(function() {
+        $("#editForm").submit(function(e) {
+            e.preventDefault();
+            $("#editSubmit").prop('disabled', true);
+           
+            var formdata = new FormData(this);
+            formdata.append('_method', 'PUT');
+            var model_id = $('#edit_model_id').val();
+            var url = "{{ route('Cash-Memo.update', ':model_id') }}";
+
+            $.ajax({
+                url: url.replace(':model_id', model_id),
+                type: 'POST',
+                data: formdata,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    $("#editSubmit").prop('disabled', false);
+                    if (!data.error2)
+                        swal("Successful!", data.success, "success")
+                        .then((action) => {
+                            window.location.href = '{{ route('Cash-Memo.index') }}';
+                        });
+                    else
+                        swal("Error!", data.error2, "error");
+                },
+                statusCode: {
+                    422: function(responseObject, textStatus, jqXHR) {
+                        $("#editSubmit").prop('disabled', false);
+                        resetErrors();
+                        printErrMsg(responseObject.responseJSON.errors);
+                    },
+                    500: function(responseObject, textStatus, errorThrown) {
+                        $("#editSubmit").prop('disabled', false);
+                        swal("Error occurred!", "Something went wrong please try again", "error");
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+<!-- Delete -->
+<script>
+    $("#cash-memo-datatable").on("click", ".delete-btn", function(e) {
+        e.preventDefault();
+        swal({
+                title: "Are you sure to delete this Cash Memo Entry?",
+                icon: "warning",
+                buttons: ["Cancel", "Confirm"],
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    var model_id = $(this).attr("data-id");
+                    alert(model_id);
+                    var url = "{{ route('Cash-Memo.destroy', ':model_id') }}";
+
+                    $.ajax({
+                        url: url.replace(':model_id', model_id),
+                        type: 'POST',
+                        data: {
+                            'model_id': model_id,
+                            '_method': "DELETE",
+                            '_token': "{{ csrf_token() }}"
+                        },
+                        success: function(data, textStatus, jqXHR) {
+                            if (!data.error && !data.error2) {
+                                swal("Success!", data.success, "success")
+                                    .then((action) => {
+                                        window.location.reload();
+                                    });
+                            } else {
+                                if (data.error) {
+                                    swal("Error!", data.error, "error");
+                                } else {
+                                    swal("Error!", data.error2, "error");
+                                }
+                            }
+                        },
+                        error: function(error, jqXHR, textStatus, errorThrown) {
+                            swal("Error!", "Something went wrong", "error");
+                        },
+                    });
+                }
+            });
+    });
+</script>
+
 
 <script>
     $(document).ready(function() {
@@ -698,61 +911,9 @@
             $('#edit-status').val(memo.status);
         });
 
-        // Delete button click handler
-        $('.delete-btn').click(function() {
-            const memoId = $(this).closest('tr').find('td:first').text();
-            
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // In a real application, you would make an AJAX call here
-                    Swal.fire(
-                        'Deleted!',
-                        'Your cash memo has been deleted.',
-                        'success'
-                    ).then(() => {
-                        // Reload or remove the row
-                        $(this).closest('tr').remove();
-                    });
-                }
-            });
-        });
+       
 
-        // Add form submission
-        $('#addMemoForm').submit(function(e) {
-            e.preventDefault();
-            // In a real application, you would make an AJAX call here
-            Swal.fire(
-                'Success!',
-                'New cash memo has been added.',
-                'success'
-            ).then(() => {
-                $('#addMemoModal').modal('hide');
-                this.reset();
-                // Reload the table or add the new row
-            });
-        });
-
-        // Edit form submission
-        $('#editMemoForm').submit(function(e) {
-            e.preventDefault();
-            // In a real application, you would make an AJAX call here
-            Swal.fire(
-                'Success!',
-                'Cash memo has been updated.',
-                'success'
-            ).then(() => {
-                $('#editMemoModal').modal('hide');
-                // Reload the table or update the row
-            });
-        });
+        
 
         // Filter functionality
         $('#vehicle-filter, #status-filter').change(function() {

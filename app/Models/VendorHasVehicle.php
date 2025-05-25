@@ -10,8 +10,17 @@ class Vendorhasvehicle extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['vendor_id', 'vehicle_number','Vehicle_id','capacity','status'];
+    protected $fillable = ['vendor_id', 'vehicle_number','vehicle_id','capacity','status'];
 
+                public function vendor()
+            {
+                return $this->belongsTo(Vendor::class, 'vendor_id');
+            }
+
+            public function vehicle()
+            {
+                return $this->belongsTo(Vehicle::class, 'vehicle_id');
+            }
 
     public static function booted()
     {

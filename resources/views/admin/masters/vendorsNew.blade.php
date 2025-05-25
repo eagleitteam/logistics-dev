@@ -1,6 +1,6 @@
 <x-admin.layout>
-    <x-slot name="title">vendors</x-slot>
-    <x-slot name="heading">vendors</x-slot>
+    <x-slot name="title">Add vendor Master</x-slot>
+    <x-slot name="heading">Add vendor Master</x-slot>
     {{-- <x-slot name="subheading">Test</x-slot> --}}
 
 
@@ -15,7 +15,7 @@
                         <div class="mb-3 row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="name" class="col-form-label">Company Name <span class="text-danger">*</span></label>
+                                    <label for="name" class="col-form-label">Vendor Company Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="name" placeholder="Company Name" id="name">
                                     <span class="text-danger invalid name_err"></span>
                                 </div>
@@ -24,7 +24,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="gstNoInput" class="form-label">GST NO <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="gst_no" placeholder="22AAAAA0000A1Z5" id="gstNoInput"  >
+                                    <input type="text" class="form-control" name="gst_no" placeholder="15 No GST Code -22AAAAA0000A1Z5" id="gstNoInput"  >
                                     <span class="text-danger invalid gst_no_err"></span>
 
                                 </div>
@@ -36,6 +36,7 @@
                                     <label for="contactPersonInput" class="form-label">Contact Person Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="contact_name" placeholder="Contact Person Name" id="contactPersonInput" >
                                     <div class="invalid-feedback">Please provide contact person name.</div>
+                                    <span class="text-danger invalid contact_name_err"></span>
                                 </div>
                             </div>
 
@@ -44,6 +45,7 @@
                                     <label for="contactNoInput" class="form-label">Contact Number <span class="text-danger">*</span></label>
                                     <input type="tel" class="form-control" name="contact_no" placeholder="Contact Number" id="contactNoInput" >
                                     <div class="invalid-feedback">Please provide a valid 10-digit mobile number.</div>
+                                    <span class="text-danger invalid contact_no_err"></span>
                                 </div>
                             </div>
 
@@ -52,6 +54,7 @@
                                     <label for="altContactInput" class="form-label">Alternate Contact Number</label>
                                     <input type="tel" class="form-control" name="alternate_contact_no" placeholder="Alternate Contact Number" id="altContactInput" >
                                     <div class="invalid-feedback">Please provide a valid 10-digit mobile number.</div>
+                                    <span class="text-danger invalid alternate_contact_no_err"></span>
                                 </div>
                             </div>
 
@@ -60,6 +63,7 @@
                                     <label for="emailInput" class="form-label">Email Address <span class="text-danger">*</span></label>
                                     <input type="email" class="form-control" name="email" placeholder="example@gmail.com" id="emailInput" >
                                     <div class="invalid-feedback">Please provide a valid email address.</div>
+                                    <span class="text-danger invalid email_err"></span>
                                 </div>
                             </div>
 
@@ -67,8 +71,9 @@
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="addressInput" class="form-label">Full Address <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="vendor_address" placeholder="Address" id="addressInput" >
+                                    <input type="text" class="form-control" name="vendor_address" placeholder="Full Address" id="addressInput" >
                                     <div class="invalid-feedback">Please provide the full address.</div>
+                                    <span class="text-danger invalid vendor_address_err"></span>
                                 </div>
                             </div>
 
@@ -77,6 +82,7 @@
                                     <label for="cityInput" class="form-label">City <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="city" placeholder="Enter your city" id="cityInput" >
                                     <div class="invalid-feedback">Please provide the city name.</div>
+                                    <span class="text-danger invalid city_err"></span>
                                 </div>
                             </div>
 
@@ -85,6 +91,7 @@
                                     <label for="pinCodeInput" class="form-label">PIN Code <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="pincode" placeholder="Pin Code" id="pinCodeInput" >
                                     <div class="invalid-feedback">Please provide a valid 6-digit PIN code.</div>
+                                    <span class="text-danger invalid pincode_err"></span>
                                 </div>
                             </div>
 
@@ -110,6 +117,7 @@
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
                                     </select>
+                                    <span class="text-danger invalid tds_applicable_err"></span>
                                     <div class="invalid-feedback">Please select TDS applicability.</div>
                                 </div>
                             </div>
@@ -119,6 +127,7 @@
                                     <label for="tdsRateInput" class="form-label">TDS %</label>
                                     <input type="number" class="form-control" name="tds_rate" placeholder="TDS %" id="tdsRateInput" min="0" max="100" step="0.01">
                                     <div class="invalid-feedback">TDS rate must be between 0 and 100.</div>
+                                    <span class="text-danger invalid tds_rate_err"></span>
                                 </div>
                             </div>
                         </div>
@@ -142,7 +151,7 @@
                 @csrf
                 <section class="card">
                     <header class="card-header">
-                        <h4 class="card-title">Edit Ward</h4>
+                        <h4 class="card-title">Edit Vendor Master</h4>
                     </header>
 
                     <div class="card-body py-2">
@@ -172,22 +181,25 @@
                                     <label for="contactPersonInput" class="form-label">Contact Person Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="contact_name" placeholder="Contact Person Name" id="contactPersonInput" >
                                     <div class="invalid-feedback">Please provide contact person name.</div>
+                                    <span class="text-danger invalid contact_name_err"></span>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="contactNoInput" class="form-label">Contact Number <span class="text-danger">*</span></label>
-                                    <input type="tel" class="form-control" name="contact_no" placeholder="Contact Number" id="contactNoInput" pattern="[0-9]{10}" >
+                                    <input type="tel" class="form-control" name="contact_no" placeholder="Contact Number" id="contactNoInput" >
                                     <div class="invalid-feedback">Please provide a valid 10-digit mobile number.</div>
+                                    <span class="text-danger invalid contact_no_err"></span>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="altContactInput" class="form-label">Alternate Contact Number</label>
-                                    <input type="tel" class="form-control" name="alternate_contact_no" placeholder="Alternate Contact Number" id="altContactInput" pattern="[0-9]{10}">
+                                    <input type="tel" class="form-control" name="alternate_contact_no" placeholder="Alternate Contact Number" id="altContactInput" >
                                     <div class="invalid-feedback">Please provide a valid 10-digit mobile number.</div>
+                                    <span class="text-danger invalid alternate_contact_no_err"></span>
                                 </div>
                             </div>
 
@@ -196,6 +208,7 @@
                                     <label for="emailInput" class="form-label">Email Address <span class="text-danger">*</span></label>
                                     <input type="email" class="form-control" name="email" placeholder="example@gmail.com" id="emailInput" >
                                     <div class="invalid-feedback">Please provide a valid email address.</div>
+                                    <span class="text-danger invalid email_err"></span>
                                 </div>
                             </div>
 
@@ -205,6 +218,7 @@
                                     <label for="addressInput" class="form-label">Full Address <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="vendor_address" placeholder="Address" id="addressInput" >
                                     <div class="invalid-feedback">Please provide the full address.</div>
+                                    <span class="text-danger invalid vendor_address_err"></span>
                                 </div>
                             </div>
 
@@ -213,25 +227,28 @@
                                     <label for="cityInput" class="form-label">City <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="city" placeholder="Enter your city" id="cityInput" >
                                     <div class="invalid-feedback">Please provide the city name.</div>
+                                    <span class="text-danger invalid city_err"></span>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="pinCodeInput" class="form-label">PIN Code <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="pincode" placeholder="Pin Code" id="pinCodeInput" pattern="[0-9]{6}" >
+                                    <input type="text" class="form-control" name="pincode" placeholder="Pin Code" id="pinCodeInput" >
                                     <div class="invalid-feedback">Please provide a valid 6-digit PIN code.</div>
+                                    <span class="text-danger invalid pincode_err"></span>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="stateInput" class="form-label">State <span class="text-danger">*</span></label>
-                                    <select id="stateInput" class="form-select" name="state" >
-                                        <option value="" selected disabled>Choose...</option>
-                                            @foreach ($StateNameWithCode as $StateNameWithCode)
-                                                    <option value="{{ optional($StateNameWithCode)->id }}">{{ optional($StateNameWithCode)->stateName }}</option>
-                                            @endforeach
+                                    <select id="stateInput" class="form-select" name="state">
+                                        <option value="" >Choose...</option>
+                                        @foreach ($StateNameWithCode as $state)
+                                            <option value="{{ optional($state)->id }}">{{ optional($state)->stateName }}</option>
+                                            
+                                        @endforeach
                                     </select>
                                     <div class="invalid-feedback">Please select a state.</div>
                                 </div>
@@ -242,10 +259,11 @@
                                 <div class="mb-3">
                                     <label for="tdsApplicableInput" class="form-label">TDS Applicable <span class="text-danger">*</span></label>
                                     <select id="tdsApplicableInput" class="form-select" name="tds_applicable" >
-                                        <option value="" selected>Choose...</option>
+                                        <option value="" selected >Choose...</option>
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
                                     </select>
+                                    <span class="text-danger invalid tds_applicable_err"></span>
                                     <div class="invalid-feedback">Please select TDS applicability.</div>
                                 </div>
                             </div>
@@ -255,6 +273,7 @@
                                     <label for="tdsRateInput" class="form-label">TDS %</label>
                                     <input type="number" class="form-control" name="tds_rate" placeholder="TDS %" id="tdsRateInput" min="0" max="100" step="0.01">
                                     <div class="invalid-feedback">TDS rate must be between 0 and 100.</div>
+                                    <span class="text-danger invalid tds_rate_err"></span>
                                 </div>
                             </div>
                         </div>
@@ -293,7 +312,14 @@
                                     <th>Sr No.</th>
                                     <th>Company Name</th>
                                     <th>GST No.</th>
+                                    <th>TDS %</th>
                                     <th>Contact Person Name</th>
+                                    <th>Contact Person NO</th>
+                                    <th>Alternate No</th>
+                                    <th>Email Id</th>
+                                    <th>City</th>
+                                    <th>Pin Code</th>
+                                    <th>State</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -303,7 +329,14 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $vendor->name }}</td>
                                         <td>{{ $vendor->gst_no }}</td>
+                                        <td>{{ $vendor->tds_rate }}</td>
+                                        <td>{{ $vendor->contact_name }}</td>
                                         <td>{{ $vendor->contact_no }}</td>
+                                        <td>{{ $vendor->alternate_contact_no }}</td>
+                                        <td>{{ $vendor->email }}</td>
+                                        <td>{{ $vendor->city }}</td>
+                                        <td>{{ $vendor->pincode }}</td>
+                                        <td>{{ $vendor->states->stateName }}</td>
                                         <td>
                                             @can('vendors.edit')
                                                 <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vendor" data-id="{{ $vendor->id }}"><i data-feather="edit"></i></button>

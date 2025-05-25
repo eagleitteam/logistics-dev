@@ -1,6 +1,6 @@
 <x-admin.layout>
-    <x-slot name="title">Vehicles</x-slot>
-    <x-slot name="heading">Vehicles</x-slot>
+    <x-slot name="title">Add Vehicles Type Master</x-slot>
+    <x-slot name="heading">Add Vehicles Type Master</x-slot>
     {{-- <x-slot name="subheading">Test</x-slot> --}}
 
 
@@ -15,11 +15,11 @@
                         <div class="mb-3 row">
                             <div class="col-md-4">
                                 <label class="col-form-label" for="type">Vehicle Type <span class="text-danger">*</span></label>
-                                <input class="form-control" id="type" name="type" type="text" placeholder="Enter Vehicle Type">
+                                <input class="form-control" id="type" name="type" type="text" placeholder="Enter Vehicle Type e.g.:- 20 FT">
                                 <span class="text-danger invalid type_err"></span>
                             </div>
                             <div class="col-md-4">
-                                <label class="col-form-label" for="description">Description <span class="text-danger">*</span></label>
+                                <label class="col-form-label" for="description">Description (Model No) <span class="text-danger">*</span></label>
                                 <input class="form-control" id="description" name="description" type="text" placeholder="Enter description">
                                 <span class="text-danger invalid description_err"></span>
                             </div>
@@ -28,7 +28,7 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-success" id="addSubmit">Submit</button>
-                        <button type="reset" class="btn btn-warning">Reset</button>
+                        <button type="reset" id="resetfrom" class="btn btn-warning">Reset</button>
                     </div>
                 </form>
             </div>
@@ -107,6 +107,7 @@
                                         <td>{{ $vehicle->type }}</td>
                                         <td>{{ $vehicle->description }}</td>
                                         <td>
+                                             
                                             @can('vehicles.edit')
                                                 <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="edit"></i></button>
                                             @endcan

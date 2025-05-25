@@ -38,7 +38,7 @@ class StoreDriverRequest extends FormRequest
             'pan_card_path'                      => 'required',
             'driving_license_path'                      => 'required',
             'driving_license_validity'                      => 'required',
-            'remark'                      => 'required|string|max:255',
+            'remark'                      => 'nullable|string|max:255',
             'bank_name'                      => 'required|string|max:255',
             'bank_branch'                      => 'required|string|max:255',
             'bank_account_no'                      => 'required|string|max:255',

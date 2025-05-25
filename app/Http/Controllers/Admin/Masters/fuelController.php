@@ -18,7 +18,7 @@ class fuelController extends Controller
     {
         $fuels = Fuel::latest()->get();
         // return view('admin.masters.fuel')->with(['fuels' => $fuels]);
-        return view('admin.masters.employeeManagement')->with(['fuels' => $fuels]);
+        return view('admin.masters.fuel')->with(['fuels' => $fuels]);
     }
 
     /**

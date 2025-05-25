@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\Driver;
 use App\Models\TripMovement;
 use App\Models\Vehicle;
+use App\Models\VehicalNumber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +20,8 @@ class TripMovmentsController extends Controller
     public function index()
     {
         $trip_movements = TripMovement::latest()->get();
+
+    
         return view('admin.masters.tripMovementList')->with(['trip_movement' => $trip_movements]);
     }
 
@@ -27,11 +30,12 @@ class TripMovmentsController extends Controller
      */
     public function create()
     {
+        $vehical_numbers = VehicalNumber::latest()->get();
         $vehicalTypes = Vehicle::latest()->get();
         $clients = Client::latest()->get();
         $drivers = Driver::latest()->get();
-
-        return view("admin.masters.tripMovement")->with(['vehicalTypes' => $vehicalTypes,'clients'=>$clients,'drivers'=>$drivers]);;
+        
+        return view("admin.masters.tripMovement")->with(['vehicalTypes' => $vehicalTypes,'clients'=>$clients,'drivers'=>$drivers,'VehicalNumber' => $vehical_numbers]);;
 
     }
 

@@ -130,15 +130,30 @@
 
 {{-- AddForm n EditForm Open/Close jquery --}}
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 
-        $("#btnCancel").click(function() {
-            $("#addContainer").slideUp();
-            $("#editContainer").slideUp();
-            $(this).hide();
-            $("#addToTable").show();
-        });
+    $("#btnCancel").click(function () {
+        // Hide form containers
+        $("#addContainer").slideUp();
+        $("#editContainer").slideUp();
+
+        // Reset both forms (if they exist)
+        if (document.getElementById('addForm')) {
+            document.getElementById('addForm').reset();
+        }
+        if (document.getElementById('editForm')) {
+            document.getElementById('editForm').reset();
+        }
+
+        // Clear validation messages and states
+        resetErrors();
+
+        // Toggle button visibility
+        $(this).hide();
+        $("#addToTable").show();
     });
+
+});
 
     $(document).ready(function() {
         $("#addToTable").click(function(e) {
@@ -146,9 +161,23 @@
             // var id = $(this).attr('data-id');
             $("#addContainer").slideDown();
             $("#editContainer").slideUp();
+            $("#addToTable").hide();
             $("#btnCancel").show();
 
         });
+
+        // Reset form button logic
+        $("#resetfrom").click(function (e) {
+            e.preventDefault();
+
+            // Reset form fields
+            $('#addForm')[0].reset();
+            $('#editForm')[0].reset();
+
+            // Clear validation errors
+            resetErrors();
+        });
+
     });
 </script>
 
@@ -199,6 +228,27 @@
             scrollTop: 0
         }, "slow");
     }
+
+    function viewFormBehaviour(data) {
+    // Open edit container and scroll
+    $("#addContainer").slideUp();
+    $("#btnCancel").show();
+    $("#addToTable").hide();
+    $("#editContainer").slideDown();
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+
+    // Fill data into form fields
+    for (const key in data) {
+        $("[name='" + key + "']").val(data[key]);
+    }
+
+    // Disable all fields in the edit form
+    $('#editForm').find('input, select, textarea, button[type="submit"]').each(function () {
+        $(this).prop('disabled', true);
+    });
+}
+
+
 </script>
 
 

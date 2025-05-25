@@ -3,9 +3,8 @@
 namespace App\Http\Requests\Admin\Masters;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class Store.Request extends FormRequest
+class UpdateVendorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -43,34 +42,5 @@ class Store.Request extends FormRequest
             'pincode'                   => 'required|string|max:6|regex:/^[0-9]{6}$/',
             'state'                     => 'required|string|max:100',         
         ];
-    }
-
-    /**
-     * Get custom messages for validator errors.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'gst_no.regex' => 'The GST number format is invalid. It should be in the format 22AAAAA0000A1Z5.',
-            'contact_no.regex' => 'The contact number must be 10 to 15 digits.',
-            'alt_contact_no.regex' => 'The alternate contact number must be 10 to 15 digits.',
-            'pin_code.regex' => 'The PIN code must be 6 digits.',
-            'tds_rate.required_if' => 'The TDS rate field is required when TDS is applicable.',
-            'vehicles.*.vehicle_no.required_with' => 'Vehicle number is required when adding vehicles.',
-            'vehicles.*.vehicle_type.required_with' => 'Vehicle type is required when adding vehicles.',
-        ];
-    }
-
-    /**
-     * Prepare the data for validation.
-     */
-    protected function prepareForValidation()
-    {
-        // Convert TDS applicable to boolean
-        $this->merge([
-            'tds_applicable' => $this->tds_applicable === 'Yes',
-        ]);
     }
 }
