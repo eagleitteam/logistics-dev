@@ -1,27 +1,28 @@
 <x-admin.layout>
-    <x-slot name="title">Daily Vehical Movement Tracker</x-slot>
-    <x-slot name="heading">Daily Vehical Movement Tracker</x-slot>
+    <x-slot name="title">Daily Trip Movement Entry</x-slot>
+    <x-slot name="heading">Daily Trip Movement Entry</x-slot>
     {{-- <x-slot name="subheading">Test</x-slot> --}}
 
 
     <div class="row">
-        <div class="col-xxl-6">
+        <div class="col-lg-12">
             <div class="card">
-
+                <form class="theme-form" name="addForm" id="addForm" enctype="multipart/form-data">
+                    @csrf
                 <div class="card-body">
                         <form action="javascript:void(0);">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <label for="TripDate" class="form-label">Date</label>
+                                    
+                                        <label  class="col-form-label" for="TripDate" class="form-label">Date</label>
                                         <input type="date" class="form-control" id="TripDate" name="trip_date">
-                                    </div>
+                                    
                                 </div>
                                 <!--end col-->
                                 
                                     <div class="col-md-4">
-                                                    <label class="col-form-label" for="pincode" >Vehical Number</label>
-                                                    <select id="ForminputState" class="form-select" name="vehicle_no">
+                                                    <label class="col-form-label" for="vehicle_no" >Vehical Number</label>
+                                                    <select id="Forminputvehicle_no" class="form-select" name="vehicle_no">
                                                         <option value="">Select Vehical Number</option>
                                                          @foreach ($VehicalNumber as $VehicalNumber)
                                                                 <option value="{{ $VehicalNumber->id }}">{{ $VehicalNumber->vehicle_number }}</option>
@@ -45,24 +46,24 @@
                                 </div>
                                 <!--end col-->
                                 <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <label for="origininput" class="form-label">Origin</label>
+                                    
+                                        <label for="origininput" class="col-form-label">Origin</label>
                                         <input type="text" class="form-control" placeholder="Origin" id="origininput" name="origin">
-                                    </div>
+                                   
                                 </div>
                                 <!--end col-->
                                 <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <label for="destinationinput" class="form-label">Destination</label>
+                                    
+                                        <label for="destinationinput" class="col-form-label">Destination</label>
                                         <input type="text" class="form-control" placeholder="Destination" id="destinationinput" name="destination">
-                                    </div>
+                                    
                                 </div>
                                 <!--end col-->
                                 <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <label for="rateinput" class="form-label">Trip Rate</label>
+                                    
+                                        <label for="rateinput" class="col-form-label">Trip Rate</label>
                                         <input type="number" class="form-control" placeholder="Trip Rate" id="rateinput" name="rate">
-                                    </div>
+                                    
                                 </div>
                                 <!--end col-->
 
@@ -89,10 +90,17 @@
                                 </div>
                                 <!--end col-->
                                 <div class="col-md-2">
-                                    <div class="mb-3">
-                                        <label for="driveAllowanceInput" class="form-label">Driver Allowance(As per Trip)</label>
+                                    
+                                        <label for="driveAllowanceInput" class="col-form-label">Driver Allowance(As per Trip)</label>
                                         <input type="number" class="form-control" placeholder="Driver Allowance" id="driveAllowanceInput" name="per_day_allow">
-                                    </div>
+                                    
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    
+                                        <label for="remarkinput" class="col-form-label">Remark</label>
+                                        <input type="text" class="form-control" placeholder="Remark" id="remarkinput" name="remark">
+                                    
                                 </div>
                                 <!--end col-->
 
@@ -107,7 +115,8 @@
                         </form>
 
 
-                </div>
+                    </div>
+                </form>
             </div>
         </div> <!-- end col -->
     </div>

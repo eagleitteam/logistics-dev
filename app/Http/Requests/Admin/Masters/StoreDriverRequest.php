@@ -26,7 +26,6 @@ class StoreDriverRequest extends FormRequest
             'l_name'                        => 'required|string|max:255',
             'mobile_no'                     => 'required|string|max:20|regex:/^[0-9]{10,15}$/',
             'joining_date'                      => 'required',
-            'end_date'                      => 'required',
             'basic_salary'                      => 'required',
            'alternate_contact_no'      => 'nullable|string|max:20|regex:/^[0-9]{10,15}$/',
            'email'                     => 'nullable|email|max:255',

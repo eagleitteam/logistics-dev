@@ -8,6 +8,8 @@ use App\Models\Driver;
 use App\Models\TripMovement;
 use App\Models\Vehicle;
 use App\Models\VehicalNumber;
+use App\Http\Requests\Admin\Masters\StoreTripMovmentsRequest;
+use App\Http\Requests\Admin\Masters\UpdateTripMovmentsRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +21,13 @@ class TripMovmentsController extends Controller
      */
     public function index()
     {
-        $trip_movements = TripMovement::latest()->get();
+        $trip_movements = TripMovement::with([
+        'vendor',
+        'vehicle',
+        'client',
+        'driver',
+        'vehicalNumber' // if needed separately
+    ])->latest()->get();
 
     
         return view('admin.masters.tripMovementList')->with(['trip_movement' => $trip_movements]);
@@ -42,19 +50,28 @@ class TripMovmentsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTripMovmentsRequest $request)
     {
         try {
             DB::beginTransaction();
             $input = $request->validated();
-            // Create vendor
-            $trip = TripMovement::create(Arr::only($input, TripMovement::getFillables()));
-            DB::commit();
-            return response()->json(['success' => 'Trip created successfully!']);
 
+            // Get the current highest trip_count_no
+            $lastTripCount = TripMovement::lockForUpdate()->max('trip_count_no');
+            $newTripCount = is_null($lastTripCount) ? 1 : $lastTripCount + 1;
+
+            // Add trip_count_no to input
+             $input['trip_count_no'] = $newTripCount;
+
+            TripMovement::create(Arr::only($input, TripMovement::getFillables()));
+            DB::commit();
+
+            return response()->json(['success' => 'TripMovement created successfully!']);
         } catch (\Exception $e) {
             DB::rollBack();
-            return $this->respondWithAjax($e, 'creating', 'Trip');
+            return response()->json([
+                'error' => 'Error creating TripMovement: ' . $e->getMessage()
+            ], 500);
         }
     }
 
@@ -63,7 +80,13 @@ class TripMovmentsController extends Controller
      */
     public function show(string $id)
     {
-       
+        $trip_movements = TripMovement::find($id);
+
+        if (!$trip_movements) {
+            return response()->json(['error' => 'TripMovement not found'], 404);
+        }
+
+        return response()->json(['TripMovement' => $trip_movements]);
     }
 
     /**

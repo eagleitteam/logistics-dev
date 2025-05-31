@@ -19,22 +19,26 @@ class StoreCompanyprofileRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+        public function rules(): array
     {
         return [
-            'companyname' => 'required|string|max:255',
-            'companyaddress' => 'required|string|max:255',
-            'companyphone' => 'required|string|max:255',
-            'companyemail' => 'required|string|max:255',
-            'companywebsite' => 'required|string|max:255',
-            'companylogo' => 'required|string|max:255',
+            'company_name' => 'required|string|max:255',
+            'company_address' => 'nullable|string|max:255',
+            'phone_number' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'website' => 'required|string|max:255',
             'gststatus' => 'required|string|max:255',
-            'gstnumber' => 'required|string|max:255',
-            'pannumber' => 'required|string|max:255',
-            'regadd' => 'required|string|max:255',
-            'pincode' => 'required|string|max:255',
+            'gstin' => 'required|string|max:255',
+            'pan_number' => 'required|string|max:255',
+            'address_line1' => 'required|string|max:255',
+            'address_line2' => 'nullable|string|max:255',
+            'pin_code' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
+            'company_logo' => 'nullable|image|mimes:png|max:2048',
+            'company_seal' => 'nullable|image|mimes:png|max:2048',
+            'company_signature' => 'nullable|image|mimes:png|max:2048',
         ];
     }
+
 }

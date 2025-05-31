@@ -48,11 +48,11 @@
                         </div>
                         
                         
-<div class="col-lg-2">
-    <a href="{{ route('Link-Vehical-With-Vender.index') }}" class="btn btn-primary">
-        <i class="fas fa-plus me-2"></i>Refresh
-    </a>
-</div>
+        <div class="col-lg-2">
+            <a href="{{ route('Link-Vehical-With-Vender.index') }}" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Reset Filter
+            </a>
+        </div>
 
                         
                     </div>
@@ -130,27 +130,26 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="vendorVehiclesTable" class="table table-bordered nowrap align-middle" style="width:100%">
+                        <table id="buttons-datatables" class="table table-bordered nowrap align-middle" style="width:100%">
+                        
                             <thead>
                                 <tr>
                                     <th>Sr No</th>
                                     <th>Vendor Name</th>
-                                    <th>Vehicle Type</th>
                                     <th>Vehicle Number</th>
+                                    <th>Vehicle Type</th>
                                     <th>Capacity</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <!-- Data will be loaded via AJAX -->
-                                 <tbody>
+                           
                                 @foreach ($vendorhasvehicle as $vendorhasvehi)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $vendorhasvehi->vendor_id }}</td>
+                                        <td>{{ $vendorhasvehi->vendor->name }}</td>
                                         <td>{{ $vendorhasvehi->vehicle_number }}</td>
-                                        <td>{{ $vendorhasvehi->vehicle_id  }}</td>
+                                        <td>{{ $vendorhasvehi->vehicle->type  }}</td>
                                         <td>{{ $vendorhasvehi->capacity }}</td>
                                         <td>{{ $vendorhasvehi->status }}</td>
                                         <td>
@@ -452,7 +451,7 @@
 
 <!-- Edit -->
 <script>
-    $("#vendorVehiclesTable").on("click", ".edit-element", function(e) {
+    $("#buttons-datatables").on("click", ".edit-element", function(e) {
         e.preventDefault();
         var model_id = $(this).attr("data-id");
         var url = "{{ route('Link-Vehical-With-Vender.edit', ':model_id') }}";
@@ -533,7 +532,7 @@
 
 <!-- Delete -->
 <script>
-    $("#vendorVehiclesTable").on("click", ".rem-element", function(e) {
+    $("#buttons-datatables").on("click", ".rem-element", function(e) {
         e.preventDefault();
         swal({
                 title: "Are you sure to delete this Vehical Entry?",
@@ -651,158 +650,7 @@
         });
 </script>
 
-<!-- display data as per vender selection -->
-<!-- <script>
-    // $(document).ready(function() {
-    //     // Initialize DataTable with server-rendered data
-    //     var table = $('#vendorVehiclesTable').DataTable({
-    //         responsive: true,
-    //         dom: 'Bfrtip',
-    //         buttons: [
-    //             'copy', 'csv', 'excel', 'pdf', 'print'
-    //         ],
-    //         // Use server-rendered data (disable DataTables processing)
-    //         processing: false,
-    //         serverSide: false,
-    //         // Map the columns to your actual data structure
-    //         columns: [
-    //             { data: 'sr_no' }, // Sr No (auto-generated in loop)
-    //             { data: 'vendor_id' }, // Vendor ID
-    //             { data: 'vehicle_number' }, // Vehicle Number
-    //             { data: 'vehicle_id' }, // Vehicle Type ID
-    //             { data: 'capacity' }, // Capacity
-    //             { data: 'status' }, // Status
-    //             { data: 'actions', orderable: false } // Actions
-    //         ]
-    //     });
 
-        // Vendor selection change handler
-        $('#searchbtn').change(function() {
-            var vendorId = $(this).val();
-            
-            if (vendorId) {
-                // Show statistics panel
-                $('#vendorStatsRow').show();
-                
-                // Filter the table to show only selected vendor's vehicles
-                table.column(1).search(vendorId).draw();
-                
-                // Calculate statistics based on filtered data
-                updateVendorStatistics(vendorId);
-                
-                // Update vendor title
-                var vendorName = $(this).find('option:selected').text();
-                $('#vendorTitle').text(vendorName + ' - Vehicle Statistics');
-            } else {
-                // Hide statistics panel if no vendor selected
-                $('#vendorStatsRow').hide();
-                // Show all rows in table
-                table.column(1).search('').draw();
-                // Reset statistics
-                resetStatistics();
-            }
-        });
-
-        // Function to update vendor statistics
-        function updateVendorStatistics(vendorId) {
-            // Get all rows (including hidden ones)
-            var allRows = table.rows().data();
-            
-            // Filter rows for the selected vendor
-            var filteredRows = allRows.filter(function(row) {
-                return vendorId ? row.vendor_id == vendorId : true;
-            });
-            
-            var totalVehicles = filteredRows.count();
-            var activeVehicles = 0;
-            var maintenanceVehicles = 0;
-            var inactiveVehicles = 0;
-            var typeDistribution = {};
-            
-            // Calculate statistics
-            filteredRows.each(function(row) {
-                var status = row.status.toLowerCase();
-                
-                // Count statuses
-                if (status.includes('active')) {
-                    activeVehicles++;
-                } else if (status.includes('maintenance')) {
-                    maintenanceVehicles++;
-                } else if (status.includes('inactive')) {
-                    inactiveVehicles++;
-                }
-                
-                // Get vehicle type name (we'll need to map IDs to names)
-                var vehicleTypeId = row.vehicle_id;
-                var vehicleTypeName = getVehicleTypeName(vehicleTypeId);
-                
-                // Count vehicle types
-                if (!typeDistribution[vehicleTypeName]) {
-                    typeDistribution[vehicleTypeName] = 0;
-                }
-                typeDistribution[vehicleTypeName]++;
-            });
-            
-            // Update statistics display
-            $('#totalVehicles').text(totalVehicles);
-            $('#activeVehicles').text(activeVehicles);
-            $('#maintenanceVehicles').text(maintenanceVehicles);
-            $('#inactiveVehicles').text(inactiveVehicles);
-            
-            // Update type distribution
-            updateTypeDistribution(typeDistribution);
-        }
-
-        // Helper function to get vehicle type name from ID
-        function getVehicleTypeName(vehicleTypeId) {
-            // This should match your $Vehicle data structure
-            // You might need to pass this from PHP or create a lookup object
-            var vehicleTypes = {
-                @foreach($Vehicle as $type)
-                    {{ $type->id }}: '{{ $type->type }}',
-                @endforeach
-            };
-            return vehicleTypes[vehicleTypeId] || 'Unknown';
-        }
-
-        // Function to reset statistics
-        function resetStatistics() {
-            $('#totalVehicles').text('0');
-            $('#activeVehicles').text('0');
-            $('#maintenanceVehicles').text('0');
-            $('#inactiveVehicles').text('0');
-            $('#typeDistribution').html('');
-        }
-
-        // Function to update type distribution display
-        function updateTypeDistribution(distribution) {
-            var typeDistributionHtml = '';
-            for (var type in distribution) {
-                typeDistributionHtml += `
-                    <div class="col-md-3">
-                        <div class="vehicle-type-item">
-                            <span class="vehicle-type-name">${type}</span>
-                            <span class="vehicle-type-count">${distribution[type]}</span>
-                        </div>
-                    </div>
-                `;
-            }
-            $('#typeDistribution').html(typeDistributionHtml);
-        }
-
-        // Search functionality
-        $('#searchInput').keyup(function() {
-            table.search($(this).val()).draw();
-            // Update statistics if a vendor is selected
-            if ($('#vendorSelect').val()) {
-                updateVendorStatistics($('#vendorSelect').val());
-            }
-        });
-
-        // Initial statistics calculation for all data
-        updateVendorStatistics();
-    });
-</script> -->
 
 <!-- display data as per vender selection -->
  <script>

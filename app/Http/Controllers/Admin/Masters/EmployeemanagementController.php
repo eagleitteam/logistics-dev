@@ -60,24 +60,50 @@ class EmployeemanagementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
+    public function edit(employeemanagement $employeemanagements, Request $request)
+    { 
+        $employeemanagements = employeemanagement::find($request->model_id);
+        try {
+            return response()->json([
+                'employeemanagement' => $employeemanagements,
+                'success' => 'employeemanagement retrieved successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to retrieve employeemanagement'], 500);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateEmployeemanagementRequest $request, employeemanagement $employeemanagements)
     {
-        //
+       try {
+            DB::beginTransaction();
+            $input = $request->validated();
+            $employeemanagements->update(Arr::only($input, employeemanagement::getFillables()));
+            DB::commit();
+
+            return response()->json(['success' => 'employeemanagement updated successfully!']);
+        } catch (\Exception $e) {
+            return $this->respondWithAjax($e, 'updating', 'employeemanagement');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(employeemanagement  $employeemanagements, Request $request)
     {
-        //
+        try {
+            $employeemanagements = employeemanagement::find($request->model_id);
+            DB::beginTransaction();
+            $employeemanagements->delete();
+            DB::commit();
+
+            return response()->json(['success' => 'employeemanagement deleted successfully!']);
+        } catch (\Exception $e) {
+            return $this->respondWithAjax($e, 'deleting', 'employeemanagement');
+        }
     }
 }

@@ -3,13 +3,13 @@
     <x-slot name="heading">Cash Memo Management</x-slot>
 
     {{-- Top bar --}}
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header p-3">
                     <div class="row align-items-center">
                         <div class="col-md-6">
-                            <h3><i class="fas fa-receipt me-2"></i> Cash Memo Management System</h3>
+                            <h3 class="mb-0"><i class="fas fa-receipt me-2"></i> Cash Memo Management System</h3>
                         </div>
                         @can('CashMemo.create')
                         <div class="col-md-6 text-end">
@@ -17,19 +17,18 @@
                                 <i class="fas fa-plus me-2"></i>Add Cash Memo
                             </button>
                         </div>
-                         @endcan
+                        @endcan
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    {{-- END --}}
 
     {{-- Filter Section --}}
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header p-3">
                     <div class="row align-items-center">
                         <div class="col-lg-1"></div>
                         <div class="col-lg-4">
@@ -56,17 +55,16 @@
             </div>
         </div>
     </div>
-    {{-- END --}}
 
     {{-- Summary Section --}}
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header p-3">
                     <div class="row align-items-center">
                         <div class="col-md-6">
-                            <h4 id="vehicleTitle">Total Cash Memos: <span id="totalMemos">5</span></h4>
-                            <p class="text-muted" id="amountSummary">Total Amount: ₹53,570.00 | Pending: ₹15,700.00</p>
+                            <h4 class="mb-1" id="vehicleTitle">Total Cash Memos: <span id="totalMemos">5</span></h4>
+                            <p class="text-muted mb-0" id="amountSummary">Total Amount: ₹53,570.00 | Pending: ₹15,700.00</p>
                         </div>
                         <div class="col-md-6 text-end">
                             <div class="btn-group" role="group">
@@ -79,13 +77,12 @@
             </div>
         </div>
     </div>
-    {{-- END --}}
 
     {{-- Main Table --}}
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body p-3">
                     <div class="table-responsive">
                         <table id="cash-memo-datatable" class="table table-bordered nowrap align-middle" style="width:100%">
                             <thead class="table-light">
@@ -126,25 +123,23 @@
                                     <td>{{ $memo->balance_amount }}</td>
                                     <td><span class="badge bg-success">Paid</span></td>
                                     <td>{{ $memo->note }}</td>
-                                    
-                                    
                                     <td>
-                                        <div class="d-flex gap-2">
+                                        <div class="d-flex gap-2 justify-content-center">
                                             @can('CashMemo.edit')
                                             <button class="btn btn-sm btn-info view-btn" data-bs-toggle="modal" title="Edit memo" data-id="{{ $memo->id }}" data-bs-target="#viewMemoModal">
                                                 <i class="fas fa-eye"></i>
                                             </button>
-                                             @endcan
-                                             @can('CashMemo.edit')
-                                            <button  class="btn btn-sm btn-warning edit-btn" data-bs-toggle="modal" title="Edit memo" data-id="{{ $memo->id }}" data-bs-target="#editMemoModal">
+                                            @endcan
+                                            @can('CashMemo.edit')
+                                            <button class="btn btn-sm btn-warning edit-btn" data-bs-toggle="modal" title="Edit memo" data-id="{{ $memo->id }}" data-bs-target="#editMemoModal">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                             @endcan
-                                             @can('CashMemo.delete')
+                                            @endcan
+                                            @can('CashMemo.delete')
                                             <button class="btn btn-sm btn-danger delete-btn" data-id="{{ $memo->id }}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
-                                             @endcan
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>
@@ -156,7 +151,7 @@
             </div>
         </div>
     </div>
-
+    
     {{-- Add Memo Modal --}}
     <div class="modal fade" id="addMemoModal" tabindex="-1" aria-labelledby="addMemoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -279,24 +274,47 @@
         </div>
     </div>
 
+
     {{-- View Memo Modal --}}
-    <div class="modal fade" id="viewMemoModal" tabindex="-1" aria-labelledby="viewMemoModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="viewMemoModalLabel">Cash Memo Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="receipt-container p-4">
-                        <div class="text-center mb-4">
-                            <h4 class="text-primary fw-bold">SPEEDLINE TRANSPORT SOLUTIONS</h4>
-                            <p class="text-muted small">123 Transport Nagar, Mumbai - 400001 | GSTIN: 27ABCDE1234F1Z5</p>
-                            <h5 class="fw-semibold">CASH MEMO RECEIPT</h5>
-                            <hr class="border-primary opacity-50">
+<div class="modal fade" id="viewMemoModal" tabindex="-1" aria-labelledby="viewMemoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header p-3">
+                <h5 class="modal-title" id="viewMemoModalLabel">Cash Memo Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="position-relative">
+                    <div class="receipt-container">
+                        <!-- Company Logo with absolute positioning -->
+                        <div class="position-absolute" style="left: 20px; top: 20px; width: 100px;">
+                            @if($Companyprofile?->company_logo)
+                                <img src="{{ asset('storage\uploads\companies_documents\Avinash_Logistics_Pvt__Ltd_\logo_Avinash_Logistics_Pvt__Ltd_.png') }}" 
+                                    alt="Company Logo" 
+                                    style="max-height: 180px; width: auto; max-width: 100%; object-fit: contain; border: 1px solid #ddd; padding: 5px;">
+                            @else
+                                <div style="display:none;"></div>
+                            @endif
+                        </div>
+                        
+                        <!-- Main centered content -->
+                        <div class="text-center mx-auto" style="max-width: 80%;">
+                            <!-- Company name -->
+                            <h4 class="text-primary fw-bold">{{$Companyprofile?->company_name }}</h4>
+                            
+                            <!-- Company details -->
+                            <p class="text-muted small mb-1">{{$Companyprofile?->address_line1}}, {{$Companyprofile?->address_line2}}</p>
+                            <p class="text-muted small mb-1">{{$Companyprofile?->city}}, {{$Companyprofile?->pin_code}}, {{$Companyprofile?->state}}</p>
+                            <p class="text-muted small mb-1">GSTIN: {{$Companyprofile?->gstin}} | PAN NO: {{$Companyprofile?->pan_number}}</p>
+                            
+                            <!-- Receipt title -->
+                            <div class="mt-3">
+                                <h5 class="fw-semibold">CASH MEMO RECEIPT</h5>
+                                <hr class="border-primary opacity-50 mx-auto" style="width: 50%;">
+                            </div>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="row mb-3 mt-4">
                             <div class="col-md-4">
                                 <p class="text-muted small mb-1">Memo No.</p>
                                 <p class="fw-semibold" id="view-memo-no">CM-2023-105</p>
@@ -404,33 +422,39 @@
                             </ol>
                         </div>
 
-                        <div class="d-flex justify-content-between pt-3 border-top">
-                            <div class="text-center" style="width: 200px;">
-                                <div class="border-top border-dark mx-auto mb-2" style="width: 80%;"></div>
-                                <p class="text-muted small mb-0">Receiver's Signature</p>
-                            </div>
-                            <div class="text-center" style="width: 200px;">
-                                <div class="border-top border-dark mx-auto mb-2" style="width: 80%;"></div>
-                                <p class="text-muted small mb-0">Authorized Signatory</p>
+                            <div class="d-flex justify-content-between pt-3 border-top">
+                                <div class="text-center" style="width: 200px; position: relative; padding-bottom: 30px;">
+                                    <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 80%;">
+                                        <div class="border-bottom border-dark mx-auto" style="width: 100%;"></div>
+                                        <p class="text-muted small mb-0 mt-2">Receiver's Signature</p>
+                                        </div>
+                                    </div>
+                            <div class="text-center" style="width: 200px; position: relative;">
+                                <img src="{{ asset('storage\uploads\companies_documents\Avinash_Logistics_Pvt__Ltd_\seal_Avinash_Logistics_Pvt__Ltd_.png') }}" alt="Signature" style="height: 80px; margin-bottom: 5px;">
+                                <img src="{{ asset('storage\uploads\companies_documents\Avinash_Logistics_Pvt__Ltd_\signature_Avinash_Logistics_Pvt__Ltd_.png') }}" alt="Company Seal" style="height: 61px; position: absolute; top: 6px; right: 38px; opacity: 0.9;">
+                                <p class="text-muted small mb-0">{{$Companyprofile?->company_type}} Signatory</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success">
-                        <i class="fas fa-print me-2"></i>Print
-                    </button>
-                    <button type="button" class="btn btn-info">
-                        <i class="fas fa-envelope me-2"></i>Email
-                    </button>
-                    <button type="button" class="btn btn-primary">
-                        <i class="fas fa-download me-2"></i>Download PDF
-                    </button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
+            </div>
+            <div class="modal-footer p-3">
+                <button type="button" class="btn btn-success" onclick="printCashMemo()">
+                    <i class="fas fa-print me-2"></i>Print
+                </button>
+                <button type="button" class="btn btn-info" onclick="emailCashMemo()">
+                    <i class="fas fa-envelope me-2"></i>Email
+                </button>
+                <button type="button" class="btn btn-primary" onclick="downloadPDF()">
+                    <i class="fas fa-download me-2"></i>Download PDF
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
+</div>
+    
+
 
     {{-- Edit Memo Modal --}}
     <div class="modal fade" id="editMemoModal" tabindex="-1" aria-labelledby="editMemoModalLabel" aria-hidden="true">
@@ -925,4 +949,217 @@
             console.log(`Filtering by vehicle: ${vehicle}, status: ${status}`);
         });
     });
+</script>
+
+<!-- print -->
+ <script>
+// Print Function with better formatting
+function printCashMemo() {
+    // Get the modal content
+    const modalContent = document.querySelector('#viewMemoModal .modal-content');
+    
+    // Create a new window for printing
+    const printWindow = window.open('', '', 'width=900,height=650');
+    
+    // Write the modal content to the new window
+    printWindow.document.write(`
+        <html>
+            <head>
+                <title>Cash Memo - ${document.getElementById('view-memo-no').textContent}</title>
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+                <style>
+                    @page {
+                        size: A4;
+                        margin: 10mm 15mm;
+                    }
+                    @media print {
+                        body {
+                            padding: 0;
+                            margin: 0;
+                            background: white;
+                            font-size: 12pt;
+                        }
+                        .modal-content {
+                            border: none;
+                            box-shadow: none;
+                            width: 100%;
+                        }
+                        .receipt-container {
+                            padding: 0 !important;
+                        }
+                        .no-print {
+                            display: none !important;
+                        }
+                        .table {
+                            page-break-inside: avoid;
+                        }
+                        .card {
+                            border: 1px solid #ddd !important;
+                        }
+                        .position-absolute {
+                            position: relative !important;
+                            left: 0 !important;
+                            top: 0 !important;
+                            margin-bottom: 15px;
+                        }
+                        .text-center.mx-auto {
+                            width: 100% !important;
+                            max-width: 100% !important;
+                        }
+                    }
+                    @media screen {
+                        body {
+                            padding: 20px;
+                            background: #f8f9fa;
+                        }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container-fluid">
+                    ${modalContent.innerHTML}
+                </div>
+                <script>
+                    window.onload = function() {
+                        // Remove modal-specific classes before printing
+                        document.querySelector('.modal-content').classList.remove('modal-content');
+                        setTimeout(function() {
+                            window.print();
+                            setTimeout(function() {
+                                window.close();
+                            }, 500);
+                        }, 300);
+                    };
+                <\/script>
+            </body>
+        </html>
+    `);
+    printWindow.document.close();
+}
+
+// Enhanced PDF Download Function
+function downloadPDF() {
+    // Get the modal content element
+    const element = document.querySelector('#viewMemoModal .modal-body');
+    
+    // Create a clone to modify for PDF
+    const elementClone = element.cloneNode(true);
+    
+    // Adjust elements for PDF
+    const logo = elementClone.querySelector('.position-absolute');
+    if (logo) {
+        logo.style.position = 'relative';
+        logo.style.left = '0';
+        logo.style.top = '0';
+        logo.style.marginBottom = '15px';
+        logo.style.width = '100px';
+    }
+    
+    // Configuration for html2pdf
+    const opt = {
+        margin: [15, 10, 15, 10], // top, right, bottom, left
+        filename: `cash_memo_${document.getElementById('view-memo-no').textContent.trim()}.pdf`,
+        image: { 
+            type: 'jpeg', 
+            quality: 0.98 
+        },
+        html2canvas: { 
+            scale: 2,
+            logging: false,
+            useCORS: true,
+            allowTaint: true,
+            scrollX: 0,
+            scrollY: 0,
+            windowWidth: document.documentElement.offsetWidth
+        },
+        jsPDF: { 
+            unit: 'mm', 
+            format: 'a4', 
+            orientation: 'portrait',
+            compress: true
+        },
+        pagebreak: {
+            mode: ['avoid-all', 'css', 'legacy']
+        }
+    };
+    
+    // Load html2pdf library dynamically if not already loaded
+    if (typeof html2pdf !== 'undefined') {
+        generatePDF(elementClone, opt);
+    } else {
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+        script.onload = function() {
+            generatePDF(elementClone, opt);
+        };
+        document.head.appendChild(script);
+    }
+    
+    function generatePDF(element, options) {
+        // Show loading indicator
+        const loadingToast = new bootstrap.Toast(document.createElement('div'));
+        loadingToast._element.classList.add('toast', 'align-items-center', 'text-white', 'bg-primary');
+        loadingToast._element.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body">
+                    Generating PDF...
+                </div>
+            </div>
+        `;
+        document.body.appendChild(loadingToast._element);
+        loadingToast.show();
+        
+        // Generate PDF
+        html2pdf()
+            .set(options)
+            .from(element)
+            .toPdf()
+            .get('pdf')
+            .then(function(pdf) {
+                // Add watermark or other PDF modifications if needed
+                const totalPages = pdf.internal.getNumberOfPages();
+                for (let i = 1; i <= totalPages; i++) {
+                    pdf.setPage(i);
+                    pdf.setFontSize(8);
+                    pdf.setTextColor(150);
+                    pdf.text(`Page ${i} of ${totalPages}`, pdf.internal.pageSize.getWidth() - 20, pdf.internal.pageSize.getHeight() - 10);
+                }
+            })
+            .save()
+            .then(() => {
+                loadingToast.hide();
+                loadingToast._element.remove();
+            })
+            .catch(err => {
+                console.error('PDF generation error:', err);
+                loadingToast.hide();
+                loadingToast._element.remove();
+                alert('Error generating PDF. Please try again.');
+            });
+    }
+}
+
+// Enhanced Email Function
+function emailCashMemo() {
+    // Create a temporary element to get clean text
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = document.querySelector('#viewMemoModal .modal-body').innerHTML;
+    
+    // Remove buttons and other non-essential elements
+    const elementsToRemove = tempDiv.querySelectorAll('button, .no-email');
+    elementsToRemove.forEach(el => el.remove());
+    
+    // Get clean text
+    const memoText = tempDiv.textContent
+        .replace(/\s+/g, ' ')
+        .trim();
+    
+    const memoNo = document.getElementById('view-memo-no').textContent.trim();
+    const subject = `Cash Memo ${memoNo}`;
+    const body = `Please find attached the cash memo details:\n\n${memoText}\n\nThank you.`;
+    
+    // Open email client
+    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
 </script>

@@ -2,20 +2,18 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
-class Client extends BaseModel
+class Invoiceiteam extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name','gst_no', 'contact_person','contact_number','alternate_contact_no','email','billing_address','city','pincode','state','billing_type'];
+    protected $fillable = ['client_id','invoice_id','trip_movement_id'];
+
     
-    public function states()
-    {
-        return $this->belongsTo(StateNameWithCode::class, 'state');
-    }
 
     public static function booted()
     {

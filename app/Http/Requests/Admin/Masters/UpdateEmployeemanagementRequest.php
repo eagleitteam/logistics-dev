@@ -22,7 +22,24 @@ class UpdateEmployeemanagementRequest extends FormRequest
     public function rules(): array
     {
         return [
-             'empname' => 'required|string|max:255',
+             'type' => 'nullable|string|max:50',
+            'emp_id' => 'required|string|max:100',
+            'first_name' => 'required|string|max:100',
+            'last_name' => 'nullable|string|max:100',
+            'joining_date' => 'nullable|date',
+            'basic_salary' => 'nullable|numeric|min:0',
+            'contact_number' => 'nullable|string|max:15',
+            'email' => 'nullable|email|max:100',
+            'department' => 'nullable|string|max:100',
+            'designation' => 'nullable|string|max:100',
+            'address' => 'nullable|string|max:255',
+            'bank_name' => 'nullable|string|max:100',
+            'account_number' => 'nullable|string|max:50',
+            'ifsc_code' => 'nullable|string|max:20',
+            'pan_number' => 'nullable|string|max:20',
+            'branch' => 'nullable|string|max:100',
+            'note' => 'nullable|string|max:500',
+            'status' => 'nullable|numeric|min:0|max:4',
         ];
     }
 }

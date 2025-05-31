@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Masters;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Masters\StoreCompanyprofileRequest;
+use App\Models\StateNameWithCode;
 use App\Models\Companyprofile;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -17,8 +18,16 @@ class CompanyprofileController extends Controller
      */
     public function index()
     {
-        $companyprofiles = companyprofile::latest()->get();
-        return view('admin.masters.companyProfile', compact('companyprofiles'));
+        // Get distinct state names sorted alphabetically
+         $stateNameWithCode = StateNameWithCode::latest()->get();
+
+         $companyprofiles = companyprofile::first(); // Get first record
+
+        // Pass both company profiles and states to the view
+        return view('admin.masters.companyProfile')->with(['StateNameWithCode' => $stateNameWithCode,'companyprofile' => $companyprofiles]);
+
+        
+        // return view('admin.masters.companyProfile', compact('companyprofiles'));
     }
 
     /**
@@ -37,6 +46,34 @@ class CompanyprofileController extends Controller
         try {
             DB::beginTransaction();
             $input = $request->validated();
+
+            $companyName = preg_replace('/[^A-Za-z0-9_\-]/', '_', $request->company_name); // sanitize for folder name
+            $folderPath = "uploads/companies_documents/{$companyName}";
+
+        // Upload and save logo
+        if ($request->hasFile('company_logo')) {
+            $logoFile = $request->file('company_logo');
+            $logoName = 'logo_' . $companyName . '.' . $logoFile->getClientOriginalExtension();
+            $input['logo'] = $logoFile->storeAs($folderPath, $logoName, 'public');
+        }
+
+        // Upload and save seal
+        if ($request->hasFile('company_seal')) {
+            $sealFile = $request->file('company_seal');
+            $sealName = 'seal_' . $companyName . '.' . $sealFile->getClientOriginalExtension();
+            $input['seal'] = $sealFile->storeAs($folderPath, $sealName, 'public');
+        }
+
+        // Upload and save signature
+        if ($request->hasFile('company_signature')) {
+            $signatureFile = $request->file('company_signature');
+            $signatureName = 'signature_' . $companyName . '.' . $signatureFile->getClientOriginalExtension();
+            $input['signature'] = $signatureFile->storeAs($folderPath, $signatureName, 'public');
+        }
+
+        
+        // Store in database using your original method
+            
             companyprofile::create(Arr::only($input, companyprofile::getFillables()));
             DB::commit();
 

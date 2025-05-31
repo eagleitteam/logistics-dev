@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Masters\StoreCashmemoRequest;
 use App\Http\Requests\Admin\Masters\UpdateCashmemoRequest;
 use App\Models\Cashmemo;
+use App\Models\Companyprofile;
 use App\Models\Client;
 use App\Models\Vehicle;
 use App\Models\VehicalNumber;
@@ -33,8 +34,12 @@ class CashmemoController extends Controller
         // Get vehical numbers
             $vehiclenumbers = Vehicle::latest()->get();
 
+        // Get Company Profile
+           $companyprofile = Companyprofile::latest()->first();
+
+
         // Pass both clients and states to the view
-         return view("admin.masters.cashMemo")->with(['cashmemo'=>$cashmemos,'Vehicle'=>$vehicles,'clients'=>$clients,'Vehicle'=>$vehiclenumbers]);
+         return view("admin.masters.cashMemo")->with(['cashmemo'=>$cashmemos,'Vehicle'=>$vehicles,'clients'=>$clients,'Vehicle'=>$vehiclenumbers,'Companyprofile'=>$companyprofile]);
     }
 
     /**

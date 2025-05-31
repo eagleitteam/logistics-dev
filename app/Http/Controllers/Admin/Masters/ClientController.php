@@ -22,7 +22,7 @@ class ClientController extends Controller
         // return view('admin.masters.client')->with(['clients' => $clients]);
 
         // Get all clients (latest first)
-         $clients = Client::latest()->get();
+         $clients = Client::with('states')->latest()->get();
 
         
          // Get distinct state names sorted alphabetically

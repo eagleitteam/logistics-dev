@@ -13,19 +13,25 @@ return new class extends Migration
     {
         Schema::create('companyprofiles', function (Blueprint $table) {
             $table->id();
-            $table->string('companyname')->nullable();
-            $table->string('companyaddress')->nullable();
+            $table->string('company_name')->nullable();
+            $table->string('registration_number')->nullable();
+            $table->string('address_line1')->nullable();
+            $table->string('address_line2')->nullable();
             $table->string('companyphone')->nullable();
-            $table->string('companyemail')->nullable();
+            $table->string('email')->nullable();
             $table->string('companywebsite')->nullable();
             $table->string('companylogo')->nullable();
             $table->string('gststatus')->nullable();
-            $table->string('gstnumber')->nullable();
-            $table->string('pannumber')->nullable();
-            $table->string('regadd')->nullable();
-            $table->string('pincode')->nullable();
+            $table->string('gstin')->nullable();
+            $table->string('pan_number')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('pin_code')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
+            $table->string('company_logo')->nullable();
+            $table->string('company_seal')->nullable();
+            $table->string('company_signature')->nullable();
+            $table->string('website')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users');
             $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->foreignId('deleted_by')->nullable()->constrained('users');

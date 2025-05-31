@@ -124,6 +124,10 @@ class PermissionTableSeeder extends Seeder
     ['id' => 108, 'name' => 'CashMemo.create', 'group' => 'CashMemo'],
     ['id' => 109, 'name' => 'CashMemo.edit', 'group' => 'CashMemo'],
     ['id' => 110, 'name' => 'CashMemo.delete', 'group' => 'CashMemo'],
+    ['id' => 111, 'name' => 'TaxInvoice.view', 'group' => 'TaxInvoice'],
+    ['id' => 112, 'name' => 'TaxInvoice.create', 'group' => 'TaxInvoice'],
+    ['id' => 113, 'name' => 'TaxInvoice.edit', 'group' => 'TaxInvoice'],
+    ['id' => 114, 'name' => 'TaxInvoice.delete', 'group' => 'TaxInvoice'],
 ];
 
 

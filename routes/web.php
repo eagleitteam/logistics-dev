@@ -76,10 +76,13 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::resource('Salary-on-Tax-Report', App\Http\Controllers\Admin\Masters\TaxOnsalaryreportController::class);
     Route::resource('Link-Vehical-With-Vender', App\Http\Controllers\Admin\Masters\VendorhasvehicleController::class);
     Route::resource('Cash-Memo', App\Http\Controllers\Admin\Masters\CashmemoController::class);
+    Route::resource('Create-Invoice', App\Http\Controllers\Admin\Masters\InvoiceController::class);
+    Route::resource('Invoice-List', App\Http\Controllers\Admin\Masters\InvoiceController::class);
     
 
     // Vendor Ajax fetch
     Route::get('/get-vendor-details', [App\Http\Controllers\Admin\Masters\VendorhasvehicleController::class, 'getVendorDetails'])->name('get_vendor_details');
+    Route::get('/get-client-iteamdetails/{client_id}', [App\Http\Controllers\Admin\Masters\InvoiceController::class, 'clientiteamdetails'])->name('get-client-iteamdetails');
 
 
 

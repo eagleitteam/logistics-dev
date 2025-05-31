@@ -5,20 +5,25 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="card-title"><i class="fas fa-cog me-2"></i> Company Settings</h4>
-                        <button class="btn btn-primary" id="saveCompanySettings">
-                            <i class="fas fa-save me-2"></i>Save Settings
-                        </button>
+               
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4 class="card-title"><i class="fas fa-cog me-2"></i> Company Settings</h4>
+                            
+                        </div>
                     </div>
-                </div>
+                
                 <div class="card-body">
                     <!-- Tabs Navigation -->
                     <ul class="nav nav-tabs" id="companySettingsTabs" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="company-info-tab" data-bs-toggle="tab" data-bs-target="#company-info" type="button" role="tab" aria-controls="company-info" aria-selected="true">
                                 <i class="fas fa-building me-2"></i>Company Information
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="company-number-tab" data-bs-toggle="tab" data-bs-target="#company-number" type="button" role="tab" aria-controls="company-number" aria-selected="true">
+                                <i class="fas fa-building me-2"></i>Billing Number Pre-Fix
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
@@ -42,114 +47,253 @@
                     <div class="tab-content" id="companySettingsTabContent">
                         <!-- Company Information Tab -->
                         <div class="tab-pane fade show active" id="company-info" role="tabpanel" aria-labelledby="company-info-tab">
+
+                        <form class="theme-form" name="addForm" id="addForm" enctype="multipart/form-data">
+                        @csrf
                             <div class="row mt-4">
                                 <div class="col-md-12">
                                     <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title"><i class="fas fa-info-circle me-2"></i>Basic Information</h5>
-                                        </div>
+                                        <div class="card-header d-flex justify-content-between align-items-center">
+                                                <h5 class="card-title mb-0">
+                                                    <i class="fas fa-info-circle me-2"></i>Basic Information
+                                                </h5>
+                                                 @can('Companyprofile.create')
+                                                    <div>
+                                                        <button class="btn btn-primary" id="addSubmit" type="submit">
+                                                            <i class="fas fa-save me-2"></i>Save Company Settings
+                                                        </button>
+                                                    </div>
+                                                @endcan
+                                            </div>
+
                                         <div class="card-body">
-                                            <form id="companyInfoForm">
+                                            
                                                 <div class="row mb-3">
                                                     <div class="col-md-6">
                                                         <label for="companyName" class="form-label">Company Name</label>
-                                                        <input type="text" class="form-control" id="companyName" name="company_name" value="ABC Logistics Pvt. Ltd.">
+                                                        <input type="text" class="form-control" id="companyName" name="company_name" value="{{$companyprofile->company_name}}">
+                                                        <span class="text-danger invalid company_name_err"></span>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="companyType" class="form-label">Company Type</label>
                                                         <select class="form-select" id="companyType" name="company_type">
-                                                            <option value="Private Limited" selected>Private Limited</option>
+                                                            <option value="">Selected ....</option>
+                                                            <option value="Private Limited">Private Limited</option>
                                                             <option value="Public Limited">Public Limited</option>
                                                             <option value="LLP">LLP</option>
                                                             <option value="Proprietorship">Proprietorship</option>
                                                         </select>
+                                                        <span class="text-danger invalid company_type_err"></span>
                                                     </div>
                                                 </div>
                                                 
                                                 <div class="row mb-3">
                                                     <div class="col-md-6">
-                                                        <label for="registrationNumber" class="form-label">Registration Number</label>
-                                                        <input type="text" class="form-control" id="registrationNumber" name="registration_number" value="U63090DL2010PTC207331">
+                                                        <label for="companyName" class="form-label">Company Registration No</label>
+                                                        <input type="text" class="form-control" id="registrationNumber" name="registration_number" value="{{$companyprofile->registration_number}}">
+                                                        <span class="text-danger invalid registration_number_err"></span>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="panNumber" class="form-label">PAN Number</label>
-                                                        <input type="text" class="form-control" id="panNumber" name="pan_number" value="AAECB1234F">
+                                                        <input type="text" class="form-control" id="panNumber" name="pan_number" value="{{$companyprofile->pan_number}}">
+                                                        <span class="text-danger invalid pan_number_err"></span>
                                                     </div>
                                                 </div>
                                                 
                                                 <div class="row mb-3">
                                                     <div class="col-md-6">
-                                                        <label for="gstin" class="form-label">GSTIN</label>
-                                                        <input type="text" class="form-control" id="gstin" name="gstin" value="07AABCU9603R1ZM">
+                                                        <label for="financialYearStart" class="form-label">GST Status</label>
+                                                        <select class="form-select" id="financialYearStart" name="gststatus" value="{{$companyprofile->gststatus}}">
+                                                            <option value="" selected>Select...</option>
+                                                            <option value="1">Register</option>
+                                                            <option value="2">Unregister</option>
+                                                            
+                                                        </select>
+                                                        <span class="text-danger invalid gststatus_err"></span>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="financialYearStart" class="form-label">Financial Year Start</label>
-                                                        <select class="form-select" id="financialYearStart" name="financial_year_start">
-                                                            <option value="April" selected>April</option>
-                                                            <option value="January">January</option>
-                                                            <option value="July">July</option>
-                                                        </select>
+                                                        <label for="gstin" class="form-label">GSTIN</label>
+                                                        <input type="text" class="form-control" id="gstin" name="gstin" value="{{$companyprofile->gstin}}">
                                                     </div>
+                                                    <span class="text-danger invalid gstin_err"></span>
                                                 </div>
-                                            </form>
+                                                <div class="row mb-3">
+                                                    <div class="col-md-6">
+                                                        <label for="revscharge" class="form-label">Reverse Charge Apply</label>
+                                                        <select class="form-select" id="revscharge" name="revscharge" >
+                                                            <option value="" selected>Select...</option>
+                                                            <option value="1">Apply</option>
+                                                            <option value="2">Not-Apply</option>
+                                                            
+                                                        </select>
+                                                        <span class="text-danger invalid revscharge_err"></span>
+                                                    </div>
+                                                    
+                                                    
+                                                </div>
+                                            
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
-                            
+
+                            <!-- Company Logo , seal , signature upload -->
                             <div class="row mt-4">
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h5 class="card-title"><i class="fas fa-address-card me-2"></i>Contact Information</h5>
+                                            <h5 class="card-title"><i class="fas fa-address-card me-2"></i>Document Upload</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">Upload Company Logo (PNG Format Only)</label>
+                                                    <input class="form-control" type="file" id="companyLogo" name="company_logo">
+                                                    <span class="text-danger invalid company_logo_err"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">Upload Company Seal (PNG Format Only)</label>
+                                                    <input class="form-control" type="file" id="companySeal" name="company_seal">
+                                                    <span class="text-danger invalid company_seal_err"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">Upload signature (PNG Format Only)</label>
+                                                    <input class="form-control" type="file" id="companySignature" name="company_signature">
+                                                    <span class="text-danger invalid company_signature_err"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- end -->
+                             <!-- Billing Address  -->
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title"><i class="fas fa-address-card me-2"></i>Billing Information</h5>
                                         </div>
                                         <div class="card-body">
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <label for="addressLine1" class="form-label">Address Line 1</label>
-                                                    <input type="text" class="form-control" id="addressLine1" name="address_line1" value="123 Industrial Area">
+                                                    <input type="text" class="form-control" id="addressLine1" name="address_line1" value="{{$companyprofile->address_line1}}">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="addressLine2" class="form-label">Address Line 2</label>
-                                                    <input type="text" class="form-control" id="addressLine2" name="address_line2" value="Sector 5">
+                                                    <input type="text" class="form-control" id="addressLine2" name="address_line2" value="{{$companyprofile->address_line2}}">
                                                 </div>
                                             </div>
                                             
                                             <div class="row mb-3">
                                                 <div class="col-md-4">
                                                     <label for="city" class="form-label">City</label>
-                                                    <input type="text" class="form-control" id="city" name="city" value="New Delhi">
+                                                    <input type="text" class="form-control" id="city" name="city" value="{{$companyprofile->city}}">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="state" class="form-label">State</label>
                                                     <select class="form-select" id="state" name="state">
-                                                        <option value="Delhi" selected>Delhi</option>
-                                                        <option value="Maharashtra">Maharashtra</option>
-                                                        <option value="Karnataka">Karnataka</option>
+                                                        <option value="" selected disabled>Choose...</option>
+                                                            @foreach ($StateNameWithCode as $StateNameWithCode)
+                                                                    <option value="{{ optional($StateNameWithCode)->id }}">{{ optional($StateNameWithCode)->stateName }}</option>
+                                                            @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="pinCode" class="form-label">PIN Code</label>
-                                                    <input type="text" class="form-control" id="pinCode" name="pin_code" value="110020">
+                                                    <input type="text" class="form-control" id="pinCode" name="pin_code" value="{{$companyprofile->pin_code}}">
                                                 </div>
                                             </div>
                                             
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <label for="phoneNumber" class="form-label">Phone Number</label>
-                                                    <input type="text" class="form-control" id="phoneNumber" name="phone_number" value="011-23456789">
+                                                    <input type="text" class="form-control" id="phoneNumber" name="phone_number" value="{{$companyprofile->phone_number}}">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="email" class="form-label">Email</label>
-                                                    <input type="email" class="form-control" id="email" name="email" value="info@abclogistics.com">
+                                                    <input type="email" class="form-control" id="email" name="email" value="{{$companyprofile->email}}">
                                                 </div>
                                             </div>
                                             
                                             <div class="row mb-3">
                                                 <div class="col-md-12">
                                                     <label for="website" class="form-label">Website</label>
-                                                    <input type="url" class="form-control" id="website" name="website" value="https://www.abclogistics.com">
+                                                    <input type="url" class="form-control" id="website" name="website" value="{{$companyprofile->website}}">
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <!-- end -->
+                            </form>
+                        </div>
+
+                        <!-- Invoice & Cash memo number Tab -->
+                        <div class="tab-pane fade" id="company-number" role="tabpanel" aria-labelledby="company-number-tab">
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5 class="card-title"><i class="fas fa-sitemap me-2"></i>Invoice & Cash Memo Prefix</h5>
+                                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addPrePostFixModal">
+                                                    <i class="fas fa-plus me-2"></i>Add Pre & Post fix
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover" id="prefixTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Year</th>
+                                                            <th>Type</th>
+                                                            <th>Pre Fix</th>
+                                                            <th>Numbering Dig</th>
+                                                            <th>Post Fix</th>
+                                                            <th>Sample Format</th>
+                                                            <th>Status</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>2023</td>
+                                                            <td>Invoice</td>
+                                                            <td>INV</td>
+                                                            <td>4</td>
+                                                            <td>FY23</td>
+                                                            <td>INV/0001/FY23</td>
+                                                            <td><span class="badge bg-success">Active</span></td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-primary edit-prefix" data-id="1"><i class="fas fa-edit"></i></button>
+                                                                <button class="btn btn-sm btn-danger delete-prefix" data-id="1"><i class="fas fa-trash"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2023</td>
+                                                            <td>Cash Memo</td>
+                                                            <td>CM</td>
+                                                            <td>5</td>
+                                                            <td>23</td>
+                                                            <td>CM/00001/23</td>
+                                                            <td><span class="badge bg-success">Active</span></td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-primary edit-prefix" data-id="2"><i class="fas fa-edit"></i></button>
+                                                                <button class="btn btn-sm btn-danger delete-prefix" data-id="2"><i class="fas fa-trash"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -405,6 +549,91 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Add Pre & Post Fix Modal -->
+    <div class="modal fade" id="addPrePostFixModal" tabindex="-1" aria-labelledby="addPrePostFixModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPrePostFixModalLabel"><i class="fas fa-hashtag me-2"></i>Add Numbering Format</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="theme-form" name="addForm" id="addForm" enctype="multipart/form-data">
+                        @csrf
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="prefixYear" class="form-label">Year</label>
+                                <input type="text" class="form-control" id="prefixYear" name="year" required maxlength="4">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="prefixType" class="form-label">Type</label>
+                                <select class="form-select" id="prefixType" name="type" required>
+                                    <option value="">Select Type</option>
+                                    <option value="1">Invoice</option>
+                                    <option value="2">Cash Memo</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="prefixPre" class="form-label">Pre Fix</label>
+                                <input type="text" class="form-control" id="prefixPre" name="prefix_pre" maxlength="8">
+                                <small class="text-muted">Max 8 characters</small>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="prefixDigits" class="form-label">Numbering Digits</label>
+                                <select class="form-select" id="prefixDigits" name="digits" required>
+                                    <option value="3">3 (001)</option>
+                                    <option value="4">4 (0001)</option>
+                                    <option value="5">5 (00001)</option>
+                                    <option value="6">6 (000001)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="prefixPost" class="form-label">Post Fix</label>
+                                <input type="text" class="form-control" id="prefixPost" name="prefix_post" maxlength="8">
+                                <small class="text-muted">Max 8 characters</small>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                        <div class="col-md-12">
+                            <div class="alert alert-info">
+                                <strong>Sample Format:</strong> 
+                                <span id="sampleFormat">PRE/0001/POST</span>
+                                <span id="formatLength" class="float-end">Length: <span id="lengthCount">12</span>/16 characters</span>
+                            </div>
+                            <div id="lengthWarning" class="alert alert-danger d-none">
+                                Format exceeds 16 characters! Please adjust your pre/post fix.
+                            </div>
+                        </div>
+                    </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="prefixStatus" class="form-label">Status</label>
+                                <select class="form-select" id="prefixStatus" name="status" required>
+                                    <option value="active" selected>Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                         @can('Companyprofile.edit')
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        @endcan
+                         @can('Companyprofile.delete')
+                        <button type="submit" class="btn btn-primary">Save Format</button>
+                        @endcan
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     
     <!-- Add Location Modal -->
     <div class="modal fade" id="addLocationModal" tabindex="-1" aria-labelledby="addLocationModalLabel" aria-hidden="true">
@@ -575,192 +804,233 @@
         </div>
     </div>
     
-    <!-- Edit Modals would be similar to Add Modals but prefilled with data -->
     
-    <script>
-        // Initialize DataTables
-        $(document).ready(function() {
-            $('#locationsTable').DataTable({
-                responsive: true
-            });
-            
-            $('#departmentsTable').DataTable({
-                responsive: true
-            });
-            
-            $('#holidaysTable').DataTable({
-                responsive: true
-            });
-            
-            // Save Company Settings
-            $('#saveCompanySettings').click(function() {
-                // Collect all form data
-                const companyInfoData = $('#companyInfoForm').serializeArray();
-                const contactInfoData = {
-                    address_line1: $('#addressLine1').val(),
-                    address_line2: $('#addressLine2').val(),
-                    city: $('#city').val(),
-                    state: $('#state').val(),
-                    pin_code: $('#pinCode').val(),
-                    phone_number: $('#phoneNumber').val(),
-                    email: $('#email').val(),
-                    website: $('#website').val()
-                };
-                
-                // Combine all data
-                const allData = {
-                    company_info: companyInfoData,
-                    contact_info: contactInfoData
-                };
-                
-                // AJAX request to save settings
-                $.ajax({
-                    url: '{{ route("Company-Profile.index") }}',
-                    type: 'POST',
-                    data: allData,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            toastr.success('Company settings saved successfully');
-                        } else {
-                            toastr.error('Error saving company settings');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        toastr.error('Error saving company settings');
-                        console.error(error);
-                    }
-                });
-            });
-            
-            // Add Location Form Submission
-            $('#addLocationForm').submit(function(e) {
-                e.preventDefault();
-                
-                $.ajax({
-                    url: '{{ route("Company-Profile.store") }}',
-                    type: 'POST',
-                    data: $(this).serialize(),
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            toastr.success('Location added successfully');
-                            $('#addLocationModal').modal('hide');
-                            // Refresh locations table or add new row
-                        } else {
-                            toastr.error('Error adding location');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        toastr.error('Error adding location');
-                        console.error(error);
-                    }
-                });
-            });
-            
-            // Add Department Form Submission
-            $('#addDepartmentForm').submit(function(e) {
-                e.preventDefault();
-                
-                $.ajax({
-                    url: '{{ route("Company-Profile.store") }}',
-                    type: 'POST',
-                    data: $(this).serialize(),
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            toastr.success('Department added successfully');
-                            $('#addDepartmentModal').modal('hide');
-                            // Refresh departments table or add new row
-                        } else {
-                            toastr.error('Error adding department');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        toastr.error('Error adding department');
-                        console.error(error);
-                    }
-                });
-            });
-            
-            // Add Holiday Form Submission
-            $('#addHolidayForm').submit(function(e) {
-                e.preventDefault();
-                
-                $.ajax({
-                    url: '{{ route("Company-Profile.store") }}',
-                    type: 'POST',
-                    data: $(this).serialize(),
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            toastr.success('Holiday added successfully');
-                            $('#addHolidayModal').modal('hide');
-                            // Refresh holidays table or add new row
-                        } else {
-                            toastr.error('Error adding holiday');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        toastr.error('Error adding holiday');
-                        console.error(error);
-                    }
-                });
-            });
-            
-            // Edit Location
-            $('.edit-location').click(function() {
-                const locationId = $(this).data('id');
-                // AJAX to fetch location data and populate edit modal
-                // Similar to add but with prefilled data
-            });
-            
-            // Delete Location
-            $('.delete-location').click(function() {
-                const locationId = $(this).data('id');
-                
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: '{{ route("Company-Profile.destroy", "") }}/' + locationId,
-                            type: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            success: function(response) {
-                                if (response.success) {
-                                    toastr.success('Location deleted successfully');
-                                    // Remove row from table or refresh
-                                } else {
-                                    toastr.error('Error deleting location');
-                                }
-                            },
-                            error: function(xhr, status, error) {
-                                toastr.error('Error deleting location');
-                                console.error(error);
-                            }
-                        });
-                    }
-                });
-            });
-            
-            // Similar edit/delete handlers for departments and holidays
-        });
-    </script>
 </x-admin.layout>
+
+{{-- Add --}}
+<script>
+    $("#addForm").submit(function(e) {
+        e.preventDefault();
+        console.log("Form submit triggered ✅"); // ← DEBUG LINE
+        alert("Form submit triggered ✅"); // ← DEBUG LINE
+        $("#addSubmit").prop('disabled', true);
+
+        var formdata = new FormData(this);
+        $.ajax({
+            url: '{{ route('Company-Profile.store') }}',
+            type: 'POST',
+            data: formdata,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                $("#addSubmit").prop('disabled', false);
+                if (!data.error2)
+                    swal("Successful!", data.success, "success")
+                    .then((action) => {
+                        window.location.href = '{{ route('Company-Profile.index') }}';
+                    });
+                else
+                    swal("Error!", data.error2, "error");
+            },
+            statusCode: {
+                422: function(responseObject, textStatus, jqXHR) {
+                    $("#addSubmit").prop('disabled', false);
+                    resetErrors();
+                    printErrMsg(responseObject.responseJSON.errors);
+                },
+                500: function(responseObject, textStatus, errorThrown) {
+                    $("#addSubmit").prop('disabled', false);
+                    swal("Error occured!", "Something went wrong please try again", "error");
+                }
+            }
+        });
+
+    });
+</script>
+
+
+<!-- Edit -->
+<script>
+    $("#buttons-datatables").on("click", ".edit-element", function(e) {
+        e.preventDefault();
+        var model_id = $(this).attr("data-id");
+        var url = "{{ route('Company-Profile.edit', ':model_id') }}";
+
+        $.ajax({
+            url: url.replace(':model_id', model_id),
+            type: 'GET',
+            data: {
+                '_token': "{{ csrf_token() }}"
+            },
+            success: function(data, textStatus, jqXHR) {
+                editFormBehaviour();
+                if (!data.error) {
+                    $("#editForm input[name='edit_model_id']").val(data.vehicle.id);
+                    $("#editForm input[name='type']").val(data.vehicle.type);
+                    $("#editForm input[name='description']").val(data.vehicle.description);
+                } else {
+                    alert(data.error);
+                }
+            },
+            error: function(error, jqXHR, textStatus, errorThrown) {
+                alert("Something went wrong");
+            },
+        });
+    });
+</script>
+
+
+<!-- Update -->
+<script>
+    $(document).ready(function() {
+        $("#editForm").submit(function(e) {
+            e.preventDefault();
+            $("#editSubmit").prop('disabled', true);
+            var formdata = new FormData(this);
+            formdata.append('_method', 'PUT');
+            var model_id = $('#edit_model_id').val();
+            var url = "{{ route('Company-Profile.update', ':model_id') }}";
+
+            $.ajax({
+                url: url.replace(':model_id', model_id),
+                type: 'POST',
+                data: formdata,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    $("#editSubmit").prop('disabled', false);
+                    if (!data.error2)
+                        swal("Successful!", data.success, "success")
+                        .then((action) => {
+                            window.location.href = '{{ route('Company-Profile.index') }}';
+                        });
+                    else
+                        swal("Error!", data.error2, "error");
+                },
+                statusCode: {
+                    422: function(responseObject, textStatus, jqXHR) {
+                        $("#editSubmit").prop('disabled', false);
+                        resetErrors();
+                        printErrMsg(responseObject.responseJSON.errors);
+                    },
+                    500: function(responseObject, textStatus, errorThrown) {
+                        $("#editSubmit").prop('disabled', false);
+                        swal("Error occurred!", "Something went wrong please try again", "error");
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+
+<!-- Delete -->
+<script>
+    $("#buttons-datatables").on("click", ".rem-element", function(e) {
+        e.preventDefault();
+        swal({
+                title: "Are you sure to delete this vehicle type?",
+                icon: "warning",
+                buttons: ["Cancel", "Confirm"],
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    var model_id = $(this).attr("data-id");
+                    var url = "{{ route('Company-Profile.destroy', ':model_id') }}";
+
+                    $.ajax({
+                        url: url.replace(':model_id', model_id),
+                        type: 'POST',
+                        data: {
+                            '_method': "DELETE",
+                            '_token': "{{ csrf_token() }}"
+                        },
+                        success: function(data, textStatus, jqXHR) {
+                            if (!data.error && !data.error2) {
+                                swal("Success!", data.success, "success")
+                                    .then((action) => {
+                                        window.location.reload();
+                                    });
+                            } else {
+                                if (data.error) {
+                                    swal("Error!", data.error, "error");
+                                } else {
+                                    swal("Error!", data.error2, "error");
+                                }
+                            }
+                        },
+                        error: function(error, jqXHR, textStatus, errorThrown) {
+                            swal("Error!", "Something went wrong", "error");
+                        },
+                    });
+                }
+            });
+    });
+</script>
+
+<!-- pre fix and post fix format script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get form elements
+    const preFixInput = document.getElementById('prefixPre');
+    const postFixInput = document.getElementById('prefixPost');
+    const digitsSelect = document.getElementById('prefixDigits');
+    const sampleFormat = document.getElementById('sampleFormat');
+    const lengthCount = document.getElementById('lengthCount');
+    const lengthWarning = document.getElementById('lengthWarning');
+    const saveBtn = document.getElementById('saveFormatBtn');
+    
+    // Function to update sample format
+    function updateSampleFormat() {
+        const preFix = preFixInput.value || 'PRE';
+        const postFix = postFixInput.value || 'POST';
+        const digits = parseInt(digitsSelect.value) || 4;
+        
+        // Create sample number with leading zeros
+        const sampleNumber = '0'.repeat(digits - 1) + '1';
+        
+        // Construct full format
+        const fullFormat = `${preFix}/${sampleNumber}/${postFix}`;
+        const formatLength = fullFormat.length;
+        
+        // Update display
+        sampleFormat.textContent = fullFormat;
+        lengthCount.textContent = formatLength;
+        
+        // Check length limit
+        if (formatLength > 16) {
+            lengthCount.classList.add('text-danger');
+            lengthWarning.classList.remove('d-none');
+            saveBtn.disabled = true;
+        } else {
+            lengthCount.classList.remove('text-danger');
+            lengthWarning.classList.add('d-none');
+            saveBtn.disabled = false;
+        }
+        
+        // Calculate maximum allowed post-fix length
+        const maxPostFixLength = 16 - (preFix.length + digits + 2); // +2 for the slashes
+        if (maxPostFixLength < 0) {
+            postFixInput.setAttribute('maxlength', '0');
+        } else {
+            postFixInput.setAttribute('maxlength', maxPostFixLength.toString());
+        }
+    }
+    
+    // Add event listeners
+    preFixInput.addEventListener('input', updateSampleFormat);
+    postFixInput.addEventListener('input', updateSampleFormat);
+    digitsSelect.addEventListener('change', updateSampleFormat);
+    
+    // Initial update
+    updateSampleFormat();
+});
+</script>
+
+<style>
+#sampleFormat {
+    font-family: monospace;
+    font-weight: bold;
+}
+</style>

@@ -10,7 +10,22 @@ class Companyprofile extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['companyname', 'companyaddress', 'companyphone', 'companyemail', 'companywebsite', 'companylogo', 'gststatus', 'gstnumber', 'pannumber', 'regadd', 'pincode','city' , 'state'];
+    protected $fillable = ['company_name',
+    'registration_number',
+    'address_line1',
+    'address_line2',
+    'email',
+    'gststatus',
+    'gstin',
+    'pan_number',
+    'phone_number',
+    'pin_code',
+    'city',
+    'state',
+    'company_logo',
+    'company_seal',
+    'company_signature',
+    'website',];
 
     public static function booted()
     {

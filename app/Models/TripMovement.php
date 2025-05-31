@@ -10,7 +10,31 @@ class TripMovement extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['trip_count_no', 'trip_date','vendor_id','origin','destination','vehicle_id','client_id','driver_id','per_day_allow','rate','advance','advance_date','toll','unloading_charges','holding_charges','balance_payment','payment_received_amount','payment_date','pod_no','pod_status','bill_status','payment_terms','invoice_no','invoice_date','courier_doc_no','courier_date','vendor_rate','remark'];
+    protected $fillable = ['trip_count_no', 'trip_date','vendor_id','vehicle_no','origin','destination','vehicle_id','client_id','driver_id','per_day_allow','rate','advance','advance_date','toll','unloading_charges','holding_charges','balance_payment','payment_received_amount','payment_date','pod_no','pod_status','bill_status','payment_terms','invoice_no','invoice_date','courier_doc_no','courier_date','vendor_rate','remark'];
+
+            public function vendor()
+            {
+                return $this->belongsTo(Vendor::class, 'vendor_id');
+            }
+
+            public function vehicle()
+            {
+                return $this->belongsTo(Vehicle::class, 'vehicle_id');
+            }
+            
+            public function client()
+            {
+                return $this->belongsTo(Client::class, 'client_id');
+            }
+            public function driver()
+            {
+                return $this->belongsTo(Driver::class, 'driver_id');
+            }
+
+            public function vehicalNumber()
+            {
+                return $this->belongsTo(VehicalNumber::class, 'vehicle_no');
+            }
 
     public static function booted()
     {

@@ -189,6 +189,16 @@
                                 <a href="{{ route('Cash-Memo.index') }}" class="nav-link {{ request()->routeIs('Cash-Memo.index') ? 'active' : '' }}" data-key="t-horizontal">Cash Memo</a>
                             </li>
                             @endcan
+                            @can('TaxInvoice.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Create-Invoice.create') }}" class="nav-link {{ request()->routeIs('Create-Invoice.create') ? 'active' : '' }}" data-key="t-horizontal">Create Tax Invoice</a>
+                            </li>
+                            @endcan
+                            @can('TaxInvoice.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Invoice-List.index') }}" class="nav-link {{ request()->routeIs('Invoice-List.index') ? 'active' : '' }}" data-key="t-horizontal">Tax Invoice List</a>
+                            </li>
+                            @endcan
                            
 
                         </ul>

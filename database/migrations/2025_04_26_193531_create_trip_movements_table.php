@@ -19,11 +19,12 @@ return new class extends Migration
             $table->id();
 
             // Trip info
-            $table->unsignedInteger('trip_count_no');
+            $table->unsignedInteger('trip_count_no')->unique();
             $table->date('trip_date')->nullable();
             $table->foreignIdFor(Vendor::class)->nullable()->constrained();
             $table->string('origin')->nullable();
             $table->string('destination')->nullable();
+            $table->string('vehicle_no')->nullable();
             $table->foreignIdFor(Vehicle::class)->nullable()->constrained()->comment('type from master');
 
             // Client & vendor relations

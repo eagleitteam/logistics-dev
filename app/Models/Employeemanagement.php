@@ -10,7 +10,7 @@ class Employeemanagement extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['empname'];
+    protected $fillable = ['type','emp_id','first_name','last_name','joining_date','basic_salary','contact_number','email','department','designation','address','bank_name','account_number','ifsc_code','pan_number','branch','note','status'];
 
     public static function booted()
     {

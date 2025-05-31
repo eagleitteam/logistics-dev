@@ -133,7 +133,7 @@ class VendorhasvehicleController extends Controller
         try {
             return response()->json([
                 'vendorhasvehicle' => $vendorhasvehicle,
-                'success' => 'cashmemo retrieved successfully'
+                'success' => 'vendorhasvehicle retrieved successfully'
             ]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to retrieve vendorhasvehicle'], 500);

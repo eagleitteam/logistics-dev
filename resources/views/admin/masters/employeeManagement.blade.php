@@ -30,48 +30,22 @@
                         </li>
                     </ul>
                     
-                    <div class="tab-content" id="employeeTabsContent">
-                        <div class="tab-pane fade show active" id="all-employees" role="tabpanel">
-                            <!-- Filter Section -->
-                            <div class="row mb-4">
-                                <div class="col-md-4">
-                                    <label class="form-label">Search</label>
-                                    <input type="text" class="form-control" placeholder="Search employees...">
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="form-label">Department</label>
-                                    <select class="form-select">
-                                        <option>All Departments</option>
-                                        <option>Operations</option>
-                                        <option>Accounts</option>
-                                        <option>HR</option>
-                                        <option>Logistics</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="form-label">Location</label>
-                                    <select class="form-select">
-                                        <option>All Locations</option>
-                                        <option>Delhi</option>
-                                        <option>Mumbai</option>
-                                        <option>Bangalore</option>
-                                        <option>Hyderabad</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-end">
-                                    <button class="btn btn-primary w-100">
-                                        <i class="fas fa-filter me-2"></i>Filter
-                                    </button>
-                                </div>
-                            </div>
+
+                    
+                            <div class="tab-content" id="employeeTabsContent">
+                                <div class="tab-pane fade show active" id="all-employees" role="tabpanel">
+                            
                             
                             <!-- Employees Table -->
+                             <div class="card-body">
+                    
                             <div class="table-responsive">
-                                <table id="employees-table" class="table table-bordered nowrap align-middle" style="width:100%">
+                                <table id="buttons-datatables" class="table table-bordered nowrap align-middle" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Name</th>
+                                            <th>Frist Name</th>
+                                            <th>Last Name</th>
                                             <th>Type</th>
                                             <th>Department</th>
                                             <th>Joining Date</th>
@@ -85,7 +59,8 @@
                                         @foreach ($employeemanagements as $employee)
                                         <tr>
                                                 <td>{{ $employee->emp_id }}</td>
-                                                <td>{{ $employee->name }}</td>
+                                                <td>{{ $employee->first_name }}</td>
+                                                <td>{{ $employee->last_name }}</td>
                                             <td>
                                                 @if($employee->type == 'office')
                                                 <span class="badge bg-primary">Office Staff</span>
@@ -98,21 +73,21 @@
                                             <td>₹{{ number_format($employee->basic_salary, 2) }}</td>
                                             <td>{{ $employee->contact_number }}</td>
                                             <td>
-                                                @if($employee->status == 'active')
+                                                @if($employee->status == '1')
                                                 <span class="badge bg-success">Active</span>
-                                                @elseif($employee->status == 'on_leave')
+                                                @elseif($employee->status == '3')
                                                 <span class="badge bg-warning">On Leave</span>
-                                                @else
+                                                @elseif($employee->status == '2')
                                                 <span class="badge bg-danger">Inactive</span>
                                                 @endif
                                             </td>
                                             <td>
-                                                @can('Employee.edit')
-                                                <button class="edit-element btn btn-secondary px-2 py-1" title="Edit employee" data-id="{{ $employee->id }}">
+                                                @can('Employeemanagement.edit')
+                                                <button class="edit-element btn btn-secondary px-2 py-1" data-bs-target="#editEmployeeModal" title="Edit employee" data-id="{{ $employee->id }}">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                                 @endcan
-                                                @can('Employee.delete')
+                                                @can('Employeemanagement.delete')
                                                 <button class="btn btn-danger rem-element px-2 py-1" title="Delete employee" data-id="{{ $employee->id }}">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
@@ -144,275 +119,492 @@
     </div>
     
     <!-- Add Employee Modal -->
-    <div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addEmployeeModalLabel"><i class="fas fa-user-plus me-2"></i>Add Employee</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form class="theme-form" name="addForm" id="addForm" enctype="multipart/form-data">
+                    @csrf
+                        <div class="modal-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="employeeType" class="form-label">Employee Type</label>
+                                    <select class="form-select" id="employeeType" name="type" >
+                                        <option value="">Select Type</option>
+                                        <option value="office">Office Staff</option>
+                                        <option value="driver">Driver</option>
+                                    </select>
+                                    <span class="text-danger invalid type_err"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="employeeId" class="form-label">Employee ID</label>
+                                    <input type="text" class="form-control" id="employeeId" name="emp_id" >
+                                    <span class="text-danger invalid emp_id_err"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" name="first_name" >
+                                    <span class="text-danger invalid first_name_err"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" name="last_name" >
+                                    <span class="text-danger invalid last_name_err"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="joiningDate" class="form-label">Joining Date</label>
+                                    <input type="date" class="form-control" id="joiningDate" name="joining_date" >
+                                    <span class="text-danger invalid joining_date_err"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="basicSalary" class="form-label">Basic Salary</label>
+                                    <input type="number" class="form-control" id="basicSalary" name="basic_salary" >
+                                    <span class="text-danger invalid basic_salary_err"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="mobileNumber" class="form-label">Mobile Number</label>
+                                    <input type="tel" class="form-control" id="mobileNumber" name="contact_number" >
+                                    <span class="text-danger invalid contact_number_err"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email">
+                                    <span class="text-danger invalid email_err"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="department" class="form-label">Department</label>
+                                    <select class="form-select" id="department" name="department">
+                                        <option value="Operations">Operations</option>
+                                        <option value="Accounts">Accounts</option>
+                                        <option value="HR">HR</option>
+                                        <option value="Logistics">Logistics</option>
+                                    </select>
+                                    <span class="text-danger invalid department_err"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="designation" class="form-label">Designation</label>
+                                    <input type="text" class="form-control" id="designation" name="designation">
+                                    <span class="text-danger invalid designation_err"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label for="address" class="form-label">Address</label>
+                                    <textarea class="form-control" id="address" name="address" rows="3"></textarea>
+                                    <span class="text-danger invalid address_err"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="bankName" class="form-label">Bank Name</label>
+                                    <input type="text" class="form-control" id="bankName" name="bank_name">
+                                    <span class="text-danger invalid bank_name_err"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="accountNumber" class="form-label">Account Number</label>
+                                    <input type="text" class="form-control" id="accountNumber" name="account_number">
+                                    <span class="text-danger invalid account_number_err"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="ifscCode" class="form-label">IFSC Code</label>
+                                    <input type="text" class="form-control" id="ifscCode" name="ifsc_code">
+                                    <span class="text-danger invalid ifsc_code_err"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="branch" class="form-label">Branch</label>
+                                    <input type="text" class="form-control" id="branch" name="branch">
+                                    <span class="text-danger invalid branch_err"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="panNumber" class="form-label">PAN Number</label>
+                                    <input type="text" class="form-control" id="panNumber" name="pan_number">
+                                    <span class="text-danger invalid pan_number_err"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="note" class="form-label">Note</label>
+                                    <input type="text" class="form-control" id="note" name="note">
+                                    <span class="text-danger invalid note_err"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" id="addSubmit" class="btn btn-primary">Save Employee</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    
+    
+            <!-- Edit Vehicle Modal -->
+    <div class="modal fade" id="editEmployeeModal" tabindex="-1" aria-labelledby="editEmployeeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addEmployeeModalLabel"><i class="fas fa-user-plus me-2"></i>Add Employee</h5>
+                    <h5 class="modal-title" id="editEmployeeModalLabel">Edit Vehicle</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="employeeForm" method="POST" action="{{ route('Employee-Management.store') }}">
-                    @csrf
+                 <form class="form-horizontal form-bordered" method="post" id="editForm">
+                @csrf
+                    <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
                     <div class="modal-body">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="employeeType" class="form-label">Employee Type</label>
-                                <select class="form-select" id="employeeType" name="type" required>
-                                    <option value="">Select Type</option>
-                                    <option value="office">Office Staff</option>
-                                    <option value="driver">Driver</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="employeeId" class="form-label">Employee ID</label>
-                                <input type="text" class="form-control" id="employeeId" name="emp_id" required>
-                            </div>
-                        </div>
-                        
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="firstName" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstName" name="first_name" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="lastName" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" name="last_name" required>
-                            </div>
-                        </div>
-                        
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="joiningDate" class="form-label">Joining Date</label>
-                                <input type="date" class="form-control" id="joiningDate" name="joining_date" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="basicSalary" class="form-label">Basic Salary</label>
-                                <input type="number" class="form-control" id="basicSalary" name="basic_salary" required>
-                            </div>
-                        </div>
-                        
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="mobileNumber" class="form-label">Mobile Number</label>
-                                <input type="tel" class="form-control" id="mobileNumber" name="contact_number" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email">
-                            </div>
-                        </div>
-                        
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="department" class="form-label">Department</label>
-                                <select class="form-select" id="department" name="department">
-                                    <option value="Operations">Operations</option>
-                                    <option value="Accounts">Accounts</option>
-                                    <option value="HR">HR</option>
-                                    <option value="Logistics">Logistics</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="designation" class="form-label">Designation</label>
-                                <input type="text" class="form-control" id="designation" name="designation">
-                            </div>
-                        </div>
-                        
-                        <!-- Driver Specific Fields -->
-                        <div id="driverFields" style="display: none;">
-                            <h5 class="mb-3"><i class="fas fa-truck me-2"></i>Driver Specific Information</h5>
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label for="licenseNumber" class="form-label">License Number</label>
-                                    <input type="text" class="form-control" id="licenseNumber" name="license_number">
+                                    <label for="employeeType" class="form-label">Employee Type</label>
+                                    <select class="form-select" id="employeeType" name="type" >
+                                        <option value="">Select Type</option>
+                                        <option value="office">Office Staff</option>
+                                        <option value="driver">Driver</option>
+                                    </select>
+                                    <span class="text-danger invalid type_err"></span>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="licenseExpiry" class="form-label">License Expiry</label>
-                                    <input type="date" class="form-control" id="licenseExpiry" name="license_expiry">
+                                    <label for="employeeId" class="form-label">Employee ID</label>
+                                    <input type="text" class="form-control" id="employeeId" name="emp_id" >
+                                    <span class="text-danger invalid emp_id_err"></span>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label for="expenseAllowance" class="form-label">Monthly Expense Allowance</label>
-                                    <input type="number" class="form-control" id="expenseAllowance" name="expense_allowance">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" name="first_name" >
+                                    <span class="text-danger invalid first_name_err"></span>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="perDayAllowance" class="form-label">Per Day Allowance</label>
-                                    <input type="number" class="form-control" id="perDayAllowance" name="per_day_allowance">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" name="last_name" >
+                                    <span class="text-danger invalid last_name_err"></span>
                                 </div>
                             </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="joiningDate" class="form-label">Joining Date</label>
+                                    <input type="date" class="form-control" id="joiningDate" name="joining_date" >
+                                    <span class="text-danger invalid joining_date_err"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="basicSalary" class="form-label">Basic Salary</label>
+                                    <input type="number" class="form-control" id="basicSalary" name="basic_salary" >
+                                    <span class="text-danger invalid basic_salary_err"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="mobileNumber" class="form-label">Mobile Number</label>
+                                    <input type="tel" class="form-control" id="mobileNumber" name="contact_number" >
+                                    <span class="text-danger invalid contact_number_err"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email">
+                                    <span class="text-danger invalid email_err"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="department" class="form-label">Department</label>
+                                    <select class="form-select" id="department" name="department">
+                                        <option value="Operations">Operations</option>
+                                        <option value="Accounts">Accounts</option>
+                                        <option value="HR">HR</option>
+                                        <option value="Logistics">Logistics</option>
+                                    </select>
+                                    <span class="text-danger invalid department_err"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="designation" class="form-label">Designation</label>
+                                    <input type="text" class="form-control" id="designation" name="designation">
+                                    <span class="text-danger invalid designation_err"></span>
+                                </div>
+                            </div>
+
                             <div class="row mb-3">
                                 <div class="col-md-12">
-                                    <label for="assignedVehicle" class="form-label">Assigned Vehicle</label>
-                                    <input type="text" class="form-control" id="assignedVehicle" name="assigned_vehicle" placeholder="Vehicle number">
+                                    <label for="address" class="form-label">Address</label>
+                                    <textarea class="form-control" id="address" name="address" rows="3"></textarea>
+                                    <span class="text-danger invalid address_err"></span>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <label for="address" class="form-label">Address</label>
-                                <textarea class="form-control" id="address" name="address" rows="3"></textarea>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="bankName" class="form-label">Bank Name</label>
+                                    <input type="text" class="form-control" id="bankName" name="bank_name">
+                                    <span class="text-danger invalid bank_name_err"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="accountNumber" class="form-label">Account Number</label>
+                                    <input type="text" class="form-control" id="accountNumber" name="account_number">
+                                    <span class="text-danger invalid account_number_err"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="ifscCode" class="form-label">IFSC Code</label>
+                                    <input type="text" class="form-control" id="ifscCode" name="ifsc_code">
+                                    <span class="text-danger invalid ifsc_code_err"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="branch" class="form-label">Branch</label>
+                                    <input type="text" class="form-control" id="branch" name="branch">
+                                    <span class="text-danger invalid branch_err"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="panNumber" class="form-label">PAN Number</label>
+                                    <input type="text" class="form-control" id="panNumber" name="pan_number">
+                                    <span class="text-danger invalid pan_number_err"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="note" class="form-label">Note</label>
+                                    <input type="text" class="form-control" id="note" name="note">
+                                    <span class="text-danger invalid note_err"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-8">
+                                    <label for="status" class="form-label">Status</label>
+                                    <select class="form-select" id="status" name="status">
+                                        <option value=" ">selected ...</option>
+                                        <option value="1">Active</option>
+                                        <option value="2">Inactive</option>
+                                        <option value="3">On Leave</option>
+                                        
+                                    </select>
+                                    <span class="text-danger invalid status_err"></span>
+                                </div>
+                                
                             </div>
                         </div>
-                        
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="bankName" class="form-label">Bank Name</label>
-                                <input type="text" class="form-control" id="bankName" name="bank_name">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="accountNumber" class="form-label">Account Number</label>
-                                <input type="text" class="form-control" id="accountNumber" name="account_number">
-                            </div>
-                        </div>
-                        
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="ifscCode" class="form-label">IFSC Code</label>
-                                <input type="text" class="form-control" id="ifscCode" name="ifsc_code">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="panNumber" class="form-label">PAN Number</label>
-                                <input type="text" class="form-control" id="panNumber" name="pan_number">
-                            </div>
-                        </div>
-                    </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Save Employee</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="editSubmit" class="btn btn-primary">Save Changes</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    
-    <!-- Edit Employee Modal -->
-    <div class="modal fade" id="editEmployeeModal" tabindex="-1" aria-labelledby="editEmployeeModalLabel" aria-hidden="true">
-        <!-- Similar structure to add modal but for editing -->
-    </div>
+
+
+
 </x-admin.layout>
 
+ {{-- Add --}}
 <script>
-    // Employee Type Toggle
-    document.getElementById('employeeType').addEventListener('change', function() {
-        const driverFields = document.getElementById('driverFields');
-        if (this.value === 'driver') {
-            driverFields.style.display = 'block';
-        } else {
-            driverFields.style.display = 'none';
-        }
-    });
-
-    // Initialize DataTable
-    $(document).ready(function() {
-        $('#employees-table').DataTable({
-            responsive: true,
-            dom: 'Bfrtip',
-            buttons: [
-                'excel', 'pdf', 'print'
-            ]
-        });
-    });
-
-    // AJAX for adding employee
-    $("#employeeForm").submit(function(e) {
+    $("#addForm").submit(function(e) {
         e.preventDefault();
-        var formData = new FormData(this);
-        
+        $("#addSubmit").prop('disabled', true);
+
+        var formdata = new FormData(this);
         $.ajax({
-            url: $(this).attr('action'),
+            url: '{{ route('Employee-Management.store') }}',
             type: 'POST',
-            data: formData,
+            data: formdata,
             contentType: false,
             processData: false,
-            success: function(response) {
-                if(response.success) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: response.message
-                    }).then(() => {
-                        location.reload();
+            success: function(data) {
+                $("#addSubmit").prop('disabled', false);
+                if (!data.error2)
+                    swal("Successful!", data.success, "success")
+                    .then((action) => {
+                        window.location.href = '{{ route('Employee-Management.index') }}';
                     });
+                else
+                    swal("Error!", data.error2, "error");
+            },
+            statusCode: {
+                422: function(responseObject, textStatus, jqXHR) {
+                    $("#addSubmit").prop('disabled', false);
+                    resetErrors();
+                    printErrMsg(responseObject.responseJSON.errors);
+                },
+                500: function(responseObject, textStatus, errorThrown) {
+                    $("#addSubmit").prop('disabled', false);
+                    swal("Error occured!", "Something went wrong please try again", "error");
+                }
+            }
+        });
+
+    });
+</script>
+
+
+<!-- Edit -->
+<script>
+    $("#buttons-datatables").on("click", ".edit-element", function(e) {
+        e.preventDefault();
+        var model_id = $(this).attr("data-id");
+        
+        $("#editEmployeeModal").modal('show');
+        var url = "{{ route('Employee-Management.edit', ':model_id') }}";
+
+        $.ajax({
+            url: url.replace(':model_id', model_id),
+            type: 'GET',
+            data: {
+                'model_id': model_id,
+                '_token': "{{ csrf_token() }}"
+                
+            },
+            success: function(data, textStatus, jqXHR) {
+                // editFormBehaviour();
+                
+                if (!data.error) {
+                    
+                    // Populate form fields with data
+                $("#editForm input[name='edit_model_id']").val(data.employeemanagement.id);
+                $("#editForm input[name='type']").val(data.employeemanagement.type);
+                $("#editForm input[name='emp_id']").val(data.employeemanagement.emp_id);
+                $("#editForm input[name='first_name']").val(data.employeemanagement.first_name);
+                $("#editForm input[name='last_name']").val(data.employeemanagement.last_name);
+                $("#editForm input[name='joining_date']").val(data.employeemanagement.joining_date);
+                $("#editForm input[name='basic_salary']").val(data.employeemanagement.basic_salary);
+                $("#editForm input[name='contact_number']").val(data.employeemanagement.contact_number);
+                $("#editForm input[name='email']").val(data.employeemanagement.email);
+                $("#editForm input[name='department']").val(data.employeemanagement.department);
+                $("#editForm input[name='designation']").val(data.employeemanagement.designation);
+                $("#editForm input[name='address']").val(data.employeemanagement.address);
+                $("#editForm input[name='bank_name']").val(data.employeemanagement.bank_name);
+                $("#editForm input[name='account_number']").val(data.employeemanagement.account_number);
+                $("#editForm input[name='ifsc_code']").val(data.employeemanagement.ifsc_code);
+                $("#editForm input[name='pan_number']").val(data.employeemanagement.pan_number);
+                $("#editForm input[name='branch']").val(data.employeemanagement.branch);
+                $("#editForm input[name='note']").val(data.employeemanagement.note);
+                $("#editForm input[name='status']").val(data.employeemanagement.status);
+                //  Set status dropdown
+                $("#status").val(data.employeemanagement.status);
                 } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: response.message
-                    });
+                    alert(data.error);
                 }
             },
-            error: function(xhr) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: xhr.responseJSON.message || 'Something went wrong!'
-                });
-            }
-        });
-    });
-
-    // Edit Employee
-    $(document).on('click', '.edit-element', function() {
-        var employeeId = $(this).data('id');
-        
-        $.ajax({
-            url: '/employees/' + employeeId + '/edit',
-            type: 'GET',
-            success: function(response) {
-                // Populate the edit modal with response data
-                $('#editEmployeeModal').modal('show');
-                // Fill form fields with response data
+            error: function(error, jqXHR, textStatus, errorThrown) {
+                alert("Something went wrong");
             },
-            error: function(xhr) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Failed to fetch employee data'
-                });
-            }
         });
     });
+</script>
 
-    // Delete Employee
-    $(document).on('click', '.rem-element', function() {
-        var employeeId = $(this).data('id');
-        
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '/employees/' + employeeId,
-                    type: 'DELETE',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Employee has been deleted.',
-                            'success'
-                        ).then(() => {
-                            location.reload();
+
+<!-- Update -->
+<script>
+    $(document).ready(function() {
+        $("#editForm").submit(function(e) {
+            e.preventDefault();
+            $("#editSubmit").prop('disabled', true);
+            var formdata = new FormData(this);
+            formdata.append('_method', 'PUT');
+            var model_id = $('#edit_model_id').val();
+            var url = "{{ route('Employee-Management.update', ':model_id') }}";
+
+            $.ajax({
+                url: url.replace(':model_id', model_id),
+                type: 'POST',
+                data: formdata,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    $("#editSubmit").prop('disabled', false);
+                    if (!data.error2)
+                        swal("Successful!", data.success, "success")
+                        .then((action) => {
+                            window.location.href = '{{ route('Employee-Management.index') }}';
                         });
+                    else
+                        swal("Error!", data.error2, "error");
+                },
+                statusCode: {
+                    422: function(responseObject, textStatus, jqXHR) {
+                        $("#editSubmit").prop('disabled', false);
+                        resetErrors();
+                        printErrMsg(responseObject.responseJSON.errors);
                     },
-                    error: function(xhr) {
-                        Swal.fire(
-                            'Error!',
-                            'Failed to delete employee.',
-                            'error'
-                        );
+                    500: function(responseObject, textStatus, errorThrown) {
+                        $("#editSubmit").prop('disabled', false);
+                        swal("Error occurred!", "Something went wrong please try again", "error");
                     }
-                });
-            }
+                }
+            });
         });
+    });
+</script>
+
+
+<!-- Delete -->
+<script>
+    $("#buttons-datatables").on("click", ".rem-element", function(e) {
+        e.preventDefault();
+        swal({
+                title: "Are you sure to delete this vehicle type?",
+                icon: "warning",
+                buttons: ["Cancel", "Confirm"],
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    var model_id = $(this).attr("data-id");
+                    var url = "{{ route('Employee-Management.destroy', ':model_id') }}";
+
+                    $.ajax({
+                        url: url.replace(':model_id', model_id),
+                        
+                        type: 'POST',
+                        data: {
+                            '_method': "DELETE",
+                            '_token': "{{ csrf_token() }}"
+                        },
+                        
+                        success: function(data, textStatus, jqXHR) {
+                            if (!data.error && !data.error2) {
+                                swal("Success!", data.success, "success")
+                                    .then((action) => {
+                                        window.location.reload();
+                                    });
+                            } else {
+                                if (data.error) {
+                                    swal("Error!", data.error, "error");
+                                } else {
+                                    swal("Error!", data.error2, "error");
+                                }
+                            }
+                        },
+                        error: function(error, jqXHR, textStatus, errorThrown) {
+                            swal("Error!", "Something went wrong", "error");
+                        },
+                    });
+                }
+            });
     });
 </script>

@@ -243,7 +243,7 @@
                                         <td>{{ $client->contact_number }}</td>
                                         <td>{{ $client->alternate_contact_no }}</td>
                                         <td>{{ $client->email }}</td>
-                                        <td>{{ $client->state }}</td>
+                                        <td>{{ $client->states->stateName }}</td>
                                         <!-- <td>{{ $client->billing_type }}</td> -->
                                         <td>
                                             @if($client->billing_type == 1)
