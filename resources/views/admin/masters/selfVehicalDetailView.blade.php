@@ -1309,6 +1309,7 @@
                                     @endphp
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <!-- <td>{{ $selfVehical?->vehicle_number }}</td> -->
                                     <td>{{ $selfVehical?->vehicleNumber?->vehicle_number }}</td>
                                     <td>{{ $selfVehical?->vehicleType?->type }}</td>
                                     <td>{{ $fuelType }}</td>

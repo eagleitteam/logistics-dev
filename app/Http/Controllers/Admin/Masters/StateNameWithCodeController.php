@@ -16,8 +16,8 @@ class StateNameWithCodeController extends Controller
      */
     public function index()
     {   
-        $stateNameWithCode = StateNameWithCode::latest()->get();
-        return view('admin.masters.StateNameWithCode')->with(['StateNameWithCode' => $stateNameWithCode]);
+        $statenamewithcode = StateNameWithCode::latest()->get();
+        return view('admin.masters.StateNameWithCode')->with(['StateNameWithCode' => $statenamewithcode]);
         
     }
 
@@ -54,23 +54,25 @@ class StateNameWithCodeController extends Controller
      */
     public function show(string $id)
     {
-       $stateNameWithCode = StateNameWithCode::find($id);
+       $statenamewithcode = StateNameWithCode::find($id);
 
-        if (!$stateNameWithCode) {
+        if (!$statenamewithcode) {
             return response()->json(['error' => 'StateNameWithCode not found'], 404);
         }
 
-        return response()->json(['StateNameWithCode' => $stateNameWithCode]);
+        return response()->json(['StateNameWithCode' => $statenamewithcode]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(StateNameWithCode $stateNameWithCode)
-    {
+    public function edit(StateNameWithCode $statenamewithcode, Request $request)
+    {   
+        
        try {
+            $statenamewithcode = StateNameWithCode::find($request->model_id);
             return response()->json([
-                'StateNameWithCode' => $stateNameWithCode,
+                'state' => $statenamewithcode,
                 'success' => 'StateNameWithCode retrieved successfully'
             ]);
         } catch (\Exception $e) {
@@ -81,12 +83,13 @@ class StateNameWithCodeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreStateNameWithCodeRequest $request, StateNameWithCode $stateNameWithCode)
+    public function update(StoreStateNameWithCodeRequest $request, StateNameWithCode $statenamewithcode)
     {
         try {
+            
             DB::beginTransaction();
             $input = $request->validated();
-            $stateNameWithCode->update(Arr::only($input, StateNameWithCode::getFillables()));
+            $statenamewithcode->update(Arr::only($input, StateNameWithCode::getFillables()));
             DB::commit();
 
             return response()->json(['success' => 'StateNameWithCode updated successfully!']);
@@ -101,11 +104,12 @@ class StateNameWithCodeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(StateNameWithCode $stateNameWithCode)
+    public function destroy(StateNameWithCode $statenamewithcode, Request $request)
     {
         try {
+           $statenamewithcode = StateNameWithCode::find($request->model_id);
             DB::beginTransaction();
-            $stateNameWithCode->delete();
+            $statenamewithcode->delete();
             DB::commit();
 
             return response()->json(['success' => 'StateNameWithCode deleted successfully!']);

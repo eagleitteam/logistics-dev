@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('yearmasters', function (Blueprint $table) {
             $table->id();
-            $table->string('tital')->nullable();
+            $table->string('title')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
 

@@ -953,74 +953,74 @@
 
 <!-- print -->
  <script>
-// Print Function with better formatting
-function printCashMemo() {
-    // Get the modal content
-    const modalContent = document.querySelector('#viewMemoModal .modal-content');
-    
-    // Create a new window for printing
-    const printWindow = window.open('', '', 'width=900,height=650');
-    
-    // Write the modal content to the new window
-    printWindow.document.write(`
-        <html>
-            <head>
-                <title>Cash Memo - ${document.getElementById('view-memo-no').textContent}</title>
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-                <style>
-                    @page {
-                        size: A4;
-                        margin: 10mm 15mm;
-                    }
-                    @media print {
-                        body {
-                            padding: 0;
-                            margin: 0;
-                            background: white;
-                            font-size: 12pt;
-                        }
-                        .modal-content {
-                            border: none;
-                            box-shadow: none;
-                            width: 100%;
-                        }
-                        .receipt-container {
-                            padding: 0 !important;
-                        }
-                        .no-print {
-                            display: none !important;
-                        }
-                        .table {
-                            page-break-inside: avoid;
-                        }
-                        .card {
-                            border: 1px solid #ddd !important;
-                        }
-                        .position-absolute {
-                            position: relative !important;
-                            left: 0 !important;
-                            top: 0 !important;
-                            margin-bottom: 15px;
-                        }
-                        .text-center.mx-auto {
-                            width: 100% !important;
-                            max-width: 100% !important;
-                        }
-                    }
-                    @media screen {
-                        body {
-                            padding: 20px;
-                            background: #f8f9fa;
-                        }
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="container-fluid">
-                    ${modalContent.innerHTML}
-                </div>
-                <script>
+        // Print Function with better formatting
+        function printCashMemo() {
+            // Get the modal content
+            const modalContent = document.querySelector('#viewMemoModal .modal-content');
+            
+            // Create a new window for printing
+            const printWindow = window.open('', '', 'width=900,height=650');
+            
+            // Write the modal content to the new window
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Cash Memo - ${document.getElementById('view-memo-no').textContent}</title>
+                        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+                        <style>
+                            @page {
+                                size: A4;
+                                margin: 10mm 15mm;
+                            }
+                            @media print {
+                                body {
+                                    padding: 0;
+                                    margin: 0;
+                                    background: white;
+                                    font-size: 12pt;
+                                }
+                                .modal-content {
+                                    border: none;
+                                    box-shadow: none;
+                                    width: 100%;
+                                }
+                                .receipt-container {
+                                    padding: 0 !important;
+                                }
+                                .no-print {
+                                    display: none !important;
+                                }
+                                .table {
+                                    page-break-inside: avoid;
+                                }
+                                .card {
+                                    border: 1px solid #ddd !important;
+                                }
+                                .position-absolute {
+                                    position: relative !important;
+                                    left: 0 !important;
+                                    top: 0 !important;
+                                    margin-bottom: 15px;
+                                }
+                                .text-center.mx-auto {
+                                    width: 100% !important;
+                                    max-width: 100% !important;
+                                }
+                            }
+                            @media screen {
+                                body {
+                                    padding: 20px;
+                                    background: #f8f9fa;
+                                }
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container-fluid">
+                            ${modalContent.innerHTML}
+                        </div>
+<script>
                     window.onload = function() {
                         // Remove modal-specific classes before printing
                         document.querySelector('.modal-content').classList.remove('modal-content');

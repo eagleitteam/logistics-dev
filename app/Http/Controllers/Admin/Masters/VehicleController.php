@@ -105,7 +105,7 @@ class VehicleController extends Controller
     public function destroy(Vehicle $vehicle)
     {
         try {
-            DB::beginTransaction();
+            DB::beginTransaction(); 
             $vehicle->delete();
             DB::commit();
 

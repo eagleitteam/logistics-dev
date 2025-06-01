@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Vehicle::class)->nullable()->constrained();
             $table->tinyInteger('fule_type')->default(0)->comment('1 => Diesel, 2 => CNG 3=> Electrical');
             $table->date('register_date')->nullable();
+            $table->string('vehicle_number')->nullable();
             $table->string('chassis_num')->nullable();
             $table->string('eng_num')->nullable();
             $table->string('model_num')->nullable();

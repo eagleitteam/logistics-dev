@@ -80,10 +80,10 @@
                         <div class="mb-3 row">
                             <div class="col-md-4">
                                 <label for="FormSelectBankType" class="form-label">Bank Type<span class="text-danger">*</span></label>
-                                                    <select id="FormSelectBankType" class="form-select" data-choices data-choices-sorting="true">
-                                                        <option value="1" selected>Current Account</option>
-                                                        <option value="2" >Overdraft Account</option>
-                                                        <option value="3" >Saving Account</option>
+                                                    <select class="form-control" id="act_type" name="act_type">
+                                                        <option value="1">Current Account</option>
+                                                        <option value="2">Overdraft Account</option>
+                                                        <option value="3">Saving Account</option>
                                                     </select>
                                 <span class="text-danger invalid type_err"></span>
                             </div>
@@ -160,22 +160,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($bankregisters as $bank)
+                                @foreach ($bankregisters as $bankregister)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $bank->act_type }}</td>
-                                        <td>{{ $bank->Bank_Name }}</td>
-                                        <td>{{ $bank->BankBranch }}</td>
-                                        <td>{{ $bank->BankAccountNo }}</td>
-                                        <td>{{ $bank->BankIFSCCode }}</td>
-                                        <td>{{ $bank->Remark }}</td>
-                                        <td>{{ $bank->status }}</td>
+                                        <td>{{ $bankregister->act_type }}</td>
+                                        <td>{{ $bankregister->Bank_Name }}</td>
+                                        <td>{{ $bankregister->BankBranch }}</td>
+                                        <td>{{ $bankregister->BankAccountNo }}</td>
+                                        <td>{{ $bankregister->BankIFSCCode }}</td>
+                                        <td>{{ $bankregister->Remark }}</td>
+                                        <td>{{ $bankregister->status }}</td>
                                         <td>
                                             @can('BankRegister.edit')
-                                                <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle" data-id="{{ $bank->id }}"><i data-feather="edit"></i></button>
+                                                <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle" data-id="{{ $bankregister->id }}"><i data-feather="edit"></i></button>
                                             @endcan
                                             @can('BankRegister.delete')
-                                                <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle" data-id="{{ $bank->id }}"><i data-feather="trash-2"></i> </button>
+                                                <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle" data-id="{{ $bankregister->id }}"><i data-feather="trash-2"></i> </button>
                                             @endcan
                                         </td>
                                     </tr>
@@ -244,14 +244,21 @@
             url: url.replace(':model_id', model_id),
             type: 'GET',
             data: {
-                '_token': "{{ csrf_token() }}"
+                '_token': "{{ csrf_token() }}",
+                'model_id': model_id // Only needed if using Option 2
             },
             success: function(data, textStatus, jqXHR) {
                 editFormBehaviour();
                 if (!data.error) {
-                    $("#editForm input[name='edit_model_id']").val(data.vehicle.id);
-                    $("#editForm input[name='type']").val(data.vehicle.type);
-                    $("#editForm input[name='description']").val(data.vehicle.description);
+                    $("#editForm input[name='edit_model_id']").val(data.bankregister.id);
+                    // Set the selected option for act_type dropdown
+                    $("#editForm select[name='act_type']").val(data.bankregister.act_type);
+                    $("#editForm input[name='Bank_Name']").val(data.bankregister.Bank_Name);
+                    $("#editForm input[name='BankBranch']").val(data.bankregister.BankBranch);
+                    $("#editForm input[name='BankAccountNo']").val(data.bankregister.BankAccountNo);
+                    $("#editForm input[name='BankIFSCCode']").val(data.bankregister.BankIFSCCode);
+                    $("#editForm input[name='Remark']").val(data.bankregister.Remark);
+                    $("#editForm input[name='status']").val(data.bankregister.status);
                 } else {
                     alert(data.error);
                 }
@@ -327,6 +334,7 @@
                         url: url.replace(':model_id', model_id),
                         type: 'POST',
                         data: {
+                            'model_id': model_id,
                             '_method': "DELETE",
                             '_token': "{{ csrf_token() }}"
                         },

@@ -14,9 +14,9 @@
                     <div class="card-body">
                         <div class="mb-3 row">
                             <div class="col-md-4">
-                                <label class="form-label" for="tital">Tiatel <span class="text-danger">*</span></label>
-                                <input class="form-control" id="tital" name="tital" type="text" placeholder="Enter Tiatel">
-                                <span class="text-danger invalid tital_err"></span>
+                                <label class="form-label" for="title">Title <span class="text-danger">*</span></label>
+                                <input class="form-control" id="title" name="title" type="text" placeholder="Enter Tiatel">
+                                <span class="text-danger invalid title_err"></span>
                             </div>
                             <div class="col-md-4">
                                 <label for="start_date" class="form-label">Start Date</label>
@@ -58,18 +58,21 @@
                         <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
                         <div class="mb-3 row">
                             <div class="col-md-4">
-                                <label class="col-form-label" for="tital"><Title></Title> <span class="text-danger">*</span></label>
-                                <input class="form-control" id="tital" name="tital" type="text" placeholder="Enter Title">
-                                <span class="text-danger invalid tital_err"></span>
+                                <label class="form-label" for="title">Title <span class="text-danger">*</span></label>
+                                <input class="form-control" id="title" name="title" type="text" placeholder="Enter title">
+                                <span class="text-danger invalid title_err"></span>
                             </div>
                             <div class="col-md-4">
                                 <label for="start_date" class="form-label">Start Date</label>
                                 <input type="date" class="form-control" name="start_date" id="start_date" required>
+                                <span class="text-danger invalid start_date_err"></span>
                             </div>
                             <div class="col-md-4">
                                 <label for="end_date" class="form-label">End Date</label>
                                 <input type="date" class="form-control" name="end_date" id="end_date" required>
+                                <span class="text-danger invalid end_date_err"></span>
                             </div>
+                            
                         </div>
 
                     </div>
@@ -104,7 +107,7 @@
                             <thead>
                                 <tr>
                                     <th>Sr No.</th>
-                                    <th>Tital</th>
+                                    <th>Title</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Status</th>
@@ -116,7 +119,7 @@
                                 @foreach ($Yearmaster as $Yearmaster)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $Yearmaster->tital }}</td>
+                                        <td>{{ $Yearmaster->title }}</td>
                                         <td>{{ $Yearmaster->start_date}}</td>
                                         <td>{{ $Yearmaster->end_date}}</td>
                                         <td> 
@@ -237,7 +240,7 @@ $(document).on('change', '.code-switcher', function () {
                 editFormBehaviour();
                 if (!data.error) {
                     $("#editForm input[name='edit_model_id']").val(data.Yearmaster.id);
-                    $("#editForm input[name='tital']").val(data.Yearmaster.tital);
+                    $("#editForm input[name='title']").val(data.Yearmaster.title);
                     $("#editForm input[name='start_date']").val(data.Yearmaster.start_date);
                     $("#editForm input[name='end_date']").val(data.Yearmaster.end_date);
                     $("#editForm input[name='status']").val(data.Yearmaster.status);

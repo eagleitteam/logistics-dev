@@ -101,17 +101,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($StateNameWithCode as $vehicle)
+                                @foreach ($StateNameWithCode as $state)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $vehicle->stateCode }}</td>
-                                        <td>{{ $vehicle->stateName }}</td>
+                                        <td>{{ $state->stateCode }}</td>
+                                        <td>{{ $state->stateName }}</td>
                                         <td>
                                             @can('StateNameWithCode.edit')
-                                                <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="edit"></i></button>
+                                                <button class="edit-element btn btn-secondary px-2 py-1" title="Edit state" data-id="{{ $state->id }}"><i data-feather="edit"></i></button>
                                             @endcan
                                             @can('StateNameWithCode.delete')
-                                                <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="trash-2"></i> </button>
+                                                <button class="btn btn-danger rem-element px-2 py-1" title="Delete state" data-id="{{ $state->id }}"><i data-feather="trash-2"></i> </button>
                                             @endcan
                                         </td>
                                     </tr>
@@ -174,20 +174,22 @@
     $("#buttons-datatables").on("click", ".edit-element", function(e) {
         e.preventDefault();
         var model_id = $(this).attr("data-id");
+        
         var url = "{{ route('state.edit', ':model_id') }}";
 
         $.ajax({
             url: url.replace(':model_id', model_id),
             type: 'GET',
             data: {
-                '_token': "{{ csrf_token() }}"
+                '_token': "{{ csrf_token() }}",
+                'model_id': model_id // Only needed if using Option 2
             },
             success: function(data, textStatus, jqXHR) {
                 editFormBehaviour();
                 if (!data.error) {
-                    $("#editForm input[name='edit_model_id']").val(data.vehicle.id);
-                    $("#editForm input[name='stateCode']").val(data.vehicle.stateCode);
-                    $("#editForm input[name='stateName']").val(data.vehicle.stateName);
+                    $("#editForm input[name='edit_model_id']").val(data.state.id);
+                    $("#editForm input[name='stateCode']").val(data.state.stateCode);
+                    $("#editForm input[name='stateName']").val(data.state.stateName);
                 } else {
                     alert(data.error);
                 }
@@ -263,6 +265,7 @@
                         url: url.replace(':model_id', model_id),
                         type: 'POST',
                         data: {
+                            'model_id': model_id,
                             '_method': "DELETE",
                             '_token': "{{ csrf_token() }}"
                         },
