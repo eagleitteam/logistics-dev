@@ -24,11 +24,11 @@
                                                     <label class="col-form-label" for="vehicle_no" >Vehical Number</label>
                                                     <select id="Forminputvehicle_no" class="form-select" name="vehicle_no">
                                                         <option value="">Select Vehical Number</option>
-                                                         @foreach ($VehicalNumber as $VehicalNumber)
-                                                                <option value="{{ $VehicalNumber->id }}">{{ $VehicalNumber->vehicle_number }}</option>
-                                                            @endforeach
+                                                         @foreach ($vehical_numbers as $vehicalNumber)
+                                                            <option value="{{ $vehicalNumber->id }}">{{ $vehicalNumber->vehicle_number }}</option>
+                                                         @endforeach
                                                     </select>
-                                                    <span class="text-danger invalid state_err"></span>
+                                                    <span class="text-danger invalid vehicle_no_err"></span>
 
                                                 </div>
                                 

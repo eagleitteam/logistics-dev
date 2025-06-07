@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use App\Models\VehicalNumber;
 
 class TripMovement extends BaseModel
 {
@@ -31,7 +32,7 @@ class TripMovement extends BaseModel
                 return $this->belongsTo(Driver::class, 'driver_id');
             }
 
-            public function vehicalNumber()
+            public function VehicalNumber()
             {
                 return $this->belongsTo(VehicalNumber::class, 'vehicle_no');
             }

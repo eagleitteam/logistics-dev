@@ -26,7 +26,7 @@ class TripMovmentsController extends Controller
         'vehicle',
         'client',
         'driver',
-        'vehicalNumber' // if needed separately
+        'VehicalNumber' // if needed separately
     ])->latest()->get();
 
     
@@ -92,26 +92,61 @@ class TripMovmentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
+    public function edit(TripMovement $trip_movement, Request $request)
+    {   
+        // info all edit data
+        info('TripMovement edit request', ['request' => $request->all()]);
+       try {
+            $trip_movement = TripMovement::find($request->model_id);
+            return response()->json([
+                'movement' => $trip_movement,
+                'success' => 'TripMovement retrieved successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to retrieve TripMovement'], 500);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateTripMovmentsRequest $request, TripMovement $trip_movement)
     {
-        //
+        try {
+            
+            DB::beginTransaction();
+            $input = $request->validated();
+            $statenamewtrip_movementithcode->update(Arr::only($input, TripMovement::getFillables()));
+            DB::commit();
+
+            return response()->json(['success' => 'TripMovement updated successfully!']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'error' => 'Error updating TripMovement: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(TripMovement $trip_movement, Request $request)
     {
-        //
-    }   
+        try {
+           $trip_movement = TripMovement::find($request->model_id);
+            DB::beginTransaction();
+            $trip_movement->delete();
+            DB::commit();
+
+            return response()->json(['success' => 'TripMovement deleted successfully!']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'error' => 'Error deleting TripMovement: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 
     
 }
