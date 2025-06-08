@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Masters\StoreEmployeemanagementRequest;
 use App\Http\Requests\Admin\Masters\UpdateEmployeemanagementRequest;
 use App\Models\Employeemanagement;
+use App\Models\Driver;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
@@ -17,8 +18,38 @@ class EmployeemanagementController extends Controller
      */
     public function index()
     {
-        $employeemanagements = employeemanagement::latest()->get();
-        return view('admin.masters.employeeManagement', compact('employeemanagements'));
+        // Get all active employees (type = 1)
+        $activeEmployees = Employeemanagement::where('status', '1')
+            ->where('type', '1') // Only employees (not drivers)
+            ->latest()
+            ->get();
+            
+
+        // Get all active drivers (type = 2)
+        $activeDrivers = Driver::where('status', '1')
+            ->latest()
+            ->get();
+
+        
+
+        // Get all inactive (employees + drivers)
+            $inactiveEmployees = Employeemanagement::where('status', '!=', '1')->get();
+            $inactiveDrivers = Driver::where('status', '!=', '1')->get();
+            $inactive = $inactiveEmployees->concat($inactiveDrivers)->sortByDesc('created_at');
+            
+
+            // Get ALL active (employees + drivers)
+            $allActiveEmployees = Employeemanagement::where('status', '1')->get();
+            $allActiveDrivers = Driver::where('status', '1')->get();
+            $allActive = $allActiveEmployees->concat($allActiveDrivers)->sortByDesc('created_at');
+            // dd($allActive);
+
+        return view('admin.masters.employeeManagement', compact(
+            'activeEmployees',
+            'activeDrivers',
+            'inactive',
+            'allActive'
+        ));
     }
 
     /**
@@ -76,17 +107,21 @@ class EmployeemanagementController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEmployeemanagementRequest $request, employeemanagement $employeemanagements)
+    public function update(UpdateEmployeemanagementRequest $request,$id )
     {
        try {
             DB::beginTransaction();
+            $employeemanagement = Employeemanagement::findOrFail($id); // explicitly fetch
             $input = $request->validated();
-            $employeemanagements->update(Arr::only($input, employeemanagement::getFillables()));
+            $employeemanagement->update(Arr::only($input, employeemanagement::getFillables()));
             DB::commit();
 
-            return response()->json(['success' => 'employeemanagement updated successfully!']);
+            return response()->json(['success' => 'employee updated successfully!']);
         } catch (\Exception $e) {
-            return $this->respondWithAjax($e, 'updating', 'employeemanagement');
+            DB::rollBack();
+            return response()->json([
+                'error' => 'Error updating employee: ' . $e->getMessage()
+            ], 500);
         }
     }
 

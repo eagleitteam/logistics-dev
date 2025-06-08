@@ -20,18 +20,29 @@ class TripMovmentsController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $trip_movements = TripMovement::with([
-        'vendor',
-        'vehicle',
-        'client',
-        'driver',
-        'VehicalNumber' // if needed separately
-    ])->latest()->get();
+        {
+            $trip_movements = TripMovement::with([
+                'vendor',
+                'vehicle',
+                'client',
+                'driver',
+                'VehicalNumber'
+            ])->latest()->get();
 
-    
-        return view('admin.masters.tripMovementList')->with(['trip_movement' => $trip_movements]);
-    }
+            // Fetch necessary data
+            $vehicalTypes = Vehicle::latest()->get();
+            $clients = Client::latest()->get();
+            $drivers = Driver::latest()->get();
+            $vehical_numbers = VehicalNumber::latest()->get();
+
+            return view("admin.masters.tripMovementList")->with([
+                'trip_movement' => $trip_movements,
+                'vehicle' => $vehicalTypes,
+                'clients' => $clients,
+                'drivers' => $drivers,
+                'vehical_numbers' => $vehical_numbers
+            ]);
+        }
 
     /**
      * Show the form for creating a new resource.

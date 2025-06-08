@@ -35,8 +35,8 @@
                                     
                                     <select id="vehicle_id" class="form-select" name="vehicle_id">
                                                         <option value="">Select Vehical Number</option>
-                                                         @foreach ($VehicalNumber  as $vehicalNumber)
-                                                                <option value="{{ $VehicalNumber->id }}">{{ $VehicalNumber->vehicle_number }}</option>
+                                                         @foreach ($vehical_numbers as $vehicalNumber)
+                                                                <option value="{{ $vehicalNumber->id }}">{{ $vehicalNumber->vehicle_number }}</option>
                                                             @endforeach
                                                     </select>
                                     <span class="text-danger invalid vehicle_id_err"></span>

@@ -811,8 +811,8 @@
 <script>
     $("#addForm").submit(function(e) {
         e.preventDefault();
-        console.log("Form submit triggered ✅"); // ← DEBUG LINE
-        alert("Form submit triggered ✅"); // ← DEBUG LINE
+        console.log("Form submit triggered "); // ← DEBUG LINE
+        alert("Form submit triggered "); // ← DEBUG LINE
         $("#addSubmit").prop('disabled', true);
 
         var formdata = new FormData(this);

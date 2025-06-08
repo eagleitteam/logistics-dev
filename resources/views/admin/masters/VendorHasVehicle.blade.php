@@ -488,12 +488,13 @@
 <!-- Update -->
 <script>
     $(document).ready(function() {
-        $("#editForm").submit(function(e) {
+        $("#buttons-datatables").submit(function(e) {
             e.preventDefault();
             $("#editSubmit").prop('disabled', true);
             var formdata = new FormData(this);
             formdata.append('_method', 'PUT');
             var model_id = $('#edit_model_id').val();
+            alert(model_id);
             var url = "{{ route('Link-Vehical-With-Vender.update', ':model_id') }}";
 
             $.ajax({
