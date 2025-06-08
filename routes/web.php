@@ -83,7 +83,8 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     // Vendor Ajax fetch
     Route::get('/get-vendor-details', [App\Http\Controllers\Admin\Masters\VendorhasvehicleController::class, 'getVendorDetails'])->name('get_vendor_details');
     Route::get('/get-client-iteamdetails/{client_id}', [App\Http\Controllers\Admin\Masters\InvoiceController::class, 'clientiteamdetails'])->name('get-client-iteamdetails');
-
+    Route::get('/fetchAttendanceData', [App\Http\Controllers\Admin\Masters\AttendancemanagementController::class, 'fetchAttendanceData'])->name('fetchAttendanceData');
+    
 
 
 

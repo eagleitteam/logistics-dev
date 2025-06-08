@@ -9,6 +9,8 @@ use App\Http\Requests\Admin\Masters\UpdateAttendancemanagementRequest;
 use App\Models\Attendancemanagement;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use App\Models\Vehicle\Employeemanagement;
+use App\Models\Vehicle\Driver;
 
 class AttendancemanagementController extends Controller
 {
@@ -37,7 +39,31 @@ class AttendancemanagementController extends Controller
         try {
             DB::beginTransaction();
             $input = $request->validated();
-            Attendancemanagement::create(Arr::only($input, Attendancemanagement::getFillables()));
+            $month = $input['month'];
+            $employeeType = $input['employee_type'];
+
+            foreach ($input['employee_ids'] as $employeeId) {
+                $total_days = $this->getTotalDaysInMonth($month);
+                $status = $input['attendance_type'][$employeeId] ?? 'Present';
+                if ($status === 'Absent') {
+                    $absentDays = $input['attendance_days'][$employeeId] ?? 0;
+                    $attendanceDays = $total_days - $absentDays;
+                } else {
+                    $attendanceDays = $input['attendance_days'][$employeeId] ?? 0;
+                }
+
+                Attendancemanagement::create([
+                    'employee_type'   => $employeeType,
+                    'employee_id'     => $employeeId,
+                    'attendance_type' => $status,
+                    'attendance_days' => $attendanceDays,
+                    'remarks'         => $input['remarks'][$employeeId] ?? null,
+                    'total_days'      => $total_days,
+                    'month'           => $month,
+                    'EmployeeName'    => $input['EmployeeName'][$employeeId] ?? null,
+                ]);
+            }
+
             DB::commit();
 
             return response()->json(['success' => 'Attendancemanagement created successfully!']);
@@ -48,6 +74,16 @@ class AttendancemanagementController extends Controller
             ], 500);
         }
     }
+
+    public function getTotalDaysInMonth($month, $year = null)
+    {
+        $year = $year ?? date('Y');
+
+        $month = str_pad($month, 2, '0', STR_PAD_LEFT);
+
+        return cal_days_in_month(CAL_GREGORIAN, $month, $year);
+    }
+
 
     /**
      * Display the specified resource.
@@ -80,4 +116,32 @@ class AttendancemanagementController extends Controller
     {
         //
     }
+
+    public function fetchAttendanceData(Request $request)
+    {
+        $request->validate([
+            'month' => 'required|numeric',
+            'employee_type' => 'required|in:1,2',
+        ]);
+
+        // Determine the model class based on employee_type
+        $model = $request->employee_type == 1 ? \App\Models\Employeemanagement::class : \App\Models\Driver::class;
+
+        // Fetch records
+        $records = $model::get()->map(function ($emp) use ($request) {
+            $name = $request->employee_type == 1
+                ? $emp->first_name . ' ' . $emp->last_name
+                : $emp->f_name. ' ' . $emp->l_name;
+
+            return [
+                'employee_id' => $emp->id,
+                'name'        => $name,
+                'type'        => $request->employee_type == 1 ? 'Employee' : 'Driver',
+            ];
+        });
+
+        return response()->json(['records' => $records]);
+}
+
+
 }

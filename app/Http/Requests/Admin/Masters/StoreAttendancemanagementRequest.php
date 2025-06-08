@@ -22,7 +22,17 @@ class StoreAttendancemanagementRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'EmployeeName' => 'required|string|max:255',
+        'month' => 'required|numeric',
+        'employee_type' => 'required|in:1,2',
+        'employee_ids' => 'required|array',
+        'employee_ids.*' => 'required', // You can use `drivers` table if type 2
+        'attendance_type' => 'required|array',
+        'attendance_type.*' => 'required|in:Present,Absent,Leave',
+        'attendance_days' => 'required|array',
+        'attendance_days.*' => 'required|numeric|min:0|max:31',
+        'remarks' => 'nullable|array',
+        'remarks.*' => 'nullable|string|max:255',
         ];
     }
 }
+

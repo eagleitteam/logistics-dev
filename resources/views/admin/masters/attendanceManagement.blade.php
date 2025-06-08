@@ -1,7 +1,7 @@
 <x-admin.layout>
             <x-slot name="title">Attendance Management</x-slot>
             <x-slot name="heading">Attendance Management</x-slot>
-            
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -52,7 +52,7 @@
                                     </select>
                                 </div>
                             </div>
-                            
+
                             <!-- Tabs -->
                             <ul class="nav nav-tabs" id="attendanceTabs" role="tablist">
                                 <li class="nav-item" role="presentation">
@@ -68,7 +68,7 @@
                                     <button class="nav-link" id="leave-tab" data-bs-toggle="tab" data-bs-target="#leaveManagement" type="button" role="tab">Leave Management</button>
                                 </li>
                             </ul>
-                            
+
                             <!-- Tab Content -->
                             <div class="tab-content" id="attendanceTabContent">
                                 <!-- Office Staff Attendance -->
@@ -131,7 +131,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Driver Attendance -->
                                 <div class="tab-pane fade" id="driverAttendance" role="tabpanel">
                                     <div class="table-responsive mt-3">
@@ -196,7 +196,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Attendance Reports -->
                                 <div class="tab-pane fade" id="attendanceReports" role="tabpanel">
                                     <div class="row">
@@ -213,7 +213,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="row mt-4">
                                         <div class="col-md-6">
                                             <div class="card">
@@ -246,7 +246,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="row mt-4">
                                         <div class="col-md-12">
                                             <div class="card">
@@ -316,7 +316,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Leave Management -->
                                 <div class="tab-pane fade" id="leaveManagement" role="tabpanel">
                                     <div class="row">
@@ -398,7 +398,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Mark Attendance Modal -->
             <div class="modal fade" id="markAttendanceModal" tabindex="-1" aria-labelledby="markAttendanceModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl">
@@ -411,19 +411,36 @@
                             @csrf
                             <div class="modal-body">
                                 <div class="row mb-4">
+=
                                     <div class="col-md-4">
-                                        <label for="attendanceDate" class="form-label">Date</label>
-                                        <input type="date" class="form-control" id="attendanceDate" name="date" required>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="attendanceEmployeeType" class="form-label">Employee Type</label>
-                                        <select class="form-select" id="attendanceEmployeeType" name="employee_type" required>
-                                            <option value="">All Employees</option>
-                                            <option value="office">Office Staff</option>
-                                            <option value="driver">Drivers</option>
+                                        <label for="month" class="form-label">Month</label>
+                                        <select class="form-select" id="month" name="month" required>
+                                            <option value="">Month</option>
+                                            <option value="1">Jan</option>
+                                            <option value="2">Feb</option>
+                                            <option value="3">March</option>
+                                            <option value="4">April</option>
+                                            <option value="5">May</option>
+                                            <option value="6">June</option>
+                                            <option value="7">July</option>
+                                            <option value="8">Aug</option>
+                                            <option value="9">Sep</option>
+                                            <option value="10">Oct</option>
+                                            <option value="11">Nov</option>
+                                            <option value="12">Dec</option>
                                         </select>
                                     </div>
+
                                     <div class="col-md-4">
+                                        <label for="employee_type" class="form-label">Employee Type</label>
+                                        <select class="form-select" id="employee_type" name="employee_type" required>
+                                            {{-- <option value="">All Employees</option> --}}
+                                            <option value="">Select Type</option>
+                                            <option value="1">Office Staff</option>
+                                            <option value="2">Drivers</option>
+                                        </select>
+                                    </div>
+                                    {{-- <div class="col-md-4">
                                         <label for="attendanceDepartment" class="form-label">Department</label>
                                         <select class="form-select" id="attendanceDepartment" name="department">
                                             <option value="">All Departments</option>
@@ -432,90 +449,24 @@
                                             <option value="hr">HR</option>
                                             <option value="logistics">Logistics</option>
                                         </select>
-                                    </div>
+                                    </div> --}}
                                 </div>
-                                
+
                                 <div class="table-responsive">
-                                    <table class="table table-bordered">
+                                    <table id="attendance-table" class="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th>Employee ID</th>
                                                 <th>Name</th>
                                                 <th>Type</th>
-                                                <th>Department</th>
+                                                {{-- <th>Department</th> --}}
                                                 <th>Status</th>
+                                                <th>Attendance Days</th>
                                                 <th>Remarks</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>EMP001</td>
-                                                <td>Rajesh Kumar</td>
-                                                <td><span class="badge bg-primary">Office Staff</span></td>
-                                                <td>Accounts</td>
-                                                <td>
-                                                    <select class="form-select" name="status[EMP001]">
-                                                        <option value="present">Present</option>
-                                                        <option value="absent">Absent</option>
-                                                        <option value="leave">Leave</option>
-                                                        <option value="halfday">Half Day</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="remarks[EMP001]" placeholder="Remarks">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>EMP002</td>
-                                                <td>Mohan Singh</td>
-                                                <td><span class="badge bg-warning">Driver</span></td>
-                                                <td>Logistics</td>
-                                                <td>
-                                                    <select class="form-select" name="status[EMP002]">
-                                                        <option value="present">Present</option>
-                                                        <option value="absent">Absent</option>
-                                                        <option value="leave">Leave</option>
-                                                        <option value="onroute">On Route</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="remarks[EMP002]" placeholder="Remarks">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>EMP003</td>
-                                                <td>Priya Sharma</td>
-                                                <td><span class="badge bg-primary">Office Staff</span></td>
-                                                <td>HR</td>
-                                                <td>
-                                                    <select class="form-select" name="status[EMP003]">
-                                                        <option value="present">Present</option>
-                                                        <option value="absent">Absent</option>
-                                                        <option value="leave" selected>Leave</option>
-                                                        <option value="halfday">Half Day</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="remarks[EMP003]" placeholder="Remarks" value="Sick leave">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>EMP004</td>
-                                                <td>Vijay Patel</td>
-                                                <td><span class="badge bg-warning">Driver</span></td>
-                                                <td>Logistics</td>
-                                                <td>
-                                                    <select class="form-select" name="status[EMP004]">
-                                                        <option value="present">Present</option>
-                                                        <option value="absent" selected>Absent</option>
-                                                        <option value="leave">Leave</option>
-                                                        <option value="onroute">On Route</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="remarks[EMP004]" placeholder="Remarks">
-                                                </td>
-                                            </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -528,7 +479,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- View Attendance Details Modal -->
             <div class="modal fade" id="viewAttendanceModal" tabindex="-1" aria-labelledby="viewAttendanceModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -550,7 +501,7 @@
                                     <p><strong>Total Working Days:</strong> 26</p>
                                 </div>
                             </div>
-                            
+
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead>
@@ -584,7 +535,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                             <div class="row mt-3">
                                 <div class="col-md-4">
                                     <div class="card">
@@ -629,7 +580,7 @@
             responsive: true
         });
     });
-    
+
     // Initialize charts
     function initCharts() {
         // Attendance Trend Chart
@@ -765,12 +716,12 @@
     document.addEventListener('DOMContentLoaded', function() {
         initCharts();
     });
-    
+
     // AJAX form submission for attendance
     $("#attendanceForm").submit(function(e) {
         e.preventDefault();
         $(".btn-primary[type='submit']").prop('disabled', true);
-        
+
         var formdata = new FormData(this);
         $.ajax({
             url: '{{ route("Attendance-Management.store") }}',
@@ -803,9 +754,66 @@
             }
         });
     });
-    
+
     // View attendance details
     $(document).on('click', '.btn-primary:not([type="submit"])', function() {
         $('#viewAttendanceModal').modal('show');
     });
+
+    $(document).ready(function () {
+        $('#month, #employee_type').on('change', function () {
+            var month = $('#month').val();
+            var employeeType = $('#employee_type').val();
+
+            // Proceed only if both are selected
+            if (month && employeeType) {
+                $.ajax({
+                    url: '{{ route("fetchAttendanceData") }}',
+                    type: 'GET',
+                    data: {
+                        month: month,
+                        employee_type: employeeType,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function (data) {
+                        if (!data.error) {
+                            const tbody = $('#attendance-table tbody');
+                            tbody.empty(); // Clear previous rows
+
+                            // Loop and append rows
+                            data.records.forEach(function (item) {
+                                const row = `<tr>
+                                    <input type="hidden" name="EmployeeName[${item.employee_id}]" value="${item.name}" />
+                                    <td> <input type="hidden" name="employee_ids[]" value="${item.employee_id}" />
+                                    ${item.employee_id}</td>
+                                    <td>${item.name}</td>
+                                    <td>${item.type}</td>
+                                    <td>
+                                        <select name="attendance_type[${item.employee_id}]" class="form-control">
+                                            <option value="Present">Present</option>
+                                            <option value="Absent">Absent</option>
+                                            <option value="Leave">Leave</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="number" name="attendance_days[${item.employee_id}]" class="form-control" />
+                                    </td>
+                                    <td>
+                                        <input type="text" name="remarks[${item.employee_id}]" class="form-control" />
+                                    </td>
+                                </tr>`;
+                                tbody.append(row);
+                            });
+                        } else {
+                            swal("Error!", data.error, "error");
+                        }
+                    },
+                    error: function () {
+                        swal("Error occurred!", "Something went wrong. Please try again.", "error");
+                    }
+                });
+            }
+        });
+    });
+
 </script>

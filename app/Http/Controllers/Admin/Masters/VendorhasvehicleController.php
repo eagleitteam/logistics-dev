@@ -10,6 +10,8 @@ use App\Models\Vendorhasvehicle;
 use App\Models\Vendor;
 use App\Models\VehicalNumber;
 use App\Models\Vehicle;
+use App\Models\Vehicle\Employeemanagement;
+use App\Models\Vehicle\Driver;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
@@ -181,7 +183,7 @@ class VendorhasvehicleController extends Controller
     }
 
     public function getVendorDetails(Request $request)
-        {
+    {
             $vendorId = $request->get('vendorId'); 
             if (!$vendorId) {
                 return response()->json(['success' => false, 'message' => 'Vendor ID not provided.']);
@@ -193,7 +195,6 @@ class VendorhasvehicleController extends Controller
                 'success' => true,
                 'vendorDetails' => $vendorDetails
             ]);
-        }
-
+    }
 
 }

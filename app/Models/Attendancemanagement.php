@@ -10,7 +10,7 @@ class Attendancemanagement extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['EmployeeName'];
+    protected $fillable = ['yearmaster_id','employee_type','employee_id','attendance_type','total_days','attendance_days','month','EmployeeName'];
 
     public static function booted()
     {
