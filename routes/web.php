@@ -78,6 +78,9 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::resource('Cash-Memo', App\Http\Controllers\Admin\Masters\CashmemoController::class);
     Route::resource('Create-Invoice', App\Http\Controllers\Admin\Masters\InvoiceController::class);
     Route::resource('Invoice-List', App\Http\Controllers\Admin\Masters\InvoiceController::class);
+    Route::resource('Profit-and-Loss-Statement', App\Http\Controllers\Admin\Masters\ProftandlossController::class);
+    Route::resource('Ledger-Statement', App\Http\Controllers\Admin\Masters\LedgerstatementController::class);
+    Route::resource('BalanceSheet-Statement', App\Http\Controllers\Admin\Masters\BalancesheetstatementController::class);
     
 
     // Vendor Ajax fetch

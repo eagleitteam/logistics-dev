@@ -199,7 +199,22 @@
                                 <a href="{{ route('Invoice-List.index') }}" class="nav-link {{ request()->routeIs('Invoice-List.index') ? 'active' : '' }}" data-key="t-horizontal">Tax Invoice List</a>
                             </li>
                             @endcan
-                           
+                            @can('ProfitandLossStmt.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Profit-and-Loss-Statement.index') }}" class="nav-link {{ request()->routeIs('Profit-and-Loss-Statement.index') ? 'active' : '' }}" data-key="t-horizontal">Profit and Loss Statement</a>
+                            </li>
+                            @endcan
+                            @can('LedgerStmt.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Ledger-Statement.index') }}" class="nav-link {{ request()->routeIs('Ledger-Statement.index') ? 'active' : '' }}" data-key="t-horizontal">Ledger Statement</a>
+                            </li>
+                            @endcan
+                            @can('BalancesheetStmt.view')
+                            <li class="nav-item">
+                                <a href="{{ route('BalanceSheet-Statement.index') }}" class="nav-link {{ request()->routeIs('BalanceSheet-Statement.index') ? 'active' : '' }}" data-key="t-horizontal">Balance Sheet Statement</a>
+                            </li>
+                            @endcan
+
 
                         </ul>
                     </div>

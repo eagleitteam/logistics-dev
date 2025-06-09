@@ -1,251 +1,223 @@
- <x-admin.layout>
-    <x-slot name="title">Tally Style Financial Dashboard</x-slot>
-    <x-slot name="heading">Tally Style Financial Dashboard</x-slot>
+<x-admin.layout>
+    <x-slot name="title">Balance Sheet</x-slot>
+    <x-slot name="heading">Balance Sheet</x-slot>
 
-    <div class="container-fluid tally-style">
-        <!-- Dashboard Header -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h1 class="h4 mb-0"><i class="fas fa-calculator me-2 text-primary"></i> Financial Statements</h1>
-            <div class="d-flex gap-2">
-                <div class="dropdown">
-                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="periodDropdown" data-bs-toggle="dropdown">
-                        <i class="far fa-calendar-alt me-1"></i> Current Fiscal Year
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#">Today</a></li>
-                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                        <li><a class="dropdown-item" href="#">This Quarter</a></li>
-                        <li><a class="dropdown-item active" href="#">This Fiscal Year</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Custom Period</a></li>
-                    </ul>
+    <style>
+        .statement-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            padding: 25px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .balance-sheet-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .balance-sheet-table th,
+        .balance-sheet-table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            vertical-align: top;
+        }
+        .balance-sheet-table th {
+            background-color: var(--tally-primary);
+            color: white;
+            text-align: center;
+        }
+        .account-group {
+            font-weight: bold;
+            cursor: pointer;
+            background: var(--tally-gray);
+        }
+        .ledger-item {
+            display: none;
+        }
+        .toggle-icon {
+            margin-right: 5px;
+        }
+        .positive { color: var(--tally-green); font-weight: 600; }
+        .negative { color: var(--tally-red); font-weight: 600; }
+    </style>
+
+    <div class="container-fluid">
+        <div class="statement-container">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+                <h4 class="mb-0">Balance Sheet</h4>
+                <div class="form-inline">
+                    <button class="btn btn-sm btn-outline-primary" id="expandAllBtn">Expand All</button>
+                    <button class="btn btn-sm btn-outline-secondary" id="collapseAllBtn">Collapse All</button>
+                    <button class="btn btn-sm btn-primary" onclick="window.print()">Print</button>
                 </div>
-                <button class="btn btn-sm btn-primary">
-                    <i class="fas fa-print me-1"></i> Print
-                </button>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered balance-sheet-table" id="bsTable">
+                    <thead>
+                        <tr>
+                            <th>Assets</th>
+                            <th>Amount (₹)</th>
+                            <th>Liabilities & Equity</th>
+                            <th>Amount (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bsTableBody"></tbody>
+                    <tfoot>
+                        <tr class="fw-bold">
+                            <td>Total Assets</td>
+                            <td id="totalAssets">₹0.00</td>
+                            <td>Total Liabilities & Equity</td>
+                            <td id="totalLiabilities">₹0.00</td>
+                        </tr>
+                        <tr class="fw-bold">
+                            <td colspan="3" class="text-end">Balance Difference</td>
+                            <td id="balanceDifference">₹0.00</td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
-        
-        <!-- Tally-style navigation -->
-        <div class="tally-balance-sheet">
-  <table class="table table-bordered">
-    <thead>
-      <tr class="table-primary">
-        <th class="text-center">Liabilities</th>
-        <th class="text-center">Amount (Tk.)</th>
-        <th class="text-center"></th>
-        <th class="text-center">Assets</th>
-        <th class="text-center">Amount (Tk.)</th>
-        <th class="text-center"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Capital Account -->
-      <tr>
-        <td>Capital Account</td>
-        <td class="text-end">5,00,000.00</td>
-        <td></td>
-        <td>Fixed Assets</td>
-        <td class="text-end">3,88,000.00</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="ps-4"></td>
-        <td></td>
-        <td></td>
-        <td class="ps-4">Plant and Machinery</td>
-        <td></td>
-        <td class="text-end">3,88,000.00</td>
-      </tr>
-      
-      <!-- Loans Liability -->
-      <tr>
-        <td>Loans Liability</td>
-        <td class="text-end border-top">2,80,000.00</td>
-        <td></td>
-        <td>Investments</td>
-        <td class="text-end border-top">1,72,000.00</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="ps-4">Unsecured loans</td>
-        <td></td>
-        <td class="text-end">2,00,000.00</td>
-        <td class="ps-4">Investments in Shares</td>
-        <td></td>
-        <td class="text-end">95,400.00</td>
-      </tr>
-      <tr>
-        <td class="ps-4">Secured Loans</td>
-        <td></td>
-        <td class="text-end">80,000.00</td>
-        <td class="ps-4">Investment in XYZ Ltd.</td>
-        <td></td>
-        <td class="text-end">76,600.00</td>
-      </tr>
-      
-      <!-- Current Liabilities -->
-      <tr>
-        <td>Current Liabilities</td>
-        <td class="text-end border-top">1,90,000.00</td>
-        <td></td>
-        <td>Loans and Advances</td>
-        <td class="text-end border-top">1,55,000.00</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="ps-4">Duties and Taxes</td>
-        <td></td>
-        <td class="text-end">72,000.00</td>
-        <td class="ps-4">Loans to Subsidiaries</td>
-        <td></td>
-        <td class="text-end">1,10,000.00</td>
-      </tr>
-      <tr>
-        <td class="ps-4">Sundry Creditors</td>
-        <td></td>
-        <td class="text-end">1,18,000.00</td>
-        <td class="ps-4">Salary Advance</td>
-        <td></td>
-        <td class="text-end">45,000.00</td>
-      </tr>
-      
-      <!-- Profit & Loss -->
-      <tr>
-        <td>Profit & Loss Account</td>
-        <td class="text-end border-top">1,77,700.00</td>
-        <td></td>
-        <td>Current Assets</td>
-        <td class="text-end border-top">4,33,500.00</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="ps-4">Opening Balance</td>
-        <td></td>
-        <td class="text-end">86,500.00</td>
-        <td class="ps-4">Closing Stock</td>
-        <td></td>
-        <td class="text-end">1,48,900.00</td>
-      </tr>
-      <tr>
-        <td class="ps-4">Current Period</td>
-        <td></td>
-        <td class="text-end">91,200.00</td>
-        <td class="ps-4">Sundry Debtors</td>
-        <td></td>
-        <td class="text-end">1,34,600.00</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="ps-4">Cash in hand</td>
-        <td></td>
-        <td class="text-end">70,100.00</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="ps-4">Cash at Bank</td>
-        <td></td>
-        <td class="text-end">79,900.00</td>
-      </tr>
-      
-      <!-- Total -->
-      <tr class="table-active">
-        <td class="fw-bold">Total</td>
-        <td class="text-end fw-bold">11,48,700.00</td>
-        <td></td>
-        <td class="fw-bold">Total</td>
-        <td class="text-end fw-bold">11,48,700.00</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
     </div>
 
-  
+    
 </x-admin.layout>
 
-  <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        .tally-style {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+<script>
+        const bsData = {
+            assets: [
+                {
+                    group: "Fixed Assets",
+                    ledgers: [
+                        { name: "Land & Building", amount: 1500000 },
+                        { name: "Machinery", amount: 800000 },
+                        { name: "Furniture & Fixtures", amount: 250000 }
+                    ]
+                },
+                {
+                    group: "Current Assets",
+                    ledgers: [
+                        { name: "Cash in Hand", amount: 100000 },
+                        { name: "Bank Balance", amount: 200000 },
+                        { name: "Accounts Receivable", amount: 350000 },
+                        { name: "Stock in Trade", amount: 500000 }
+                    ]
+                },
+                {
+                    group: "Loans & Advances",
+                    ledgers: [
+                        { name: "Advance to Suppliers", amount: 150000 },
+                        { name: "Prepaid Expenses", amount: 50000 }
+                    ]
+                }
+            ],
+            liabilities: [
+                {
+                    group: "Current Liabilities",
+                    ledgers: [
+                        { name: "Accounts Payable", amount: 300000 },
+                        { name: "Outstanding Expenses", amount: 125000 },
+                        { name: "Short Term Loan", amount: 175000 }
+                    ]
+                },
+                {
+                    group: "Long Term Liabilities",
+                    ledgers: [
+                        { name: "Secured Loan", amount: 400000 },
+                        { name: "Debentures", amount: 200000 }
+                    ]
+                },
+                {
+                    group: "Capital & Reserves",
+                    ledgers: [
+                        { name: "Share Capital", amount: 1000000 },
+                        { name: "Reserves & Surplus", amount: 1100000 }
+                    ]
+                }
+            ]
+        };
+
+        const INR = amt => `₹${amt.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
+
+        function renderBalanceSheet() {
+            const tbody = document.getElementById('bsTableBody');
+            tbody.innerHTML = '';
+
+            const maxGroups = Math.max(bsData.assets.length, bsData.liabilities.length);
+            let totalAssets = 0;
+            let totalLiabilities = 0;
+
+            for (let i = 0; i < maxGroups; i++) {
+                const assetGroup = bsData.assets[i];
+                const liabilityGroup = bsData.liabilities[i];
+                const assetId = assetGroup ? `asset-${i}` : '';
+                const liabilityId = liabilityGroup ? `liab-${i}` : '';
+
+                const assetTotal = assetGroup?.ledgers.reduce((sum, l) => sum + l.amount, 0) || 0;
+                const liabilityTotal = liabilityGroup?.ledgers.reduce((sum, l) => sum + l.amount, 0) || 0;
+                totalAssets += assetTotal;
+                totalLiabilities += liabilityTotal;
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="account-group" onclick="toggleGroup('${assetId}')">
+                            ${assetGroup ? `<i class='fas fa-chevron-right toggle-icon'></i> ${assetGroup.group}` : ''}
+                        </td>
+                        <td>${assetGroup ? INR(assetTotal) : ''}</td>
+                        <td class="account-group" onclick="toggleGroup('${liabilityId}')">
+                            ${liabilityGroup ? `<i class='fas fa-chevron-right toggle-icon'></i> ${liabilityGroup.group}` : ''}
+                        </td>
+                        <td>${liabilityGroup ? INR(liabilityTotal) : ''}</td>
+                    </tr>
+                `;
+
+                const maxLedgers = Math.max(
+                    assetGroup?.ledgers.length || 0,
+                    liabilityGroup?.ledgers.length || 0
+                );
+
+                for (let j = 0; j < maxLedgers; j++) {
+                    const a = assetGroup?.ledgers[j];
+                    const l = liabilityGroup?.ledgers[j];
+
+                    tbody.innerHTML += `
+                        <tr class="ledger-item ${assetId} ${liabilityId}">
+                            <td>${a?.name || ''}</td>
+                            <td>${a ? INR(a.amount) : ''}</td>
+                            <td>${l?.name || ''}</td>
+                            <td>${l ? INR(l.amount) : ''}</td>
+                        </tr>
+                    `;
+                }
+            }
+
+            document.getElementById('totalAssets').innerText = INR(totalAssets);
+            document.getElementById('totalLiabilities').innerText = INR(totalLiabilities);
+
+            const diff = totalAssets - totalLiabilities;
+            const diffEl = document.getElementById('balanceDifference');
+            diffEl.innerText = INR(Math.abs(diff));
+            diffEl.className = diff === 0 ? 'positive' : 'negative';
         }
-        .tally-sidebar .list-group-item {
-            border-left: 0;
-            border-right: 0;
-            padding: 0.75rem 1.25rem;
+
+        function toggleGroup(cls) {
+            const rows = document.querySelectorAll(`.${cls}`);
+            let isVisible = rows[0]?.style.display === 'table-row';
+            rows.forEach(row => row.style.display = isVisible ? 'none' : 'table-row');
+
+            const icon = event.currentTarget.querySelector('i');
+            icon.classList.toggle('fa-chevron-right', isVisible);
+            icon.classList.toggle('fa-chevron-down', !isVisible);
         }
-        .tally-sidebar .list-group-item:first-child {
-            border-top: 0;
-        }
-        .tally-sidebar .list-group-item.active {
-            background-color: #f8f9fa;
-            color: #495057;
-            font-weight: 600;
-            border-left: 3px solid #0d6efd;
-        }
-        #tallyBalanceSheet td {
-            padding: 0.5rem 1rem;
-        }
-        #tallyBalanceSheet .table-group-divider td {
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-        }
-    </style>
-    <style>
-.tally-balance-sheet {
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-}
-.tally-balance-sheet table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.tally-balance-sheet th {
-  background-color: #f8f9fa;
-  font-weight: bold;
-}
-.tally-balance-sheet td, .tally-balance-sheet th {
-  padding: 6px 10px;
-  border: 1px solid #dee2e6;
-}
-.tally-balance-sheet .ps-4 {
-  padding-left: 2rem !important;
-}
-.tally-balance-sheet .border-top {
-  border-top: 1px solid #212529 !important;
-}
-</style>
-<style>
-.tally-balance-sheet {
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-}
-.tally-balance-sheet table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.tally-balance-sheet th {
-  background-color: #f8f9fa;
-  font-weight: bold;
-  text-align: center;
-}
-.tally-balance-sheet td, .tally-balance-sheet th {
-  padding: 6px 10px;
-  border: 1px solid #dee2e6;
-}
-.tally-balance-sheet .ps-4 {
-  padding-left: 2rem !important;
-}
-.tally-balance-sheet .border-top {
-  border-top: 1px solid #212529 !important;
-}
-.tally-balance-sheet .text-end {
-  text-align: right !important;
-}
-</style>
+
+        document.getElementById('expandAllBtn').onclick = () => {
+            document.querySelectorAll('.ledger-item').forEach(r => r.style.display = 'table-row');
+            document.querySelectorAll('.toggle-icon').forEach(i => i.classList.replace('fa-chevron-right', 'fa-chevron-down'));
+        };
+
+        document.getElementById('collapseAllBtn').onclick = () => {
+            document.querySelectorAll('.ledger-item').forEach(r => r.style.display = 'none');
+            document.querySelectorAll('.toggle-icon').forEach(i => i.classList.replace('fa-chevron-down', 'fa-chevron-right'));
+        };
+
+        renderBalanceSheet();
+    </script>

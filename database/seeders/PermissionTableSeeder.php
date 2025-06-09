@@ -128,6 +128,18 @@ class PermissionTableSeeder extends Seeder
     ['id' => 112, 'name' => 'TaxInvoice.create', 'group' => 'TaxInvoice'],
     ['id' => 113, 'name' => 'TaxInvoice.edit', 'group' => 'TaxInvoice'],
     ['id' => 114, 'name' => 'TaxInvoice.delete', 'group' => 'TaxInvoice'],
+    ['id' => 115, 'name' => 'ProfitandLossStmt.view', 'group' => 'ProfitandLossStmt'],
+    ['id' => 116, 'name' => 'ProfitandLossStmt.create', 'group' => 'ProfitandLossStmt'],
+    ['id' => 117, 'name' => 'ProfitandLossStmt.edit', 'group' => 'ProfitandLossStmt'],
+    ['id' => 118, 'name' => 'ProfitandLossStmt.delete', 'group' => 'ProfitandLossStmt'],
+    ['id' => 119, 'name' => 'LedgerStmt.view', 'group' => 'LedgerStmt'],
+    ['id' => 120, 'name' => 'LedgerStmt.create', 'group' => 'LedgerStmt'],
+    ['id' => 121, 'name' => 'LedgerStmt.edit', 'group' => 'LedgerStmt'],
+    ['id' => 122, 'name' => 'LedgerStmt.delete', 'group' => 'LedgerStmt'],
+    ['id' => 123, 'name' => 'BalancesheetStmt.view', 'group' => 'BalancesheetStmt'],
+    ['id' => 124, 'name' => 'BalancesheetStmt.create', 'group' => 'BalancesheetStmt'],
+    ['id' => 125, 'name' => 'BalancesheetStmt.edit', 'group' => 'BalancesheetStmt'],
+    ['id' => 129, 'name' => 'BalancesheetStmt.delete', 'group' => 'BalancesheetStmt'],
 ];
 
 
