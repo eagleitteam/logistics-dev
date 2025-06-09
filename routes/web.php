@@ -81,14 +81,14 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::resource('Profit-and-Loss-Statement', App\Http\Controllers\Admin\Masters\ProftandlossController::class);
     Route::resource('Ledger-Statement', App\Http\Controllers\Admin\Masters\LedgerstatementController::class);
     Route::resource('BalanceSheet-Statement', App\Http\Controllers\Admin\Masters\BalancesheetstatementController::class);
-    
+
 
     // Vendor Ajax fetch
     Route::get('/get-vendor-details', [App\Http\Controllers\Admin\Masters\VendorhasvehicleController::class, 'getVendorDetails'])->name('get_vendor_details');
     Route::get('/get-client-iteamdetails/{client_id}', [App\Http\Controllers\Admin\Masters\InvoiceController::class, 'clientiteamdetails'])->name('get-client-iteamdetails');
     Route::get('/fetchAttendanceData', [App\Http\Controllers\Admin\Masters\AttendancemanagementController::class, 'fetchAttendanceData'])->name('fetchAttendanceData');
-    
 
+    Route::resource('salary-model', App\Http\Controllers\Admin\SalaryModelController::class);
 
 
 

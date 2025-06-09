@@ -98,7 +98,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('trip-movement.index') }}" class="nav-link {{ request()->routeIs('trip-movement.index') ? 'active' : '' }}" data-key="t-horizontal">Trip Movement List</a>
-                            </li>                               
+                            </li>
                             @can('StateNameWithCode.view')
                             <li class="nav-item">
                                 <a href="{{ route('state.index') }}" class="nav-link {{ request()->routeIs('StateNameWithCode.index') ? 'active' : '' }}" data-key="t-horizontal">State Name With GST Code</a>
@@ -214,6 +214,10 @@
                                 <a href="{{ route('BalanceSheet-Statement.index') }}" class="nav-link {{ request()->routeIs('BalanceSheet-Statement.index') ? 'active' : '' }}" data-key="t-horizontal">Balance Sheet Statement</a>
                             </li>
                             @endcan
+
+                            <li class="nav-item">
+                                <a href="{{ route('salary-model.index') }}" class="nav-link {{ request()->routeIs('salary-model.index') ? 'active' : '' }}" data-key="t-horizontal">Salary Model</a>
+                            </li>
 
 
                         </ul>
