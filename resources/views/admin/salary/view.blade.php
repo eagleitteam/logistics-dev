@@ -9,36 +9,36 @@
             <div class="card">
                 <div class="card-body">
 
-                <form id="attendanceForm">
+                <form id="salaryForm" method="GET" action="{{ route('salary-model.index') }}">
                     @csrf
                     <div class="row">
                         <div class="col-md-4">
-                            <label for="month" class="form-label">Month</label>
+                           <label for="month" class="form-label">Month</label>
                             <select class="form-select" id="month" name="month" required>
                                 <option value="">Month</option>
-                                <option value="1">Jan</option>
-                                <option value="2">Feb</option>
-                                <option value="3">March</option>
-                                <option value="4">April</option>
-                                <option value="5">May</option>
-                                <option value="6">June</option>
-                                <option value="7">July</option>
-                                <option value="8">Aug</option>
-                                <option value="9">Sep</option>
-                                <option value="10">Oct</option>
-                                <option value="11">Nov</option>
-                                <option value="12">Dec</option>
+                                @foreach([
+                                    1 => 'Jan', 2 => 'Feb', 3 => 'March', 4 => 'April',
+                                    5 => 'May', 6 => 'June', 7 => 'July', 8 => 'Aug',
+                                    9 => 'Sep', 10 => 'Oct', 11 => 'Nov', 12 => 'Dec'
+                                ] as $key => $value)
+                                    <option value="{{ $key }}" {{ ($selected_month == $key) ? 'selected' : '' }}>{{ $value }}</option>
+                                @endforeach
                             </select>
+
                         </div>
 
                         <div class="col-md-4">
                             <label for="employee_type" class="form-label">Employee Type</label>
                             <select class="form-select" id="employee_type" name="employee_type" required>
                                 <option value="">Select Type</option>
-                                <option value="1">Office Staff</option>
-                                <option value="2">Drivers</option>
+                                <option value="1" {{ ($selected_type == 1) ? 'selected' : '' }}>Office Staff</option>
+                                <option value="2" {{ ($selected_type == 2) ? 'selected' : '' }}>Drivers</option>
                             </select>
                         </div>
+                    </div>
+                     <div class="card-footer">
+                        <button type="submit" class="btn btn-primary" id="addSubmit">Submit</button>
+                        <button type="reset" class="btn btn-warning">Refresh</button>
                     </div>
                 </form>
 
@@ -55,6 +55,16 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($getSalaryDetails as $key => $value)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $value['name'] }}</td>
+                                       <td>{{ number_format($value['basic_salary'], 2) }}</td>
+                                        <td>{{ number_format($value['trip_allowance'] ?? 0, 2) }}</td>
+                                        <td></td>
+                                        <td>{{ number_format($value['net_salary'], 2) }}</td>
+                                    </tr>
+                                @endforeach
 
                             </tbody>
                         </table>
