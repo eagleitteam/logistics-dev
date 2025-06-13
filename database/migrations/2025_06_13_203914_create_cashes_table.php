@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vouchermasters', function (Blueprint $table) {
+        Schema::create('cashes', function (Blueprint $table) {
             $table->id();
-            $table->string('voucher_type')->nullable()->comment('1 => income, 2 => expense, 3 => loan, 4 => advance, 5 => cash');
-            $table->string('category_type')->nullable();
-            $table->date('voucher_date')->nullable();
+            $table->string('cash_type')->nullable();
+            $table->date('tranDate')->nullable();
+            $table->decimal('cashamt', 10, 2)->nullable();
+            $table->string('bank_name')->nullable();    
+            $table->text('remark')->nullable();
+            $table->foreignId('voucher_ref')->nullable()->constrained('vouchermasters');
+            
             $table->foreignId('created_by')->nullable()->constrained('users');
             $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->foreignId('deleted_by')->nullable()->constrained('users');
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vouchermasters');
+        Schema::dropIfExists('cashes');
     }
 };

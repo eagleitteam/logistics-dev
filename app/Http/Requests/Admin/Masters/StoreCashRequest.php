@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\Masters;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreVouchermasterRequest extends FormRequest
+class StoreCashRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,12 @@ class StoreVouchermasterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tranDate' => ['required', 'date'], // <-- This must be here
-            'income_Category' => 'required',
-            'client_id' => 'required',
+            'cash_type' => 'required',
+            'tranDate' => 'required|date',
+            'cashamt' => 'required|numeric',
+            'bank_name' => 'required|string|max:255',
+            'remark' => 'nullable|string',
+            
         ];
     }
 }

@@ -6,21 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
-class Client extends BaseModel
+
+class Income extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name','gst_no', 'contact_person','contact_number','alternate_contact_no','email','billing_address','city','pincode','state','billing_type'];
-    
-    public function states()
+    protected $fillable = ['income_Category','client_id','tranDate','recincomeamt','trip_ids','trip_no','adj_pmt','remark','voucher_ref'];
+
+        public function Vouchermaster()
     {
-        return $this->belongsTo(StateNameWithCode::class, 'state');
+        return $this->belongsTo(Vouchermaster::class, 'voucher_ref');
     }
 
-    public function incomes()
-    {
-        return $this->hasMany(Income::class, 'client_id');
-    }
+    public function client()
+        {
+            return $this->belongsTo(Client::class, 'client_id');
+        }
 
 
     public static function booted()

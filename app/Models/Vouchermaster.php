@@ -10,7 +10,14 @@ class Vouchermaster extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['type', 'description'];
+    protected $fillable = ['voucher_type', 'voucher_date','category_type'];
+
+    public function Income()
+    {
+        return $this->hasMany(Income::class, 'voucher_ref');
+    }
+
+    
 
 
     public static function booted()

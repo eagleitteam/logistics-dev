@@ -130,6 +130,8 @@
 </x-admin.layout>
 
 
+
+
 {{-- Add --}}
 <script>
     $("#addForm").submit(function(e) {

@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\Masters;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreVouchermasterRequest extends FormRequest
+class StoreAdvanceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -1,17 +1,17 @@
 <x-admin.layout>
-    <x-slot name="title">Vocher Master</x-slot>
-    <x-slot name="heading">Vocher Master</x-slot>
+    <x-slot name="title">Receipt & Payment Master</x-slot>
+    <x-slot name="heading">Receipt & Payment Master</x-slot>
     {{-- <x-slot name="subheading">Test</x-slot> --}}
 
     {{-- utility panale --}}
-    <div class="row">
+    <div class="row" id="utilityContainer" style="display:flex;">
         <div class="col-xl-3 col-md-6">
             <!-- card -->
             <div class="card card-animate">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1">
-                            <p class="text-uppercase fw-medium text-muted mb-0">Total Earnings</p>
+                            <p class="text-uppercase fw-medium text-muted mb-0">Total Income</p>
                         </div>
                         <div class="flex-shrink-0">
                             <h5 class="text-success fs-14 mb-0">
@@ -22,7 +22,7 @@
                     <div class="d-flex align-items-end justify-content-between mt-4">
                         <div>
                             <h4 class="fs-22 fw-semibold ff-secondary mb-4">$<span class="counter-value" data-target="559.25">0</span>k</h4>
-                            <a href="#" class="text-decoration-underline">View net earnings</a>
+                            <a href="#" class="text-decoration-underline">See details</a>
                         </div>
                         <div class="avatar-sm flex-shrink-0">
                             <span class="avatar-title bg-success-subtle rounded fs-3">
@@ -41,7 +41,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1">
-                            <p class="text-uppercase fw-medium text-muted mb-0">Customers</p>
+                            <p class="text-uppercase fw-medium text-muted mb-0">Total Expense</p>
                         </div>
                         <div class="flex-shrink-0">
                             <h5 class="text-success fs-14 mb-0">
@@ -70,7 +70,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1">
-                            <p class="text-uppercase fw-medium text-muted mb-0">Customers</p>
+                            <p class="text-uppercase fw-medium text-muted mb-0">Total Advance & Loan</p>
                         </div>
                         <div class="flex-shrink-0">
                             <h5 class="text-success fs-14 mb-0">
@@ -99,7 +99,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1">
-                            <p class="text-uppercase fw-medium text-muted mb-0">My Balance</p>
+                            <p class="text-uppercase fw-medium text-muted mb-0">My Bank Balance</p>
                         </div>
                         <div class="flex-shrink-0">
                             <h5 class="text-muted fs-14 mb-0">
@@ -121,39 +121,416 @@
                 </div><!-- end card body -->
             </div><!-- end card -->
         </div><!-- end col -->
-    </div> <!-- end row-->
+    </div> 
+    <!-- end row -->
 
-        <!-- Chart code Start -->
-        <div class="row">
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title mb-0">Line Chart</h4>
-                    </div>
+    {{-- Add Income Form --}}
+    <div class="row" id="addIncomeContainer" style="display: none;">
+        <div class="col-sm-12">
+            
+            <div class="card">
+                <form class="theme-form" name="addIncomeForm" id="addIncomeForm" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="form_type" value="income">
                     <div class="card-body">
-                        <div id="chart-line" data-colors='["--vz-success"]' class="e-charts"></div>
+                        <h4 class="mb-3">Add Income</h4>
+                        <div class="row g-3">
+                            <div class="col-md-2">
+                                <label for="income_Category" class="form-label">Income Category</label>
+                                <select class="form-select" name="income_Category" id="income_Category"  >
+                                    <option value="">Select...</option>
+                                    <option value="1">PMT AGN Trip</option>
+                                    <option value="2">PMT AGN Invoice</option>
+                                    <option value="3">On Account</option>
+                                </select>
+                                <span class="text-danger invalid description_err"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="client_id" class="form-label">Client Name</label>
+                                <select class="form-select" name="client_id" id="client_id"  >
+                                    <option value="">Select Client</option>
+                                        @foreach ($clients as $client)
+                                            <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                        @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="tranDate" class="form-label">Transaction Date</label>
+                                <input type="date" class="form-control" id="tranDate" name="tranDate">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="recincomeamt" class="form-label">Rec. AMT</label>
+                                <input type="number" class="form-control" id="recincomeamt" name="recincomeamt" placeholder="Enter Amount">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="status-field" class="form-label">Select Bank</label>
+                                <select class="form-select" name="bank_id" id="bank_id" >
+                                    <option value="">Select...</option>
+                                    <option value="1">Bank A</option>
+                                    <option value="2">Bank B</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 d-flex align-items-end gap-2">
+                                <button type="button" class="btn btn-success" id="updateInvData" style="display: none;">Fetch Pending Invoice</button>
+                                <button type="button" class="btn btn-success" id="updateTripData" style="display: none;">Fetch Pending Trip</button>
+                            </div>
+                        </div>
+
+                        <!-- Invoice Table -->
+                        <div class="row mt-4" id="updateInvTable" style="display: none;">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered align-middle text-center">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Sr No</th>
+                                                <th>Inv Date</th>
+                                                <th>Inv Number</th>
+                                                <th>Inv Balance Amt</th>
+                                                <th>Adj Payment</th>
+                                                <th>Note</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="invoiceTableBody">
+                                            <!-- Dynamic rows -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Trip Table -->
+                        <div class="row mt-4" id="updateTripTable" style="display: none;">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered align-middle text-center">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Sr No</th>
+                                                <th>Trip Date</th>
+                                                <th>Trip Number</th>
+                                                <th>Vehicle Number</th>
+                                                <th>Origin</th>
+                                                <th>Destination</th>
+                                                <th>Trip Balance Amt</th>
+                                                <th>Adj Payment</th>
+                                                <th>Note</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tripTableBody">
+                                            <!-- Dynamic rows -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Difference Alert -->
+                        <div id="diffAlert" class="alert alert-warning mt-3" style="display: none;">
+                            <strong>Difference Amount:</strong> <span id="diffAmount"></span>
+                        </div>
                     </div>
-                </div>
-                <!-- end card -->
-            </div>
-            <!-- end col -->
 
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title mb-0">Monochrome Pie Chart</h4>
-                    </div><!-- end card header -->
-
-                    <div class="card-body">
-                        <div id="monochrome_pie_chart" data-colors='["--vz-primary"]' class="apex-charts" dir="ltr"></div>
-                    </div><!-- end card-body -->
-                </div><!-- end card -->
+                    <div class="card-footer d-flex justify-content-between">
+                        <div>
+                            <button type="submit" class="btn btn-success" id="addIncomeSubmit" style="display: none;">Submit</button>
+                            <button type="reset" id="resetfrom" class="btn btn-warning">Reset</button>
+                            <button type="button" id="btnCancelIncome" class="btn btn-danger">Cancel</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <!-- end col -->
-            <!-- end col -->
         </div>
-        <!-- end row -->
+    </div>
+    {{-- Add Income Form End --}}
 
+    
+
+    {{-- Add Exp PMT Form --}}
+    <div class="row" id="expPMTContainer" style="display: none;">
+        <div class="col-sm-12">
+            
+            <div class="card">
+                <form class="theme-form" name="expPMTForm" id="expPMTForm" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="form_type" value="expense">
+                    <div class="card-body">
+                        <h4 class="mb-3">Add Payment AGN Expense</h4>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="exp_ledger_name" class="form-label">Exp Ledger Name</label>
+                                <select class="form-select" name="exp_ledger_name" id="exp_ledger_name"  >
+                                    <option value="">Select...</option>
+                                    <option value="1">Rent</option>
+                                    <option value="2">Tea</option>
+                                    <option value="3">Repairing</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="TripDate" class="form-label">Tran Date</label>
+                                <input type="date" class="form-control" id="TripDate" name="TripDate">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="paidamt" class="form-label">Paid AMT</label>
+                                <input type="number" class="form-control" id="paidamt" name="paidamt" placeholder="Enter Amount">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="status-field" class="form-label">Select Bank</label>
+                                <select class="form-select" name="bank_name" id="status-field"   >
+                                    <option value="">Select...</option>
+                                    <option value="1">Bank A</option>
+                                    <option value="2">Bank B</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="remark" class="form-label">Note</label>
+                                <input type="text" class="form-control" id="remark" name="remark" placeholder="Enter Note">
+                            </div>
+
+                            
+                        </div>
+
+                        
+                    <div class="card-footer d-flex justify-content-between">
+                        <div>
+                            <button type="submit" class="btn btn-success" id="addExpPMTSubmit" >Submit</button>
+                            <button type="reset" id="resetfrom" class="btn btn-warning">Reset</button>
+                            <button type="button" id="btnCancelExpPMT" class="btn btn-danger">Cancel</button>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- Add Exp PMT Form End --}}
+
+    {{-- Add Loan PMT Form --}}
+    <div class="row" id="loanContainer" style="display: none;">
+        <div class="col-sm-12">
+            
+            <div class="card">
+                <form class="theme-form" name="loanForm" id="loanForm" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="form_type" value="loan">
+                    <div class="card-body">
+                        <h4 class="mb-3">Add Loan Entry</h4>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="loan_type" class="form-label">Select Loan Type</label>
+                                <select class="form-select" name="loan_type" id="loan_type"  >
+                                    <option value="">Select...</option>
+                                    <option value="1">Loan Given</option>
+                                    <option value="2">Loan Taken</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="vendor_id" class="form-label">Select Party Name</label>
+                                <select class="form-select" name="vendor_id" id="vendor_id"  >
+                                    <option value="">Select...</option>
+                                    <option value="1">XYZ..</option>
+                                    <option value="2">ABC...</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="tranDate" class="form-label">Tran Date</label>
+                                <input type="date" class="form-control" id="tranDate" name="tranDate">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="loanAMT" class="form-label">Loan AMT</label>
+                                <input type="number" class="form-control" id="loanAMT" name="loanAMT" placeholder="Enter Amount">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="status-field" class="form-label">Select Bank</label>
+                                <select class="form-select" name="bank_name" id="status-field"   >
+                                    <option value="">Select...</option>
+                                    <option value="1">Bank A</option>
+                                    <option value="2">Bank B</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="due_date" class="form-label">Due Date</label>
+                                <input type="date" class="form-control" id="due_date" name="due_date">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="remark" class="form-label">Discription</label>
+                                <input type="text" class="form-control" id="remark" name="remark" placeholder="Enter Discription">
+                            </div>
+
+                            
+                        </div>
+
+                        
+                    <div class="card-footer d-flex justify-content-between">
+                        <div>
+                            <button type="submit" class="btn btn-success" id="addLoanSubmit" >Submit</button>
+                            <button type="reset" id="resetfrom" class="btn btn-warning">Reset</button>
+                            <button type="button" id="btnCancelLoan" class="btn btn-danger">Cancel</button>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- Add Loan PMT Form End --}}
+
+    {{-- Add Advance PMT Form --}}
+    <div class="row" id="advanceContainer" style="display: none;">
+        <div class="col-sm-12">
+            
+            <div class="card">
+                <form class="theme-form" name="advanceForm" id="advanceForm" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="form_type" value="advance">
+
+                    <div class="card-body">
+                        <h4 class="mb-3">Add Advance Entry</h4>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="loan_type" class="form-label">Select Advance Type</label>
+                                <select class="form-select" name="loan_type" id="loan_type"  >
+                                    <option value="">Select...</option>
+                                    <option value="1">Advance Taken</option>
+                                    <option value="2">Adv Against Salary</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="staff_type" class="form-label">Select Staff Type</label>
+                                <select class="form-select" name="staff_type" id="staff_type"  >
+                                    <option value="">Select...</option>
+                                    <option value="1">Driver</option>
+                                    <option value="2">Employee</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="name" class="form-label">Select Name</label>
+                                <select class="form-select" name="name" id="name"  >
+                                    <option value="">Select...</option>
+                                    <option value="1">Driver</option>
+                                    <option value="2">Employee</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="TripDate" class="form-label">Tran Date</label>
+                                <input type="date" class="form-control" id="TripDate" name="TripDate">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="advanceamt" class="form-label">Advance AMT</label>
+                                <input type="number" class="form-control" id="advanceamt" name="advanceamt" placeholder="Enter Amount">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="status-field" class="form-label">Select Bank</label>
+                                <select class="form-select" name="bank_name" id="status-field"   >
+                                    <option value="">Select...</option>
+                                    <option value="1">Bank A</option>
+                                    <option value="2">Bank B</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="adjmonth" class="form-label">Adj Agn Month</label>
+                                <input type="date" class="form-control" id="adjmonth" name="adjmonth">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="remark" class="form-label">Discription</label>
+                                <input type="text" class="form-control" id="remark" name="remark" placeholder="Enter Discription">
+                            </div>
+
+                            
+                        </div>
+
+                        
+                    <div class="card-footer d-flex justify-content-between">
+                        <div>
+                            <button type="submit" class="btn btn-success" id="loanSubmit" >Submit</button>
+                            <button type="reset" id="resetfrom" class="btn btn-warning">Reset</button>
+                            <button type="button" id="btnCancelAdvance" class="btn btn-danger">Cancel</button>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- Add Advance PMT Form End --}}
+
+    {{-- Add Cash PMT Form --}}
+    <div class="row" id="cashContainer" style="display: none;">
+        <div class="col-sm-12">
+            
+            <div class="card">
+                <form class="theme-form" name="cashForm" id="cashForm" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="form_type" value="cash">
+
+                    <div class="card-body">
+                        <h4 class="mb-3">Add Cash Entry</h4>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="cash_type" class="form-label">Select Cash Type</label>
+                                <select class="form-select" name="cash_type" id="cash_type"  >
+                                    <option value="">Select...</option>
+                                    <option value="1">Cash Deposite</option>
+                                    <option value="2">Cash Withdrawal</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-2">
+                                <label for="tranDate" class="form-label">Tran Date</label>
+                                <input type="date" class="form-control" id="tranDate" name="tranDate">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="cashamt" class="form-label">Cash AMT</label>
+                                <input type="number" class="form-control" id="cashamt" name="cashamt" placeholder="Enter Amount">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="status-field" class="form-label">Select Bank</label>
+                                <select class="form-select" name="bank_name" id="status-field"   >
+                                    <option value="">Select...</option>
+                                    <option value="1">Bank A</option>
+                                    <option value="2">Bank B</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-2">
+                                <label for="remark" class="form-label">Discription</label>
+                                <input type="text" class="form-control" id="remark" name="remark" placeholder="Enter Discription">
+                            </div>
+
+                            
+                        </div>
+
+                        
+                        <div class="card-footer d-flex justify-content-between">
+                            <div>
+                                <button type="submit" class="btn btn-success" id="cashSubmit" >Submit</button>
+                                <button type="reset" id="resetfrom" class="btn btn-warning">Reset</button>
+                                <button type="button" id="btnCancelCash" class="btn btn-danger">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- Add Cash PMT Form End --}}
+        
 
     {{-- Heading Tab --}}
 
@@ -171,17 +548,17 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="tab" href="#nav-border-justified-expence" role="tab" aria-selected="false">
-                            <i class="ri-user-line me-1 align-middle"></i> Expances
+                            <i class="ri-user-line me-1 align-middle"></i> Expances Payements
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="tab" href="#nav-border-justified-loanAdv" role="tab" aria-selected="false">
-                            <i class="ri-question-answer-line align-middle me-1"></i>Loans & Advances
+                            <i class="ri-question-answer-line align-middle me-1"></i>Loans & Advances PMT
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="tab" href="#nav-border-justified-bankStm" role="tab" aria-selected="false">
-                            <i class="ri-question-answer-line align-middle me-1"></i>Bank Statement
+                            <i class="ri-question-answer-line align-middle me-1"></i>Bank Entries 
                         </a>
                     </li>
                 </ul>
@@ -211,110 +588,10 @@
                                                         <div class="">
                                                             {{-- income modal Start--}}
                                                             <div class="live-preview">
-                                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalgrid">
-                                                                    Add Income <i class="fa fa-plus"></i>
+                                                                <button type="button" id="addIncome" class="btn btn-primary"  data-bs-target="#exampleModalgrid">
+                                                                    <i class="fa fa-plus"></i> Add Income 
                                                                 </button>
-                                                                <div class="modal fade" id="exampleModalgrid" tabindex="-1" aria-labelledby="exampleModalgridLabel">
-                                                                    <div class="modal-dialog">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="exampleModalgridLabel">Add New Income</h5>
-                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <form action="javascript:void(0);">
-                                                                                    <div class="row g-3">
-                                                                                        <div>
-                                                                                            <label for="status-field" class="form-label">Select Income Category</label>
-                                                                                            <select class="form-control" data-choices data-choices-search-false name="status-field" id="status-field"  required>
-                                                                                                <option value=>....</option>
-                                                                                                <option value="1">AGN Trip</option>
-                                                                                                <option value="2">AGN Invoice</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                        <div class="col-xxl-6">
-                                                                                            <div>
-                                                                                                <label for="firstName" class="form-label">Client Name</label>
-                                                                                                <input type="text" class="form-control" id="firstName" placeholder="Enter firstname">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <!--end col-->
-                                                                                        <div class="col-xxl-6">
-                                                                                            <div>
-                                                                                                <label for="firstName" class="form-label">Refance No</label>
-                                                                                                <input type="number" class="form-control" id="firstName" placeholder="Enter firstname">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <!--end col-->
-                                                                                        <div class="col-xxl-6">
-                                                                                            <div>
-                                                                                                <label for="firstName" class="form-label">Rec. AMT</label>
-                                                                                                <input type="number" class="form-control" id="firstName" placeholder="Enter firstname">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <!--end col-->
-                                                                                        <div class="col-xxl-6">
-                                                                                            <div class="mb-3">
-                                                                                                <label for="TripDate" class="form-label">Tran Date</label>
-                                                                                                <input type="date" class="form-control" id="TripDate">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <!--end col-->
-                                                                                        <div>
-                                                                                            <label for="status-field" class="form-label">Select Bank</label>
-                                                                                            <select class="form-control" data-choices data-choices-search-false name="status-field" id="status-field"  required>
-                                                                                                <option value="1">HDFC BANK</option>
-                                                                                                <option value="2">AXIS BANK</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                         <!--end col-->
-
-                                                                                        <div class="col-lg-12">
-                                                                                            <label class="form-label">Short AMT Adusted Agisnt</label>
-                                                                                            <div>
-                                                                                                <div class="form-check form-check-inline">
-                                                                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                                                                                    <label class="form-check-label" for="inlineRadio1">TDS</label>
-                                                                                                </div>
-                                                                                                <div class="form-check form-check-inline">
-                                                                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                                                                    <label class="form-check-label" for="inlineRadio2">Balance</label>
-                                                                                                </div>
-                                                                                                <div class="form-check form-check-inline">
-                                                                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                                                                                                    <label class="form-check-label" for="inlineRadio3">ADJ Bad Debts</label>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <!--end col-->
-                                                                                        <div class="col-xxl-6">
-                                                                                            <div>
-                                                                                                <label for="firstName" class="form-label">Diff AMT</label>
-                                                                                                <input type="number" class="form-control" id="firstName" placeholder="Enter firstname">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <!--end col-->
-                                                                                        <div class="col-xxl-6">
-                                                                                            <div>
-                                                                                                <label for="lastName" class="form-label">Remark</label>
-                                                                                                <input type="text" class="form-control" id="lastName" placeholder="Enter lastname">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <!--end col-->
-                                                                                        <div class="col-lg-12">
-                                                                                            <div class="hstack gap-2 justify-content-end">
-                                                                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                                                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <!--end col-->
-                                                                                    </div>
-                                                                                    <!--end row-->
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                
                                                             </div>
                                                             {{-- income modal END--}}
                                                         </div>
@@ -328,27 +605,42 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Sr No.</th>
-                                                            <th>Date</th>
+                                                            <th>Income Category</th>
+                                                            <th>Tran Date</th>
+                                                            <th>Amout</th>
                                                             <th>Client Name</th>
-                                                            <th>Rec Amt</th>
-                                                            <th>Refrance</th>
-                                                            <th>Bank Name</th>
-                                                            <th>Reamrk</th>
+                                                            <th>Trip ID</th>
+                                                            <th>Trip No</th>
+                                                            <th>Adj PMT</th>
+                                                            <th>Remark</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($vouchermasters as $voucher)
+                                                        @foreach ($incomes as $income)
                                                             <tr>
                                                                 <td>{{ $loop->iteration }}</td>
-                                                                <td>{{ $voucher->type }}</td>
-                                                                <td>{{ $voucher->description }}</td>
+                                                                @php
+                                                                    $incomeCategoryLabels = [
+                                                                        1 => 'PMT AGN Trip',
+                                                                        2 => 'PMT AGN Invoice',
+                                                                        3 => 'On Account',
+                                                                    ];
+                                                                @endphp
+                                                                <td>{{ $incomeCategoryLabels[$income->income_Category] ?? 'Unknown' }}</td>
+                                                                <td>{{ $income->tranDate }}</td>
+                                                                <td>{{ $income->recincomeamt }}</td>
+                                                                <td>{{ $income->client->name ?? 'N/A' }}</td>
+                                                                <td>{{ $income->trip_ids }}</td>
+                                                                <td>{{ $income->trip_no }}</td>
+                                                                <td>{{ $income->adj_pmt }}</td>
+                                                                <td>{{ $income->remark }}</td>
                                                                 <td>
                                                                     @can('Vouchermaster.edit')
-                                                                        <button class="edit-element btn btn-secondary px-2 py-1" title="Edit voucher" data-id="{{ $voucher->id }}"><i data-feather="edit"></i></button>
+                                                                        <button class="edit-element btn btn-secondary px-2 py-1" title="Edit voucher" data-id="{{ $income->id }}"><i data-feather="edit"></i></button>
                                                                     @endcan
                                                                     @can('Vouchermaster.delete')
-                                                                        <button class="btn btn-danger rem-element px-2 py-1" title="Delete voucher" data-id="{{ $voucher->id }}"><i data-feather="trash-2"></i> </button>
+                                                                        <button class="btn btn-danger rem-element px-2 py-1" title="Delete voucher" data-id="{{ $income->id }}"><i data-feather="trash-2"></i> </button>
                                                                     @endcan
                                                                 </td>
                                                             </tr>
@@ -386,129 +678,10 @@
                                                                                  {{-- Expence modal Start--}}
 
                                                                                  <div class="live-preview">
-                                                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#expanceModalgrid">
+                                                                                    <button type="button" id="addExpPMT" class="btn btn-primary"  data-bs-target="#expanceModalgrid">
                                                                                         Add Expences <i class="fa fa-plus"></i>
                                                                                     </button>
-                                                                                    <div class="modal fade" id="expanceModalgrid" tabindex="-1" aria-labelledby="exampleModalgridLabel">
-                                                                                        <div class="modal-dialog">
-                                                                                            <div class="modal-content">
-                                                                                                <div class="modal-header">
-                                                                                                    <h5 class="modal-title" id="exampleModalgridLabel">Add New Expences</h5>
-                                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                                                </div>
-                                                                                                <div class="modal-body">
-                                                                                                    <form action="javascript:void(0);">
-                                                                                                        <div class="row g-3">
-
-                                                                                                            <div class="col-lg-12">
-                                                                                                                <label class="form-label">Select Expence Type</label>
-                                                                                                                <div>
-                                                                                                                    <div class="form-check form-check-inline">
-                                                                                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                                                                                                        <label class="form-check-label" for="inlineRadio1">AGN Party Nmae</label>
-                                                                                                                    </div>
-                                                                                                                    <div class="form-check form-check-inline">
-                                                                                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                                                                                        <label class="form-check-label" for="inlineRadio2">AGN Expence Head</label>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <!--end col-->
-                                                                                                            <div>
-                                                                                                                <label for="status-field" class="form-label">Select Expence Category</label>
-                                                                                                                <select class="form-control" data-choices data-choices-search-false name="status-field" id="status-field"  required>
-                                                                                                                    <option value=>....</option>
-                                                                                                                    <option value="1">Office EXP</option>
-                                                                                                                    <option value="2">Servising EXP</option>
-                                                                                                                </select>
-                                                                                                            </div>
-                                                                                                            <!--end col-->
-                                                                                                            <div>
-                                                                                                                <label for="status-field" class="form-label">Select Party Name</label>
-                                                                                                                <select class="form-control" data-choices data-choices-search-false name="status-field" id="status-field"  required>
-                                                                                                                    <option value=>....</option>
-                                                                                                                    <option value="1">Satam Motors</option>
-                                                                                                                    <option value="2">ABC Tyer</option>
-                                                                                                                </select>
-                                                                                                            </div>
-                                                                                                            <!--end col-->
-                                                                                                            <div>
-                                                                                                                <label for="status-field" class="form-label">Select Vehical Number(if Any)</label>
-                                                                                                                <select class="form-control" data-choices data-choices-search-false name="status-field" id="status-field"  required>
-                                                                                                                    <option value=>....</option>
-                                                                                                                    <option value="1">MH 04 GS 0065</option>
-                                                                                                                    <option value="2">MH 04 GS 6565</option>
-                                                                                                                </select>
-                                                                                                            </div>
-                                                                                                            <!--end col-->
-
-                                                                                                            <div class="col-xxl-6">
-                                                                                                                <div>
-                                                                                                                    <label for="firstName" class="form-label">Expence AMT</label>
-                                                                                                                    <input type="number" class="form-control" id="firstName" placeholder="Enter firstname">
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <!--end col-->
-                                                                                                            <div class="col-xxl-6">
-                                                                                                                <div>
-                                                                                                                    <label for="lastName" class="form-label">Description</label>
-                                                                                                                    <input type="text" class="form-control" id="lastName" placeholder="Enter lastname">
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <!--end col-->
-                                                                                                            <div class="col-xxl-6">
-                                                                                                                <div class="mb-3">
-                                                                                                                    <label for="TripDate" class="form-label">Tran Date</label>
-                                                                                                                    <input type="date" class="form-control" id="TripDate">
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <!--end col-->
-                                                                                                            <div>
-                                                                                                                <label for="status-field" class="form-label">Payment Method</label>
-                                                                                                                <select class="form-control" data-choices data-choices-search-false name="status-field" id="status-field"  required>
-                                                                                                                    <option value="1">HDFC BANK</option>
-                                                                                                                    <option value="2">AXIS BANK</option>
-                                                                                                                </select>
-                                                                                                            </div>
-                                                                                                             <!--end col-->
-
-
-                                                                                                            <div class="col-xxl-6">
-                                                                                                                <div>
-                                                                                                                    <label for="lastName" class="form-label">Remark</label>
-                                                                                                                    <input type="text" class="form-control" id="lastName" placeholder="Enter lastname">
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <!--end col-->
-                                                                                                            <!-- Upload Documents tab pane -->
-                                                                                                                <div class="tab-pane fade show active" id="steparrow-description-info" role="tabpanel" aria-labelledby="steparrow-description-info-tab">
-                                                                                                                    <div class="row">
-                                                                                                                        <div class="col-xxl-6">
-                                                                                                                            <div class="mb-3">
-                                                                                                                                <label for="formFile" class="form-label">Upload Refrance Document</label>
-                                                                                                                                <input class="form-control" type="file" id="formFile">
-                                                                                                                            </div>
-                                                                                                                        </div>
-                                                                                                                        <!--end col-->
-
-                                                                                                                    </div>
-
-                                                                                                                </div>
-                                                                                                                <!-- end tab pane -->
-                                                                                                            <div class="col-lg-12">
-                                                                                                                <div class="hstack gap-2 justify-content-end">
-                                                                                                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                                                                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <!--end col-->
-                                                                                                        </div>
-                                                                                                        <!--end row-->
-                                                                                                    </form>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    
                                                                                 </div>
 
                                                                                 {{-- Expence modal END--}}
@@ -584,99 +757,11 @@
                                                                                  {{-- Loan  modal Start--}}
 
                                                                                  <div class="live-preview">
-                                                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loanModalgrid">
+                                                                                    <button type="button" class="btn btn-primary" id="addloan" data-bs-target="#loanModalgrid">
                                                                                         Add Loan Entry <i class="fa fa-plus"></i>
                                                                                     </button>
 
-                                                                                    <div class="modal fade" id="loanModalgrid" tabindex="-1" aria-labelledby="exampleModalgridLabel">
-                                                                                        <div class="modal-dialog">
-                                                                                            <div class="modal-content">
-                                                                                                <div class="modal-header">
-                                                                                                    <h5 class="modal-title" id="exampleModalgridLabel">Add Loan Entry</h5>
-                                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                                                </div>
-                                                                                                <div class="modal-body">
-                                                                                                    <form action="javascript:void(0);">
-                                                                                                        <div class="row g-3">
-
-                                                                                                            <div class="col-lg-12">
-                                                                                                                <label class="form-label">Select Loan Type</label>
-                                                                                                                <div>
-                                                                                                                    <div class="form-check form-check-inline">
-                                                                                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                                                                                                        <label class="form-check-label" for="inlineRadio1">Loan Given</label>
-                                                                                                                    </div>
-                                                                                                                    <div class="form-check form-check-inline">
-                                                                                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                                                                                        <label class="form-check-label" for="inlineRadio2">Loan Taken</label>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <!--end col-->
-
-                                                                                                            <div>
-                                                                                                                <label for="status-field" class="form-label">Select Party Name</label>
-                                                                                                                <select class="form-control" data-choices data-choices-search-false name="status-field" id="status-field"  required>
-                                                                                                                    <option value=>....</option>
-                                                                                                                    <option value="1">Satam Motors</option>
-                                                                                                                    <option value="2">ABC Tyer</option>
-                                                                                                                </select>
-                                                                                                            </div>
-                                                                                                            <!--end col-->
-
-                                                                                                            <div class="col-xxl-6">
-                                                                                                                <div class="mb-3">
-                                                                                                                    <label for="TripDate" class="form-label">Tran Date</label>
-                                                                                                                    <input type="date" class="form-control" id="TripDate">
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <!--end col-->
-                                                                                                            <div class="col-xxl-6">
-                                                                                                                <div>
-                                                                                                                    <label for="firstName" class="form-label">Loan AMT</label>
-                                                                                                                    <input type="number" class="form-control" id="firstName" placeholder="Enter firstname">
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <!--end col-->
-
-                                                                                                            <div>
-                                                                                                                <label for="status-field" class="form-label">Payment Method</label>
-                                                                                                                <select class="form-control" data-choices data-choices-search-false name="status-field" id="status-field"  required>
-                                                                                                                    <option value="1">HDFC BANK</option>
-                                                                                                                    <option value="2">AXIS BANK</option>
-                                                                                                                </select>
-                                                                                                            </div>
-                                                                                                             <!--end col-->
-                                                                                                             <div class="col-xxl-6">
-                                                                                                                <div class="mb-3">
-                                                                                                                    <label for="TripDate" class="form-label">Due Date</label>
-                                                                                                                    <input type="date" class="form-control" id="TripDate">
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <!--end col-->
-
-                                                                                                            <div class="col-xxl-6">
-                                                                                                                <div>
-                                                                                                                    <label for="lastName" class="form-label">Description</label>
-                                                                                                                    <textarea type="terabox" class="form-control" id="lastName" placeholder="Enter lastname"></textarea>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <!--end col-->
-
-                                                                                                            <div class="col-lg-12">
-                                                                                                                <div class="hstack gap-2 justify-content-end">
-                                                                                                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                                                                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <!--end col-->
-                                                                                                        </div>
-                                                                                                        <!--end row-->
-                                                                                                    </form>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    
                                                                                 </div>
 
                                                                                 {{-- Loan  modal END--}}
@@ -688,112 +773,11 @@
                                                                           {{-- Advance  modal Start--}}
 
                                                                           <div class="live-preview">
-                                                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#advanceModalgrid">
+                                                                            <button type="button" class="btn btn-primary" id="add_advance" data-bs-target="#advanceModalgrid">
                                                                                 Add Advance Entry <i class="fa fa-plus"></i>
                                                                             </button>
 
-                                                                            <div class="modal fade" id="advanceModalgrid" tabindex="-1" aria-labelledby="exampleModalgridLabel">
-                                                                                <div class="modal-dialog">
-                                                                                    <div class="modal-content">
-                                                                                        <div class="modal-header">
-                                                                                            <h5 class="modal-title" id="exampleModalgridLabel">Add Advance Entry</h5>
-                                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                                        </div>
-                                                                                        <div class="modal-body">
-                                                                                            <form action="javascript:void(0);">
-                                                                                                <div class="row g-3">
-
-                                                                                                    <div class="col-lg-12">
-                                                                                                        <label class="form-label">Select Advance Type</label>
-                                                                                                        <div>
-                                                                                                            <div class="form-check form-check-inline">
-                                                                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                                                                                                <label class="form-check-label" for="inlineRadio1">Advance Given</label>
-                                                                                                            </div>
-                                                                                                            <div class="form-check form-check-inline">
-                                                                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                                                                                <label class="form-check-label" for="inlineRadio2">Advance Taken</label>
-                                                                                                            </div>
-                                                                                                            <div class="form-check form-check-inline">
-                                                                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                                                                                <label class="form-check-label" for="inlineRadio2">Against Salary</label>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <!--end col-->
-
-                                                                                                    <div>
-                                                                                                        <label for="status-field" class="form-label">Select Name</label>
-                                                                                                        <select class="form-control" data-choices data-choices-search-false name="status-field" id="status-field"  required>
-                                                                                                            <option value=>....</option>
-                                                                                                            <option value="1">Satam Motors</option>
-                                                                                                            <option value="2">ABC Tyer</option>
-                                                                                                        </select>
-                                                                                                    </div>
-                                                                                                    <!--end col-->
-
-                                                                                                    <div class="col-xxl-6">
-                                                                                                        <div class="mb-3">
-                                                                                                            <label for="TripDate" class="form-label">Tran Date</label>
-                                                                                                            <input type="date" class="form-control" id="TripDate">
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <!--end col-->
-                                                                                                    <div class="col-xxl-6">
-                                                                                                        <div>
-                                                                                                            <label for="firstName" class="form-label">Advance AMT</label>
-                                                                                                            <input type="number" class="form-control" id="firstName" placeholder="Enter firstname">
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <!--end col-->
-
-                                                                                                    <div>
-                                                                                                        <label for="status-field" class="form-label">Payment Method</label>
-                                                                                                        <select class="form-control" data-choices data-choices-search-false name="status-field" id="status-field"  required>
-                                                                                                            <option value="1">HDFC BANK</option>
-                                                                                                            <option value="2">AXIS BANK</option>
-                                                                                                        </select>
-                                                                                                    </div>
-                                                                                                     <!--end col-->
-                                                                                                     <div class="col-xxl-6">
-                                                                                                        <div class="mb-3">
-                                                                                                            <label for="TripDate" class="form-label">Due Date</label>
-                                                                                                            <input type="date" class="form-control" id="TripDate">
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <!--end col-->
-                                                                                                    <div>
-                                                                                                        <label for="status-field" class="form-label">Deduction Month</label>
-                                                                                                        <select class="form-control" data-choices data-choices-search-false name="status-field" id="status-field"  required>
-                                                                                                            <option value=>....</option>
-                                                                                                            <option value="1">Jan-25</option>
-                                                                                                            <option value="2">dis next 3 month</option>
-                                                                                                        </select>
-                                                                                                    </div>
-                                                                                                    <!--end col-->
-
-                                                                                                    <div class="col-xxl-6">
-                                                                                                        <div>
-                                                                                                            <label for="lastName" class="form-label">Description</label>
-                                                                                                            <textarea type="terabox" class="form-control" id="lastName" placeholder="Enter lastname"></textarea>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <!--end col-->
-
-                                                                                                    <div class="col-lg-12">
-                                                                                                        <div class="hstack gap-2 justify-content-end">
-                                                                                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                                                                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <!--end col-->
-                                                                                                </div>
-                                                                                                <!--end row-->
-                                                                                            </form>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
+                                                                            
                                                                         </div>
 
                                                                         {{-- Advance  modal END--}}
@@ -826,10 +810,10 @@
                                                                                     <td>{{ $voucher->description }}</td>
                                                                                     <td>
                                                                                         @can('Vouchermaster.edit')
-                                                                                            <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="edit"></i></button>
+                                                                                            <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle" data-id="{{ $voucher->id }}"><i data-feather="edit"></i></button>
                                                                                         @endcan
                                                                                         @can('Vouchermaster.delete')
-                                                                                            <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="trash-2"></i> </button>
+                                                                                            <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle" data-id="{{ $voucher->id }}"><i data-feather="trash-2"></i> </button>
                                                                                         @endcan
                                                                                     </td>
                                                                                 </tr>
@@ -854,148 +838,48 @@
                                         <div class="card-header">
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <div class="row">
-                                                    <div class="col-lg-7">
-                                                        <header >
-                                                            <h4>Bank Statement Transactions</h4>
-                                                        </header>
+                                                    <!-- Heading -->
+                                                    <div class="row mb-3">
+                                                        <div class="col-lg-12">
+                                                            <header>
+                                                                <h4 class="mb-0">Bank Statement Transactions</h4>
+                                                            </header>
+                                                        </div>
                                                     </div>
-                                                        <div class="col-lg-3">
-                                                            <label for="status-field" class="form-label">Select Bank Name</label>
-                                                            <select class="form-control" data-choices data-choices-search-false name="status-field" id="status-field"  required>
+
+                                                    <!-- Dropdowns and Add Button -->
+                                                    <div class="row align-items-end">
+                                                        <!-- Bank Name -->
+                                                        <div class="col-lg-4">
+                                                            <label for="bank_name" class="form-label">Select Bank Name</label>
+                                                            <select class="form-control" name="bank_name" id="bank_name" required>
                                                                 <option value="1">All Bank's</option>
                                                                 <option value="2">HDFC</option>
                                                                 <option value="3">AXIS</option>
                                                             </select>
                                                         </div>
 
-                                                        <div class="col-lg-2">
-                                                            <label for="status-field" class="form-label">Period:</label>
-                                                            <select class="form-control" data-choices data-choices-search-false name="status-field" id="status-field"  required>
+                                                        <!-- Period -->
+                                                        <div class="col-lg-4">
+                                                            <label for="period" class="form-label">Period:</label>
+                                                            <select class="form-control" name="period" id="period" required>
                                                                 <option value="1">Last 30 Days</option>
                                                                 <option value="2">This Month</option>
                                                                 <option value="3">This Quarter</option>
-                                                                <option value="3">This Year</option>
-                                                                <option value="3">Custom Rage</option>
+                                                                <option value="4">This Year</option>
+                                                                <option value="5">Custom Range</option>
                                                             </select>
                                                         </div>
 
-                                                    </div>
-                                                </div>
-
-                                            <div class="card-header" >
-                                                 <div class="row justify-content-center align-items-center" style="--vz-gutter-x: .5rem">
-
-
-                                                <div class="col-sm-2">
-                                                    <div class="">
-                                                        <button id="addToTable" class="btn btn-primary" >Add Income <i class="fa fa-plus"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <div class="">
-                                                        <button id="addToTable" class="btn btn-primary" >Add Expence <i class="fa fa-plus"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <div class="">
-                                                        <button id="addToTable" class="btn btn-primary" >Add Loan <i class="fa fa-plus"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <div class="">
-                                                        <button id="addToTable" class="btn btn-primary" >Add Adavnce <i class="fa fa-plus"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="">
-                                                        {{-- Cash Tranjction modal Start--}}
-
-                                                        <div class="live-preview">
-                                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cashModalgrid">
-                                                                Add Cash Entry <i class="fa fa-plus"></i>
+                                                        <!-- Add Button -->
+                                                        <div class="col-lg-4 text-end">
+                                                            <button type="button" class="btn btn-primary mt-3" id="addcash" data-bs-target="#cashModalgrid">
+                                                                <i class="fa fa-plus"></i> Add Cash Entry
                                                             </button>
-
-                                                            <div class="modal fade" id="cashModalgrid" tabindex="-1" aria-labelledby="exampleModalgridLabel">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title" id="exampleModalgridLabel">Add Cash Entry</h5>
-                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <form action="javascript:void(0);">
-                                                                                <div class="row g-3">
-
-                                                                                    <div class="col-lg-12">
-                                                                                        <label class="form-label">Select Cash Type</label>
-                                                                                        <div>
-                                                                                            <div class="form-check form-check-inline">
-                                                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                                                                                <label class="form-check-label" for="inlineRadio1">Cash Deposite</label>
-                                                                                            </div>
-                                                                                            <div class="form-check form-check-inline">
-                                                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                                                                <label class="form-check-label" for="inlineRadio2">Cash Withdrawal</label>
-                                                                                            </div>
-
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <!--end col-->
-                                                                                    <div class="col-xxl-6">
-                                                                                        <div class="mb-3">
-                                                                                            <label for="TripDate" class="form-label">Tran Date</label>
-                                                                                            <input type="date" class="form-control" id="TripDate">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <!--end col-->
-                                                                                    <div class="col-xxl-6">
-                                                                                        <div>
-                                                                                            <label for="firstName" class="form-label">Amount</label>
-                                                                                            <input type="number" class="form-control" id="firstName" placeholder="Enter firstname">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <!--end col-->
-
-                                                                                    <div>
-                                                                                        <label for="status-field" class="form-label">Bank Name</label>
-                                                                                        <select class="form-control" data-choices data-choices-search-false name="status-field" id="status-field"  required>
-                                                                                            <option value="1">HDFC BANK</option>
-                                                                                            <option value="2">AXIS BANK</option>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                     <!--end col-->
-
-                                                                                    <div class="col-xxl-6">
-                                                                                        <div>
-                                                                                            <label for="lastName" class="form-label">Description</label>
-                                                                                            <textarea type="terabox" class="form-control" id="lastName" placeholder="Enter lastname"></textarea>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <!--end col-->
-
-                                                                                    <div class="col-lg-12">
-                                                                                        <div class="hstack gap-2 justify-content-end">
-                                                                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                                                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <!--end col-->
-                                                                                </div>
-                                                                                <!--end row-->
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
                                                         </div>
-
-                                                        {{-- Cash Tranjction modal END--}}
                                                     </div>
                                                 </div>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                             </div>
                                         </div>
                                     @endcan
@@ -1027,7 +911,7 @@
                                                                     <button class="edit-element btn btn-secondary px-2 py-1" title="Edit voucher" data-id="{{ $voucher->id }}"><i data-feather="edit"></i></button>
                                                                 @endcan
                                                                 @can('Vouchermaster.delete')
-                                                                    <button class="btn btn-danger rem-element px-2 py-1" title="Delete voucher" data-id="{{ $vehvouchericle->id }}"><i data-feather="trash-2"></i> </button>
+                                                                    <button class="btn btn-danger rem-element px-2 py-1" title="Delete voucher" data-id="{{ $voucher->id }}"><i data-feather="trash-2"></i> </button>
                                                                 @endcan
                                                             </td>
                                                         </tr>
@@ -1049,108 +933,345 @@
 
 
 </x-admin.layout>
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 
-{{-- Expence radio toggele --}}
-{{-- <script>
-    function toggleInputFields() {
-        const option1Selected = document.getElementById('inlineRadio1').checked;
-        document.getElementById('partyNameInput').style.display = option1Selected ? 'block' : 'none';
-        document.getElementById('expCatagoryInput').style.display = option1Selected ? 'none' : 'block';
-    }
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', toggleInputFields);
-    </script> --}}
-
-{{-- Add --}}
+{{-- Add & Cancel Btn controler for all --}}
 <script>
-    $("#addForm").submit(function(e) {
-        e.preventDefault();
-        $("#addSubmit").prop('disabled', true);
+        $(document).ready(function () {
+            
+            // ---------------------- Income Container ----------------------
+            function setupIncomeContainer() {
+                $("#addIncome").on("click", function () {
+                    $("#addIncomeContainer").slideDown();
+                    $("#utilityContainer").slideUp();
+                    $("#addIncome").slideUp();
+                    $("#btnCancel").show();
+                });
 
-        var formdata = new FormData(this);
-        $.ajax({
-            url: '{{ route('Voucher-Master.store') }}',
-            type: 'POST',
-            data: formdata,
-            contentType: false,
-            processData: false,
-            success: function(data) {
-                $("#addSubmit").prop('disabled', false);
-                if (!data.error2)
-                    swal("Successful!", data.success, "success")
-                    .then((action) => {
-                        window.location.href = '{{ route('Voucher-Master.index') }}';
-                    });
-                else
-                    swal("Error!", data.error2, "error");
-            },
-            statusCode: {
-                422: function(responseObject, textStatus, jqXHR) {
-                    $("#addSubmit").prop('disabled', false);
-                    resetErrors();
-                    printErrMsg(responseObject.responseJSON.errors);
-                },
-                500: function(responseObject, textStatus, errorThrown) {
-                    $("#addSubmit").prop('disabled', false);
-                    swal("Error occured!", "Something went wrong please try again", "error");
-                }
+                $("#btnCancelIncome").on("click", function (e) {
+                    e.preventDefault();
+                    $("#addIncomeForm")[0].reset(); // <-- Correct form reference
+                    clearErrors("#addIncomeForm");
+                    $("#addIncomeContainer").slideUp();
+                    $("#utilityContainer").slideDown();
+                    $("#addIncome").slideDown();
+                });
+
+                $("#resetfrom").on("click", function (e) {
+                    e.preventDefault();
+                    $("#addIncomeForm")[0].reset();
+                    clearErrors("#addIncomeForm");
+                });
+            }
+
+            // ---------------------- Expense Container ----------------------
+            function setupExpenseContainer() {
+                $("#addExpPMT").on("click", function () {
+                    $("#expPMTContainer").slideDown();
+                    $("#utilityContainer").slideUp();
+                    $("#addExpPMT").slideUp();
+                    $("#btnCancel").show();
+                });
+
+                $("#btnCancelExpPMT").on("click", function (e) {
+                    e.preventDefault();
+                    $("#expPMTForm")[0].reset();
+                    clearErrors("#expPMTForm");
+                    $("#expPMTContainer").slideUp();
+                    $("#utilityContainer").slideDown();
+                    $("#addExpPMT").show();
+                });
+
+                $("#resetfrom").on("click", function (e) {
+                    e.preventDefault();
+                    $("#expPMTForm")[0].reset();
+                    clearErrors("#expPMTForm");
+                });
+                
+            }
+
+            // ---------------------- Loan Container ----------------------
+            function setupLoanContainer() {
+                $("#addloan").on("click", function () {
+                    $("#loanContainer").slideDown();
+                    $("#utilityContainer").slideUp();
+                    $("#addloan").slideUp();
+                    $("#btnCancel").show();
+                });
+
+                $("#btnCancelLoan").on("click", function (e) {
+                    e.preventDefault();
+                    $("#loanForm")[0].reset();
+                    clearErrors("#loanForm");
+                    $("#loanContainer").slideUp();
+                    $("#utilityContainer").slideDown();
+                    $("#addloan").show();
+                });
+
+                $("#resetfrom").on("click", function (e) {
+                    e.preventDefault();
+                    $("#loanForm")[0].reset();
+                    clearErrors("#loanForm");
+                });
+                
+            }
+
+             // ---------------------- Advance Container ----------------------
+            function setupAdvanceContainer() {
+                $("#add_advance").on("click", function () {
+                    $("#advanceContainer").slideDown();
+                    $("#utilityContainer").slideUp();
+                    $("#add_advance").slideUp();
+                    $("#btnCancel").show();
+                });
+
+                $("#btnCancelAdvance").on("click", function (e) {
+                    e.preventDefault();
+                    $("#advanceForm")[0].reset();
+                    clearErrors("#advanceForm");
+                    $("#advanceContainer").slideUp();
+                    $("#utilityContainer").slideDown();
+                    $("#add_advance").show();
+                });
+
+                $("#resetfrom").on("click", function (e) {
+                    e.preventDefault();
+                    $("#advanceForm")[0].reset();
+                    clearErrors("#advanceForm");
+                });
+                
+            }
+
+
+             // ---------------------- Cash Container ----------------------
+            function setupCashContainer() {
+                $("#addcash").on("click", function () {
+                    $("#cashContainer").slideDown();
+                    $("#utilityContainer").slideUp();
+                    $("#addcash").slideUp();
+                    $("#btnCancel").show();
+                });
+
+                $("#btnCancelCash").on("click", function (e) {
+                    e.preventDefault();
+                    $("#cashForm")[0].reset();
+                    clearErrors("#cashForm");
+                    $("#cashContainer").slideUp();
+                    $("#utilityContainer").slideDown();
+                    $("#addcash").show();
+                });
+
+                $("#resetfrom").on("click", function (e) {
+                    e.preventDefault();
+                    $("#cashForm")[0].reset();
+                    clearErrors("#cashForm");
+                });
+                
+            }
+
+            // ---------------------- Utility Functions ----------------------
+            function clearErrors(formSelector) {
+                $(`${formSelector} .invalid`).text("");
+                $(`${formSelector} .form-control`).removeClass("is-invalid");
+            }
+
+            // ---------------------- Initialization ----------------------
+            setupIncomeContainer();
+            setupExpenseContainer(); 
+            setupLoanContainer(); 
+            setupAdvanceContainer(); 
+            setupCashContainer(); 
+        });
+
+</script>
+
+{{-- When switching tabs, hide all add-form containers --}}
+<script>
+            // When switching tabs, hide all add-form containers
+        $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function () {
+            // Hide all Add Form containers on tab change
+            $("#addIncomeContainer, #expPMTContainer, #loanContainer, #advanceContainer, #cashContainer").slideUp();
+
+            // Also show the utility container back if needed
+            $("#utilityContainer").slideDown();
+
+            // Optionally show all add buttons again (since form is hidden)
+            $("#addIncome, #addExpPMT, #addloan, #add_advance, #addcash").slideDown();
+
+            // Optional: Reset all forms if you want to clear data too
+            $("#addIncomeForm, #expPMTForm, #loanForm, #advanceForm, #cashForm").each(function () {
+                this.reset();
+            });
+
+            // Clear validation errors
+            clearErrors("#addIncomeForm");
+            clearErrors("#expPMTForm");
+            clearErrors("#loanForm");
+            clearErrors("#advanceForm");
+            clearErrors("#cashForm");
+        });
+
+</script>
+
+{{-- Show/Hide Update and Trip Data Buttons based on selection --}}
+
+<script>
+    $(document).ready(function () {
+        $('#income_Category, #client_id').on('change keyup', function () {  
+            var selectedStatus = $('#income_Category').val();
+            var clientName = $('#client_id').val().trim();
+
+            // Hide both buttons initially
+            $('#updateInvData, #updateTripData').hide();
+
+            // Show Trip button if either status is '1' OR client name is not empty
+            if (selectedStatus === '1' && clientName !== '') {
+                
+                $('#updateTripData').show();
+                
+            }
+
+            // Show Invoice button if either status is '2' OR client name is not empty
+            if (selectedStatus === '2' && clientName !== '') {
+                
+                $('#updateInvData').show();
+            }
+        });
+    });
+</script>
+
+    {{-- Show Update Invoice Table on button click --}}
+    <script>
+                var invoiceData = [
+                { date: '2025-06-10', number: 'INV001', balance: 5000 },
+                { date: '2025-06-11', number: 'INV002', balance: 7000 },
+            ];
+
+            $('#updateInvData').on('click', function () {
+                $('#invoiceTableBody').empty();
+                
+
+                invoiceData.forEach((item, index) => {
+                    $('#invoiceTableBody').append(`
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${item.date}</td>
+                            <td>${item.number}</td>
+                            <td>${item.balance}</td>
+                            <td>
+                                <input type="number" class="form-control adj-input" data-index="${index}" value="0" min="0">
+                            </td>
+                            <td>
+                                <input type="text" name="adjNote${index}" class="form-control adj-note" placeholder="Note">
+                            </td>
+                        </tr>
+                    `);
+                });
+
+                $('#updateTripTable').slideUp();
+                $('#addSubmit').hide();
+                $('#updateInvTable').slideDown();
+                
+            });
+
+
+    </script>
+
+    {{-- Show Update Trip Table on button click --}}
+    <script>
+                var tripData = [
+                { date: '2025-06-10', number: 'TRIP001', vehicle: 'V001', origin: 'Location A', destination: 'Location B', balance: 5000 },
+                { date: '2025-06-11', number: 'TRIP002', vehicle: 'V002', origin: 'Location C', destination: 'Location D', balance: 7000 },
+            ];
+
+            $('#updateTripData').on('click', function () {
+                $('#tripTableBody').empty();
+                $('#updateInvData').hide();
+
+                tripData.forEach((item, index) => {
+                    $('#tripTableBody').append(`
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${item.date}</td>
+                            <td>${item.number}</td>
+                            <td>${item.vehicle}</td>
+                            <td>${item.origin}</td>
+                            <td>${item.destination}</td>
+                            <td>${item.balance}</td>
+                            <td>
+                                <input type="number" name="adjPMT${index}" class="form-control adj-input" data-index="${index}" value="0" min="0">
+                            </td>
+                            <td>
+                                <input type="text" name="adjNote${index}" class="form-control adj-note" placeholder="Note">
+                            </td>
+                        </tr>
+                    `);
+                });
+
+                $('#updateInvTable').slideUp();
+                $('#addSubmit').hide();
+                $('#updateTripTable').slideDown();
+                
+            });
+
+
+    </script>
+
+
+    <!-- Calculate Total of Adj Inputs and Show Difference -->
+
+    <script>
+            $(document).on('input', '.adj-input, #recincomeamt', function () {
+            var totalAdj = 0;
+
+            $('.adj-input').each(function () {
+                totalAdj += parseFloat($(this).val()) || 0;
+            });
+
+            var recIncome = parseFloat($('#recincomeamt').val()) || 0;
+            var diff = recIncome - totalAdj;
+
+            if (diff === 0) {
+                $('#diffAlert').hide();
+                $('#addIncomeSubmit').show();
+            } else {
+                $('#diffAmount').text(diff.toFixed(2));
+                $('#diffAlert').show();
             }
         });
 
-    });
-</script>
+    </script>
 
 
-<!-- Edit -->
-<script>
-    $("#buttons-datatables").on("click", ".edit-element", function(e) {
-        e.preventDefault();
-        var model_id = $(this).attr("data-id");
-        var url = "{{ route('Voucher-Master.edit', ':model_id') }}";
-
-        $.ajax({
-            url: url.replace(':model_id', model_id),
-            type: 'GET',
-            data: {
-                '_token': "{{ csrf_token() }}"
-            },
-            success: function(data, textStatus, jqXHR) {
-                editFormBehaviour();
-                if (!data.error) {
-                    $("#editForm input[name='edit_model_id']").val(data.vehicle.id);
-                    $("#editForm input[name='type']").val(data.vehicle.type);
-                    $("#editForm input[name='description']").val(data.vehicle.description);
-                } else {
-                    alert(data.error);
-                }
-            },
-            error: function(error, jqXHR, textStatus, errorThrown) {
-                alert("Something went wrong");
-            },
-        });
-    });
-</script>
 
 
-<!-- Update -->
-<script>
-    $(document).ready(function() {
-        $("#editForm").submit(function(e) {
+{{-- Expence radio toggele --}}
+    {{--<script>
+        function toggleInputFields() {
+            const option1Selected = document.getElementById('inlineRadio1').checked;
+            document.getElementById('partyNameInput').style.display = option1Selected ? 'block' : 'none';
+            document.getElementById('expCatagoryInput').style.display = option1Selected ? 'none' : 'block';
+        }
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', toggleInputFields);
+        </script> --}}
+
+
+    {{-- Add Income --}}
+    <!-- <script>
+        $("#addIncomeForm").submit(function(e) {
             e.preventDefault();
-            $("#editSubmit").prop('disabled', true);
-            var formdata = new FormData(this);
-            formdata.append('_method', 'PUT');
-            var model_id = $('#edit_model_id').val();
-            var url = "{{ route('Voucher-Master.update', ':model_id') }}";
+            $("#addIncomeSubmit").prop('disabled', true);
 
+            var formdata = new FormData(this);
             $.ajax({
-                url: url.replace(':model_id', model_id),
+                url: '{{ route('Voucher-Master.store') }}',
                 type: 'POST',
                 data: formdata,
                 contentType: false,
                 processData: false,
                 success: function(data) {
-                    $("#editSubmit").prop('disabled', false);
+                    $("#addIncomeSubmit").prop('disabled', false);
                     if (!data.error2)
                         swal("Successful!", data.success, "success")
                         .then((action) => {
@@ -1161,71 +1282,189 @@
                 },
                 statusCode: {
                     422: function(responseObject, textStatus, jqXHR) {
-                        $("#editSubmit").prop('disabled', false);
+                        $("#addIncomeSubmit").prop('disabled', false);
                         resetErrors();
                         printErrMsg(responseObject.responseJSON.errors);
                     },
                     500: function(responseObject, textStatus, errorThrown) {
-                        $("#editSubmit").prop('disabled', false);
-                        swal("Error occurred!", "Something went wrong please try again", "error");
+                        $("#addIncomeSubmit").prop('disabled', false);
+                        swal("Error occured!", "Something went wrong please try again", "error");
                     }
                 }
             });
+
         });
-    });
-</script>
+    </script> -->
 
+        <script>
+                function handleFormSubmit(formId, submitBtnId) {
+                    $(formId).submit(function (e) {
+                        e.preventDefault();
+                        $(submitBtnId).prop('disabled', true);
 
-<!-- Delete -->
-<script>
-    $("#buttons-datatables").on("click", ".rem-element", function(e) {
-        e.preventDefault();
-        swal({
-                title: "Are you sure to delete this Voucher-Master type?",
-                icon: "warning",
-                buttons: ["Cancel", "Confirm"],
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    var model_id = $(this).attr("data-id");
-                    var url = "{{ route('Voucher-Master.destroy', ':model_id') }}";
-
-                    $.ajax({
-                        url: url.replace(':model_id', model_id),
-                        type: 'POST',
-                        data: {
-                            '_method': "DELETE",
-                            '_token': "{{ csrf_token() }}"
-                        },
-                        success: function(data, textStatus, jqXHR) {
-                            if (!data.error && !data.error2) {
-                                swal("Success!", data.success, "success")
-                                    .then((action) => {
-                                        window.location.reload();
+                        var formdata = new FormData(this);
+                        console.log(formdata);
+                        $.ajax({
+                            url: '{{ route('Voucher-Master.store') }}',
+                            type: 'POST',
+                            data: formdata,
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+                                $(submitBtnId).prop('disabled', false);
+                                if (!data.error2) {
+                                    swal("Successful!", data.success, "success").then(() => {
+                                        window.location.href = '{{ route('Voucher-Master.index') }}';
                                     });
-                            } else {
-                                if (data.error) {
-                                    swal("Error!", data.error, "error");
                                 } else {
                                     swal("Error!", data.error2, "error");
                                 }
+                            },
+                            statusCode: {
+                                422: function (responseObject) {
+                                    $(submitBtnId).prop('disabled', false);
+                                    resetErrors();
+                                    printErrMsg(responseObject.responseJSON.errors);
+                                },
+                                500: function () {
+                                    $(submitBtnId).prop('disabled', false);
+                                    swal("Error occurred!", "Something went wrong, please try again", "error");
+                                }
                             }
-                        },
-                        error: function(error, jqXHR, textStatus, errorThrown) {
-                            swal("Error!", "Something went wrong", "error");
-                        },
+                        });
                     });
                 }
+
+                // Initialize form submissions
+                $(document).ready(function () {
+                    handleFormSubmit("#addIncomeForm", "#addIncomeSubmit");
+                    handleFormSubmit("#addExpenseForm", "#addExpenseSubmit");
+                    handleFormSubmit("#loanForm", "#addLoanSubmit");
+                    handleFormSubmit("#cashForm", "#cashSubmit");
+                });
+        </script>
+
+
+
+    <!-- Edit -->
+    <script>
+        $("#buttons-datatables").on("click", ".edit-element", function(e) {
+            e.preventDefault();
+            var model_id = $(this).attr("data-id");
+            var url = "{{ route('Voucher-Master.edit', ':model_id') }}";
+
+            $.ajax({
+                url: url.replace(':model_id', model_id),
+                type: 'GET',
+                data: {
+                    '_token': "{{ csrf_token() }}"
+                },
+                success: function(data, textStatus, jqXHR) {
+                    editFormBehaviour();
+                    if (!data.error) {
+                        $("#editForm input[name='edit_model_id']").val(data.vehicle.id);
+                        $("#editForm input[name='type']").val(data.vehicle.type);
+                        $("#editForm input[name='description']").val(data.vehicle.description);
+                    } else {
+                        alert(data.error);
+                    }
+                },
+                error: function(error, jqXHR, textStatus, errorThrown) {
+                    alert("Something went wrong");
+                },
             });
-    });
-</script>
+        });
+    </script>
 
-<script>
-        <!-- echarts js -->
-    <script src="assets/libs/echarts/echarts.min.js"></script>
 
-    <!-- echarts init -->
-    <script src="assets/js/pages/echarts.init.js"></script>
-</script>
+    <!-- Update -->
+    <script>
+        $(document).ready(function() {
+            $("#editForm").submit(function(e) {
+                e.preventDefault();
+                $("#editSubmit").prop('disabled', true);
+                var formdata = new FormData(this);
+                formdata.append('_method', 'PUT');
+                var model_id = $('#edit_model_id').val();
+                var url = "{{ route('Voucher-Master.update', ':model_id') }}";
+
+                $.ajax({
+                    url: url.replace(':model_id', model_id),
+                    type: 'POST',
+                    data: formdata,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $("#editSubmit").prop('disabled', false);
+                        if (!data.error2)
+                            swal("Successful!", data.success, "success")
+                            .then((action) => {
+                                window.location.href = '{{ route('Voucher-Master.index') }}';
+                            });
+                        else
+                            swal("Error!", data.error2, "error");
+                    },
+                    statusCode: {
+                        422: function(responseObject, textStatus, jqXHR) {
+                            $("#editSubmit").prop('disabled', false);
+                            resetErrors();
+                            printErrMsg(responseObject.responseJSON.errors);
+                        },
+                        500: function(responseObject, textStatus, errorThrown) {
+                            $("#editSubmit").prop('disabled', false);
+                            swal("Error occurred!", "Something went wrong please try again", "error");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    <!-- Delete -->
+    <script>
+        $("#buttons-datatables").on("click", ".rem-element", function(e) {
+            e.preventDefault();
+            swal({
+                    title: "Are you sure to delete this Voucher-Master type?",
+                    icon: "warning",
+                    buttons: ["Cancel", "Confirm"],
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        var model_id = $(this).attr("data-id");
+                        var url = "{{ route('Voucher-Master.destroy', ':model_id') }}";
+
+                        $.ajax({
+                            url: url.replace(':model_id', model_id),
+                            type: 'POST',
+                            data: {
+                                '_method': "DELETE",
+                                '_token': "{{ csrf_token() }}"
+                            },
+                            success: function(data, textStatus, jqXHR) {
+                                if (!data.error && !data.error2) {
+                                    swal("Success!", data.success, "success")
+                                        .then((action) => {
+                                            window.location.reload();
+                                        });
+                                } else {
+                                    if (data.error) {
+                                        swal("Error!", data.error, "error");
+                                    } else {
+                                        swal("Error!", data.error2, "error");
+                                    }
+                                }
+                            },
+                            error: function(error, jqXHR, textStatus, errorThrown) {
+                                swal("Error!", "Something went wrong", "error");
+                            },
+                        });
+                    }
+                });
+        });
+    </script>
+
+
 
