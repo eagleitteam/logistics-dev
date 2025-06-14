@@ -27,6 +27,7 @@ return new class extends Migration
             $table->decimal('trip_allowance', 10, 2)->default(0);
             $table->decimal('advance', 10, 2)->default(0);
             $table->decimal('other_amount', 10, 2)->default(0);
+            $table->decimal('net_salary', 10, 2)->default(0);
 
             $table->boolean('freeze_status')->default(0)->comment('1 = Freeze, 0 = Pending');
 

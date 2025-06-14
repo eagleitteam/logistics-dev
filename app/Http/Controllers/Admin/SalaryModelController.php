@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Asmin\StoreSalaryRequest;
+use App\Models\TransSalary;
 use Illuminate\Http\Request;
 use App\Models\Vehicle\Employeemanagement;
 use App\Models\Vehicle\Driver;
 use Carbon\Carbon;
 use App\Models\TripMovement;
+use Illuminate\Support\Facades\DB;
 
 class SalaryModelController extends Controller
 {
@@ -45,7 +48,7 @@ class SalaryModelController extends Controller
                 'name'        => $name,
                 'basic_salary'=> $emp->basic_salary,
                 'trip_allowance'=> $tripAllowance,
-                'net_salary'    => $emp->basic_salary + $tripAllowance, 
+                'net_salary'    => $emp->basic_salary + $tripAllowance,
 
             ];
         });
@@ -60,17 +63,40 @@ class SalaryModelController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function store(StoreSalaryRequest $request)
     {
-        //
-    }
+        try {
+            DB::beginTransaction();
+            $input = $request->validated();
+            $month         = $input['selected_month'];
+            $employeeType  = $input['selected_employee_type'];
+            $from_date     = $input['from_date'];
+            $to_date       = $input['to_date'];
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+            foreach ($input['employee_id'] as $index => $employeeId) {
+                TransSalary::create([
+                    // 'yearmaster_id'   =>
+                    'employee_type'   => $employeeType,
+                    'employee_id'     => $employeeId,
+                    'month'           => $month,
+                    'from_date'       => $from_date,
+                    'to_date'         => $to_date,
+                    'EmployeeName'    => $input['EmployeeName'][$index] ?? null,
+                    'basic_salary'    => $input['basic_salary'][$index] ?? 0,
+                    'trip_allowance'  => $input['trip_allowance'][$index] ?? 0,
+                    'advance'         => $input['advance'][$index] ?? 0, // Add input if available
+                    'other_amount'    => $input['other_amount'][$index] ?? 0, // Add input if available
+                    'net_salary'      => $input['net_salary'][$index] ?? 0,
+                    'freeze_status'   => 0,
+                ]);
+            }
+
+            DB::commit();
+            return redirect()->back()->with('success', 'Salary records stored successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Error storing salary: ' . $e->getMessage());
+        }
     }
 
     /**

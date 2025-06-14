@@ -37,11 +37,17 @@
                         </div>
                     </div>
                      <div class="card-footer">
-                        <button type="submit" class="btn btn-primary" id="addSubmit">Submit</button>
-                        <button type="reset" class="btn btn-warning">Refresh</button>
+                        <button type="submit" class="btn btn-primary" id="">Show</button>
+                        <a href="{{ route('salary-model.index') }}"> <button type="reset" class="btn btn-warning" >Refresh</button></a>
                     </div>
                 </form>
+                <form method="POST" id="addForm" >
 
+                    @csrf
+                    <input type="hidden" name="selected_employee_type" value="{{ $selected_type }}">
+<input type="hidden" name="selected_month" value="{{ $selected_month }}">
+<input type="hidden" name="from_date" value="{{ $from_date }}">
+<input type="hidden" name="to_date" value="{{ $to_date }}">
                     <div class="table-responsive mt-5">
                         <table id="buttons-datatables" class="table table-bordered nowrap align-middle" style="width:100%">
                             <thead>
@@ -55,8 +61,15 @@
                                 </tr>
                             </thead>
                             <tbody>
+
+
                                 @foreach($getSalaryDetails as $key => $value)
                                     <tr>
+                                        <input type="hidden" name="employee_id[]" value="{{ $value['employee_id'] }}">
+                                        <input type="hidden" name="EmployeeName[]" value="{{ $value['name'] }}">
+                                        <input type="hidden" name="basic_salary[]" value="{{ $value['basic_salary'] }}">
+                                        <input type="hidden" name="trip_allowance[]" value="{{ $value['trip_allowance'] }}">
+                                        <input type="hidden" name="net_salary[]" value="{{ $value['net_salary'] }}">
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $value['name'] }}</td>
                                        <td>{{ number_format($value['basic_salary'], 2) }}</td>
@@ -69,6 +82,12 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary" id="addSubmit">Submit</button>
+                        <button type="reset" class="btn btn-warning">Refresh</button>
+                    </div>
+                </form>
                 </div>
             </div>
         </div>
@@ -85,7 +104,7 @@
 
         var formdata = new FormData(this);
         $.ajax({
-            url: '{{ route('users.store') }}',
+            url: '{{ route('salary-model.store') }}',
             type: 'POST',
             data: formdata,
             contentType: false,
@@ -95,7 +114,7 @@
                 if (!data.error2)
                     swal("Successful!", data.success, "success")
                     .then((action) => {
-                        window.location.href = '{{ route('users.index') }}';
+                        window.location.href = '{{ route('salary-model.index') }}';
                     });
                 else
                     swal("Error!", data.error2, "error");
