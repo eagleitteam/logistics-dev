@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Masters\StoreGroupandledgermasterRequest;
 use App\Http\Requests\Admin\Masters\UpdateGroupandledgermasterRequest;
 use App\Models\Groupandledgermaster;
+use App\Models\Mastergroup;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
@@ -17,8 +18,12 @@ class GroupandledgermasterController extends Controller
      */
     public function index()
     {
+        // Fetch all masters, ordered by the latest
+        $masterGroups = Mastergroup::latest()->get();
+
         $groupandledgermasters = groupandledgermaster::latest()->get();
-        return view('admin.masters.groupandLedgerMaster', compact('groupandledgermasters'));
+        
+        return view('admin.masters.groupandLedgerMaster')->with(['masterGroups'=>$masterGroups, 'groupandledgermasters'=>$groupandledgermasters]);
     }
 
     /**

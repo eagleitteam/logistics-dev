@@ -140,6 +140,10 @@ class PermissionTableSeeder extends Seeder
     ['id' => 124, 'name' => 'BalancesheetStmt.create', 'group' => 'BalancesheetStmt'],
     ['id' => 125, 'name' => 'BalancesheetStmt.edit', 'group' => 'BalancesheetStmt'],
     ['id' => 129, 'name' => 'BalancesheetStmt.delete', 'group' => 'BalancesheetStmt'],
+    ['id' => 130, 'name' => 'MasterGroup.view', 'group' => 'MasterGroup'],
+    ['id' => 131, 'name' => 'MasterGroup.create', 'group' => 'MasterGroup'],
+    ['id' => 132, 'name' => 'MasterGroup.edit', 'group' => 'MasterGroup'],
+    ['id' => 133, 'name' => 'MasterGroup.delete', 'group' => 'MasterGroup'],
 ];
 
 

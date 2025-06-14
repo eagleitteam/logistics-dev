@@ -219,6 +219,11 @@
                                 <a href="{{ route('salary-model.index') }}" class="nav-link {{ request()->routeIs('salary-model.index') ? 'active' : '' }}" data-key="t-horizontal">Salary Model</a>
                             </li>
 
+                            @can('MasterGroup.view')
+                            <li class="nav-item">
+                                <a href="{{ route('Master-Group.index') }}" class="nav-link {{ request()->routeIs('Master-Group.index') ? 'active' : '' }}" data-key="t-horizontal">Master Group</a>
+                            </li>
+                            @endcan
 
                         </ul>
                     </div>

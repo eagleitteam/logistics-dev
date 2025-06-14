@@ -1,431 +1,558 @@
 <x-admin.layout>
-    <x-slot name="title">Add Group , Sub-Group & Ledger Master</x-slot>
-    <x-slot name="heading">Add Group , Sub-Group & Ledger Master</x-slot>
+    <x-slot name="title">Group & Ledger Master</x-slot>
+    <x-slot name="heading">Group & Ledger Master</x-slot>
     {{-- <x-slot name="subheading">Test</x-slot> --}}
 
-    <!-- Add Form -->
-                                            <!--Wizard col-->
-                                            <div class="col-xl-12">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h4 class="card-title mb-0">Select Tab As Per Your Requriments</h4>
+    {{-- Add Ledger Form --}}
+    <div class="row" id="addLedgerContainer" style="display: none">
+        <div class="col-sm-12">
+            <div class="card">
+                <form class="theme-form" name="addLedgerForm" id="addLedgerForm" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="form_type" value="ledger" />
+                    <div class="card-body">
+                        <h4 class="mb-3">Add Ledger</h4>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="ledger_name" class="form-label">Ledger Name</label>
+                                <input type="text" class="form-control" id="ledger_name" name="ledger_name" placeholder="Enter Ledger Name" />
+                            </div>
+                                <div class="col-md-4">
+                                    <label for="Category" class="form-label">Group Category</label>
+                                    <select class="form-select" name="Category" id="Category">
+                                        <option value="">Select...</option>
+                                        <option value="1">Master Group</option>
+                                        <option value="2">Group</option>
+                                        <option value="3">SubGroup</option>
+                                    </select>
+                                    <span class="text-danger invalid Category_err"></span>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="ref_name" class="form-label">Select Name</label>
+                                    <select class="form-select" name="ref_name" id="ref_name">
+                                        <option value="">Select Client</option>
+                                        <option value="1">B/S -> Assets</option>
+                                        <option value="2">B/S -> Liabilities</option>
+                                        <option value="3">P & L -> Income</option>
+                                        <option value="4">P & L -> Expense</option>
+                                    </select>
+                                </div>
+
+
+                            <div class="col-md-4">
+                                <label for="recincomeamt" class="form-label">Opening AMT</label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="openingamt"
+                                    name="openingamt"
+                                    placeholder="Enter Opening Amount"
+                                />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="tranDate" class="form-label">DR / CR</label>
+                                <select class="form-select" name="dr_cr" id="dr_cr">
+                                        <option value="">Select...</option>
+                                        <option value="1">Debit</option>
+                                        <option value="2">Credit</option>
+                                    </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="status-field" class="form-label">Opening Year</label>
+                                <select class="form-select" name="opening_year" id="opening_year">
+                                    <option value="">Select...</option>
+                                    <option value="1">21-22</option>
+                                    <option value="2">22-23</option>
+                                    <option value="3">23-24</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer d-flex justify-content-between">
+                        <div>
+                            <button type="submit" class="btn btn-success" id="addLedgerSubmit" >
+                                Submit
+                            </button>
+                            <button type="reset" id="resetfrom" class="btn btn-warning">Reset</button>
+                            <button type="button" id="btnCancelLedger" class="btn btn-danger">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- Add Ledger Form End --}}
+
+    {{-- Add Group Form --}}
+    <div class="row" id="addGroupContainer" style="display: none">
+        <div class="col-sm-12">
+            <div class="card">
+                <form class="theme-form" name="addGroupForm" id="addGroupForm" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="form_type" value="group" />
+                    <div class="card-body">
+                        <h4 class="mb-3">Add Group</h4>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="group_name" class="form-label">Group Name</label>
+                                <input type="text" class="form-control" id="group_name" name="group_name" placeholder="Enter Group Name" />
+                            </div>
+                                <div class="col-md-4">
+                                    <label for="Master_Category" class="form-label">Master Category</label>
+                                    <select class="form-select" name="master_group_id" id="master_group_id">
+                                        <option value="">Select Master Group</option>
+                                        @foreach($masterGroups as $masterGroup)
+                                            <option value="{{ $masterGroup->id }}">{{ $masterGroup->master_group_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span class="text-danger invalid Master_Category_err"></span>
+                                </div>
+
+                               
+                        </div>
+                    </div>
+
+                    <div class="card-footer d-flex justify-content-between">
+                        <div>
+                            <button type="submit" class="btn btn-success" id="addGroupSubmit" >
+                                Submit
+                            </button>   
+                            <button type="reset" id="resetfrom" class="btn btn-warning">Reset</button>
+                            <button type="button" id="btnCancelGroup" class="btn btn-danger">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- Add Group Form End --}}
+
+    {{-- Add Sub- Group Form --}}
+    <div class="row" id="addSubGroupContainer" style="display: none">
+        <div class="col-sm-12">
+            <div class="card">
+                <form class="theme-form" name="addSubGroupForm" id="addSubGroupForm" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="form_type" value="sub_group" />
+                    <div class="card-body">
+                        <h4 class="mb-3">Add Sub Group</h4>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="Subgroup_name" class="form-label">Sub-Group Name</label>
+                                <input type="text" class="form-control" id="Subgroup_name" name="Subgroup_name" placeholder="Enter Sub-Group Name" />
+                            </div>
+                                <div class="col-md-4">
+                                    <label for="Master_Category" class="form-label"> Category</label>
+                                    <select class="form-select" name="master_group_id" id="master_group_id">
+                                        <option value="">Select Group</option>
+                                        <option value="1">Under Group</option>
+                                        <option value="2">Under Sub-Group</option>
+                                    </select>
+                                    <span class="text-danger invalid Master_Category_err"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="Master_Category" class="form-label">Name List</label>
+                                    <select class="form-select" name="name_list" id="name_list">
+                                        <option value="">Select Group</option>
+                                        <option value="1">Under Group</option>
+                                        <option value="2">Under Sub-Group</option>
+                                    </select>
+                                    <span class="text-danger invalid name_list_err"></span>
+                                </div>
+
+                               
+                        </div>
+                    </div>
+
+                    <div class="card-footer d-flex justify-content-between">
+                        <div>
+                            <button type="submit" class="btn btn-success" id="addSubGroupSubmit" >
+                                Submit
+                            </button>   
+                            <button type="reset" id="resetfrom" class="btn btn-warning">Reset</button>
+                            <button type="button" id="btnCancelSubGroup" class="btn btn-danger">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- Add Sub- Group Form End --}}
+
+    {{-- Heading Tab --}}
+
+    <div class="col-md-12">
+        
+        <div class="card">
+            <div class="card-body">
+                <!-- Nav tabs -->
+                <ul
+                    class="nav nav-tabs nav-justified nav-border-top nav-border-top-success mb-3"
+                    role="tablist"
+                >
+                    <li class="nav-item">
+                        <a
+                            class="nav-link active"
+                            data-bs-toggle="tab"
+                            href="#nav-border-justified-ledger"
+                            role="tab"
+                            aria-selected="false"
+                        >
+                            <i class="ri-home-5-line align-middle me-1"></i> Create Ledger
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            data-bs-toggle="tab"
+                            href="#nav-border-justified-group"
+                            role="tab"
+                            aria-selected="false"
+                        >
+                            <i class="ri-user-line me-1 align-middle"></i> Create Group
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            data-bs-toggle="tab"
+                            href="#nav-border-justified-subgroup"
+                            role="tab"
+                            aria-selected="false"
+                        >
+                            <i class="ri-question-answer-line align-middle me-1"></i> Create SubGroup
+                        </a>
+                    </li>
+                </ul>
+
+                {{-- Tab Contaion --}}
+                <div class="tab-content text-muted">
+                    <div class="tab-pane active" id="nav-border-justified-ledger" role="tabpanel">
+                        {{-- Income Table --}}
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    @can('Vouchermaster.create')
+                                        <div class="card-header">
+                                            <div class="row">
+                                                <div class="col-sm-10">
+                                                    <div class="">
+                                                        <header>
+                                                            <h4>Add New Ledger</h4>
+                                                        </header>
                                                     </div>
-                                                    <!-- end card header -->
-
-
-                                                    <div class="card-body">
-                                                        <form action="#" class="form-steps" autocomplete="off">
-
-                                                            {{-- Start Tab Heading --}}
-                                                            <div class="step-arrow-nav mb-4">
-                                                                <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
-                                                                    <li class="nav-item" role="presentation">
-                                                                        <button class="nav-link done" id="steparrow-groupUnderMaster-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-groupUnderMaster-info" type="button" role="tab" aria-controls="steparrow-groupUnderMaster-info" aria-selected="true"> (1) Create Group Under Master's</button>
-                                                                    </li>
-                                                                    <li class="nav-item" role="presentation">
-                                                                        <button class="nav-link done" id="steparrow-subGroup-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-subGroup-info" type="button" role="tab" aria-controls="steparrow-subGroup-info" aria-selected="true"> (2) Create Sub Group Under Group</button>
-                                                                    </li>
-                                                                    <li class="nav-item" role="presentation">
-                                                                        <button class="nav-link active" id="steparrow-ledgerUnderGroup-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-ledgerUnderGroup-info" type="button" role="tab" aria-controls="steparrow-ledgerUnderGroup-info" aria-selected="true"> (3) Create Ledger Under Sub-Group</button>
-                                                                    </li>
-
-                                                                </ul>
-                                                            </div>
-                                                            {{-- End Tab Heading --}}
-
-
-                                                            <!-- Create Group Under Master's Details tab pane -->
-                                                            <div class="tab-content">
-                                                                <div class="tab-pane fade" id="steparrow-groupUnderMaster-info" role="tabpanel" aria-labelledby="steparrow-groupUnderMaster-info-tab">
-                                                                    <div>
-                                                                         <!-- Add Form -->
-                                                                             <div class="row" id="addContainer" style="display:none;">
-                                                                        <div class="row">
-                                                                             <div class="card">
-                                                                                <form class="theme-form" name="addForm" id="addForm" enctype="multipart/form-data">
-                                                                            {{-- Heading --}}
-                                                                            <div class="card">
-                                                                                <div class="card-header">
-                                                                                    <h4 class="card-title mb-0">Select Master Head First</h4>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            {{-- Master Selector --}}
-
-                                                                            <div class="col-md-4">
-                                                                                <div class="mb-3">
-                                                                                    <label for="ForminputState" class="form-label">Master Heads</label>
-                                                                                    <select id="ForminputState" class="form-select" data-choices data-choices-sorting="true">
-                                                                                        <option selected>Choose...</option>
-                                                                                        <option>B/S -> Assets</option>
-                                                                                        <option>B/S -> Lablites</option>
-                                                                                        <option>P & L -> Income</option>
-                                                                                        <option>P & L -> Expensec</option>
-                                                                                        <option>Trial B/S -> Debit</option>
-                                                                                        <option>Trial B/S -> Credit</option>
-
-                                                                                    </select>
-                                                                                </div>
-                                                                            </div>
-                                                                            <!--end col-->
-
-                                                                            {{-- Heading --}}
-                                                                            <div class="card">
-                                                                                <div class="card-header">
-                                                                                    <h4 class="card-title mb-0">Create Your Group Below Under Above Selected Master Head</h4>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            {{-- Enter Group Name --}}
-                                                                            <div class="col-lg-6">
-                                                                                <div class="mb-3">
-                                                                                    <label class="form-label" for="steparrow-gen-info-email-input">Enter Your Group Name</label>
-                                                                                    <input type="text" class="form-control" id="steparrow-gen-info-email-input" placeholder="Enter Your Group Name" required >
-                                                                                    <div class="invalid-feedback">Please Enter Your Group Name</div>
-                                                                                </div>
-                                                                            </div>
-                                                                             <!--end col-->
-                                                                        </form>
-                                                                        </div>
-                                                                         {{-- Sumit Reset BTN --}}
-                                                                                <div class="card-footer">
-                                                                                    <button type="submit" class="btn btn-success" id="addSubmit">Submit</button>
-                                                                                    <button type="reset" class="btn btn-warning">Reset</button>
-                                                                                </div>
-                                                                            <!--end col-->
-                                                                    </div>
-                                                                </div>
-
-
-                                                                    </div>
-
-                                                                      {{-- Table List --}}
-
-                                                                    <div class="row">
-                                                                        <div class="col-lg-12">
-                                                                            <div class="card">
-                                                                                @can('Groupandledgermaster.create')
-                                                                                    <div class="card-header">
-                                                                                        <div class="row">
-                                                                                            <div class="col-sm-6">
-                                                                                                <div class="">
-                                                                                                    <button id="addToTable" class="btn btn-primary">Add <i class="fa fa-plus"></i></button>
-                                                                                                    <button id="btnCancel" class="btn btn-danger" style="display:none;">Cancel</button>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                @endcan
-                                                                                <div class="card-body">
-                                                                                    <div class="table-responsive">
-                                                                                        <table id="buttons-datatables" class="table table-bordered nowrap align-middle" style="width:100%">
-                                                                                            <thead>
-                                                                                                <tr>
-                                                                                                    <th>Sr No.</th>
-                                                                                                    <th>Master Head</th>
-                                                                                                    <th>Group Name</th>
-                                                                                                    <th>Action</th>
-                                                                                                </tr>
-                                                                                            </thead>
-                                                                                            <tbody>
-                                                                                                @foreach ($groupandledgermasters as $groupandledgermaster)
-                                                                                                    <tr>
-                                                                                                        <td>{{ $loop->iteration }}</td>
-                                                                                                        <td>{{ $groupandledgermaster->group }}</td>
-                                                                                                        
-                                                                                                        <td>
-                                                                                                            @can('Groupandledgermaster.edit')
-                                                                                                                <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="edit"></i></button>
-                                                                                                            @endcan
-                                                                                                            @can('Groupandledgermaster.delete')
-                                                                                                                <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="trash-2"></i> </button>
-                                                                                                            @endcan
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                @endforeach
-                                                                                        </table>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    {{-- END  Table List --}}
-                                                                </div>
-                                                                <!-- end tab pane -->
-
-
-
-                                                            </div>
-                                                            <!-- END Create Group Under Master's Details tab pane -->
-
-                                                            <!-- Create Sub Group Under Group tab pane -->
-                                                            <div class="tab-content">
-                                                                <div class="tab-pane fade" id="steparrow-subGroup-info" role="tabpanel" aria-labelledby="steparrow-subGroup-info-tab">
-                                                                    <div>
-                                                                         <!-- Add Form -->
-                                                                             <div class="row" id="addContainer" style="display:none;">
-                                                                        <div class="row">
-                                                                             <div class="card">
-                                                                                <form class="theme-form" name="addForm" id="addForm" enctype="multipart/form-data">
-                                                                            {{-- Heading --}}
-                                                                            <div class="card">
-                                                                                <div class="card-header">
-                                                                                    <h4 class="card-title mb-0">Select Group Name First</h4>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            {{-- Master Selector --}}
-
-                                                                            <div class="col-md-4">
-                                                                                <div class="mb-3">
-                                                                                    <label for="ForminputState" class="form-label">Group Name</label>
-                                                                                    <select id="ForminputState" class="form-select" data-choices data-choices-sorting="true">
-                                                                                        <option selected>Choose...</option>
-                                                                                        <option>B/S -> Assets -> Fixed Asset</option>
-                                                                                        <option>B/S -> Lablites</option>
-                                                                                        <option>P & L -> Income</option>
-                                                                                        <option>P & L -> Expensec</option>
-                                                                                        <option>Trial B/S -> Debit</option>
-                                                                                        <option>Trial B/S -> Credit</option>
-
-                                                                                    </select>
-                                                                                </div>
-                                                                            </div>
-                                                                            <!--end col-->
-
-                                                                            {{-- Heading --}}
-                                                                            <div class="card">
-                                                                                <div class="card-header">
-                                                                                    <h4 class="card-title mb-0">Create Your Sub-Group Below Under Above Selected Group Head</h4>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            {{-- Enter Group Name --}}
-                                                                            <div class="col-lg-6">
-                                                                                <div class="mb-3">
-                                                                                    <label class="form-label" for="steparrow-gen-info-email-input">Enter Your Sub-Group Name</label>
-                                                                                    <input type="text" class="form-control" id="steparrow-gen-info-email-input" placeholder="Enter Your Group Name" required >
-                                                                                    <div class="invalid-feedback">Please Enter Your Sub-Group Name</div>
-                                                                                </div>
-                                                                            </div>
-                                                                             <!--end col-->
-                                                                        </form>
-                                                                        </div>
-                                                                         {{-- Sumit Reset BTN --}}
-                                                                                <div class="card-footer">
-                                                                                    <button type="submit" class="btn btn-success" id="addSubmit">Submit</button>
-                                                                                    <button type="reset" class="btn btn-warning">Reset</button>
-                                                                                </div>
-                                                                            <!--end col-->
-                                                                    </div>
-                                                                </div>
-
-
-                                                                    </div>
-
-                                                                      {{-- Table List --}}
-
-                                                                    <div class="row">
-                                                                        <div class="col-lg-12">
-                                                                            <div class="card">
-                                                                                @can('Groupandledgermaster.create')
-                                                                                    <div class="card-header">
-                                                                                        <div class="row">
-                                                                                            <div class="col-sm-6">
-                                                                                                <div class="">
-                                                                                                    <button id="addToTable" class="btn btn-primary">Add <i class="fa fa-plus"></i></button>
-                                                                                                    <button id="btnCancel" class="btn btn-danger" style="display:none;">Cancel</button>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                @endcan
-                                                                                <div class="card-body">
-                                                                                    <div class="table-responsive">
-                                                                                        <table id="buttons-datatables" class="table table-bordered nowrap align-middle" style="width:100%">
-                                                                                            <thead>
-                                                                                                <tr>
-                                                                                                    <th>Sr No.</th>
-                                                                                                    <th>Group Name</th>
-                                                                                                    <th>Sub-Group Name</th>
-                                                                                                    <th>Action</th>
-                                                                                                </tr>
-                                                                                            </thead>
-                                                                                            <tbody>
-                                                                                                @foreach ($groupandledgermasters as $groupandledgermaster)
-                                                                                                    <tr>
-                                                                                                        <td>{{ $loop->iteration }}</td>
-                                                                                                        <td>{{ $groupandledgermaster->type }}</td>
-                                                                                                        <td>{{ $groupandledgermaster->description }}</td>
-                                                                                                        <td>
-                                                                                                            @can('Groupandledgermaster.edit')
-                                                                                                                <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="edit"></i></button>
-                                                                                                            @endcan
-                                                                                                            @can('Groupandledgermaster.delete')
-                                                                                                                <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="trash-2"></i> </button>
-                                                                                                            @endcan
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                @endforeach
-                                                                                        </table>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    {{-- END  Table List --}}
-                                                                </div>
-                                                                <!-- end tab pane -->
-
-
-
-                                                            </div>
-
-                                                            <!-- END Sub Group Under Group tab pane -->
-
-                                                            <!-- Create Ledger Under Group tab pane -->
-                                                            <div class="tab-content">
-                                                                <div class="tab-pane fade" id="steparrow-ledgerUnderGroup-info" role="tabpanel" aria-labelledby="steparrow-ledgerUnderGroup-info-tab">
-                                                                    <div>
-                                                                         <!-- Add Form -->
-                                                                             <div class="row" id="addContainer" style="display:none;">
-                                                                        <div class="row">
-                                                                             <div class="card">
-                                                                                <form class="theme-form" name="addForm" id="addForm" enctype="multipart/form-data">
-                                                                            {{-- Heading --}}
-                                                                            <div class="card">
-                                                                                <div class="card-header">
-                                                                                    <h4 class="card-title mb-0">Select Group Head First</h4>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            {{-- Group Selector --}}
-
-                                                                            <div class="col-md-4">
-                                                                                <div class="mb-3">
-                                                                                    <label for="ForminputState" class="form-label">Group Heads</label>
-                                                                                    <select id="ForminputState" class="form-select" data-choices data-choices-sorting="true">
-                                                                                        <option selected>Choose...</option>
-                                                                                        <option>B/S -> Assets -> Group1 -> Group5</option>
-                                                                                        <option>B/S -> Lablites</option>
-                                                                                        <option>P & L -> Income</option>
-                                                                                        <option>P & L -> Expensec</option>
-                                                                                        <option>Trial B/S -> Debit</option>
-                                                                                        <option>Trial B/S -> Credit</option>
-
-                                                                                    </select>
-                                                                                </div>
-                                                                            </div>
-                                                                            <!--end col-->
-
-                                                                            {{-- Heading --}}
-                                                                            <div class="card">
-                                                                                <div class="card-header">
-                                                                                    <h4 class="card-title mb-0">Create Your Ledger Below Under Above Selected Group Head</h4>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            {{-- Enter Group Name --}}
-                                                                            <div class="col-lg-6">
-                                                                                <div class="mb-3">
-                                                                                    <label class="form-label" for="steparrow-gen-info-email-input">Enter Your Ledger Name</label>
-                                                                                    <input type="text" class="form-control" id="steparrow-gen-info-email-input" placeholder="Enter Your Ledger Name" required >
-                                                                                    <div class="invalid-feedback">Please Enter Your Group Name</div>
-                                                                                </div>
-                                                                            </div>
-                                                                             <!--end col-->
-                                                                        </form>
-                                                                        </div>
-                                                                         {{-- Sumit Reset BTN --}}
-                                                                                <div class="card-footer">
-                                                                                    <button type="submit" class="btn btn-success" id="addSubmit">Submit</button>
-                                                                                    <button type="reset" class="btn btn-warning">Reset</button>
-                                                                                </div>
-                                                                            <!--end col-->
-                                                                    </div>
-                                                                </div>
-
-
-                                                                    </div>
-
-                                                                      {{-- Table List --}}
-
-                                                                    <div class="row">
-                                                                        <div class="col-lg-12">
-                                                                            <div class="card">
-                                                                                @can('Groupandledgermaster.create')
-                                                                                    <div class="card-header">
-                                                                                        <div class="row">
-                                                                                            <div class="col-sm-6">
-                                                                                                <div class="">
-                                                                                                    <button id="addToTable" class="btn btn-primary">Add <i class="fa fa-plus"></i></button>
-                                                                                                    <button id="btnCancel" class="btn btn-danger" style="display:none;">Cancel</button>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                @endcan
-                                                                                <div class="card-body">
-                                                                                    <div class="table-responsive">
-                                                                                        <table id="buttons-datatables" class="table table-bordered nowrap align-middle" style="width:100%">
-                                                                                            <thead>
-                                                                                                <tr>
-                                                                                                    <th>Sr No.</th>
-                                                                                                    <th>Group Name</th>
-                                                                                                    <th>Ledger Name</th>
-                                                                                                    <th>Action</th>
-                                                                                                </tr>
-                                                                                            </thead>
-                                                                                            <tbody>
-                                                                                                @foreach ($groupandledgermasters as $groupandledgermaster)
-                                                                                                    <tr>
-                                                                                                        <td>{{ $loop->iteration }}</td>
-                                                                                                        <td>{{ $groupandledgermaster->type }}</td>
-                                                                                                        <td>{{ $groupandledgermaster->description }}</td>
-                                                                                                        <td>
-                                                                                                            @can('Groupandledgermaster.edit')
-                                                                                                                <button class="edit-element btn btn-secondary px-2 py-1" title="Edit Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="edit"></i></button>
-                                                                                                            @endcan
-                                                                                                            @can('Groupandledgermaster.delete')
-                                                                                                                <button class="btn btn-danger rem-element px-2 py-1" title="Delete Vehicle" data-id="{{ $vehicle->id }}"><i data-feather="trash-2"></i> </button>
-                                                                                                            @endcan
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                @endforeach
-                                                                                        </table>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    {{-- END  Table List --}}
-                                                                </div>
-                                                                <!-- end tab pane -->
-
-
-
-                                                            </div>
-                                                            <!-- END Create Ledger Under Group tab  pane -->
-
-                                                            </div>
-                                                            <!--end col-->
-                                                        </form>
-                                                    </div>
-                                                    <!-- end card body -->
                                                 </div>
-                                                <!-- end card -->
+                                                <div class="col-sm-2">
+                                                    <div class="">
+                                                        {{-- Ledger modal Start--}}
+                                                        <div class="live-preview">
+                                                            <button
+                                                                type="button"
+                                                                id="addLedger"
+                                                                class="btn btn-primary"
+                                                                data-bs-target="#exampleModalgrid"
+                                                            >
+                                                                <i class="fa fa-plus"></i> Add Ledger
+                                                            </button>
+                                                        </div>
+                                                        {{-- Ledger modal END--}}
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <!-- end col -->
-<!-- END Add Form -->
+                                        </div>
+                                    @endcan
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table
+                                                id="buttons-datatables"
+                                                class="table table-bordered nowrap align-middle"
+                                                style="width:100%"
+                                            >
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr No.</th>
+                                                        <th>Income Category</th>
+                                                        <th>Tran Date</th>
+                                                        <th>Amout</th>
+                                                        <th>Client Name</th>
+                                                        <th>Trip ID</th>
+                                                        <th>Trip No</th>
+                                                        <th>Adj PMT</th>
+                                                        <th>Remark</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="nav-border-justified-group" role="tabpanel">
+                        {{-- Group Table --}}
 
-    {{-- Edit Form --}}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    @can('Vouchermaster.create')
+                                        <div class="card-header">
+                                            <div class="row">
+                                                <div class="col-sm-9">
+                                                    <div class="">
+                                                        <header>
+                                                            <h4>Create Group Master</h4>
+                                                        </header>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="">
+                                                        {{-- Group modal Start--}}
 
+                                                        <div class="live-preview">
+                                                            <button
+                                                                type="button"
+                                                                id="addGroup"
+                                                                class="btn btn-primary"
+                                                                data-bs-target="#expanceModalgrid"
+                                                            >
+                                                                Add Group <i class="fa fa-plus"></i>
+                                                            </button>
+                                                        </div>
 
-    {{-- Table data Display --}}
+                                                        {{-- Group modal END--}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endcan
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table
+                                                id="buttons-datatables"
+                                                class="table table-bordered nowrap align-middle"
+                                                style="width:100%"
+                                            >
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr No.</th>
+                                                        <th>Date</th>
+                                                        <th>Category</th>
+                                                        <th>Description</th>
+                                                        <th>EXP Amt</th>
+                                                        <th>Refrance</th>
+                                                        <th>PMT Mode</th>
+                                                        <th>Bank Name</th>
+                                                        <th>Reamrk</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="nav-border-justified-subgroup" role="tabpanel">
+                        {{-- Subgroup Table --}}
 
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    @can('Vouchermaster.create')
+                                        <div class="card-header">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="">
+                                                        <header>
+                                                            <h4>Add New Subgroup</h4>
+                                                        </header>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="">
+                                                        {{-- Subgroup modal Start--}}
 
+                                                        <div class="live-preview">
+                                                            <button
+                                                                type="button"
+                                                                class="btn btn-primary"
+                                                                id="addSubGroup"
+                                                                data-bs-target="#loanModalgrid"
+                                                            >
+                                                                Add Subgroup <i class="fa fa-plus"></i>
+                                                            </button>
+                                                        </div>
+
+                                                        {{-- Subgroup modal END--}}
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    @endcan
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table
+                                                id="buttons-datatables"
+                                                class="table table-bordered nowrap align-middle"
+                                                style="width:100%"
+                                            >
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr No.</th>
+                                                        <th>Date</th>
+                                                        <th>Party Name</th>
+                                                        <th>Type</th>
+                                                        <th>Description</th>
+                                                        <th>Adj Month</th>
+                                                        <th>AMT</th>
+                                                        <th>Reamrk</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end card-body -->
+        </div>
+    </div>
+    <!--end col-->
 </x-admin.layout>
 
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+{{-- Add & Cancel Btn controler for all --}}
+<script>
+        $(document).ready(function () {
+
+            // ---------------------- Ledger Container ----------------------
+            function setupLedgerContainer() {
+                $("#addLedger").on("click", function () {
+                    $("#addLedgerContainer").slideDown();
+                    $("#addLedger").slideUp();
+                    $("#btnCancelLedger").show();
+                });
+
+                $("#btnCancelLedger").on("click", function (e) {
+                    e.preventDefault();
+                    $("#addLedgerForm")[0].reset(); // <-- Correct form reference
+                    clearErrors("#addLedgerForm");
+                    $("#addLedgerContainer").slideUp();
+                    $("#addLedger").slideDown();
+                });
+
+                $("#resetfrom").on("click", function (e) {
+                    e.preventDefault();
+                    $("#addLedgerForm")[0].reset();
+                    clearErrors("#addLedgerForm");
+                });
+            }
+
+            // ---------------------- Group Container ----------------------
+            function setupGroupContainer() {
+                $("#addGroup").on("click", function () {
+                    $("#addGroupContainer").slideDown();
+                    $("#addGroupSubmit").slideUp();
+                    $("#btnCancelGroup").show();
+                });
+
+                $("#btnCancelGroup").on("click", function (e) {
+                    e.preventDefault();
+                    $("#addGroupForm")[0].reset();
+                    clearErrors("#addGroupForm");
+                    $("#addGroupContainer").slideUp();
+                    $("#addGroup").show();
+                });
+
+                $("#resetfrom").on("click", function (e) {
+                    e.preventDefault();
+                    $("#addGroupForm")[0].reset();
+                    clearErrors("#addGroupForm");
+                });
+                
+            }
+
+            // ---------------------- Sub-Group Container ----------------------
+            function setupSubGroupContainer() {
+                $("#addSubGroup").on("click", function () {
+                    $("#addSubGroupContainer").slideDown();
+                    $("#addSubGroup").slideUp();
+                    $("#btnCancelSubGroup").show();
+                });
+
+                $("#btnCancelSubGroup").on("click", function (e) {
+                    e.preventDefault();
+                    $("#addSubGroupForm")[0].reset();
+                    clearErrors("#addSubGroupForm");
+                    $("#addSubGroupContainer").slideUp();
+                    $("#addSubGroup").show();
+                });
+
+                $("#resetfrom").on("click", function (e) {
+                    e.preventDefault();
+                    $("#addSubGroupForm")[0].reset();
+                    clearErrors("#addSubGroupForm");
+                });
+                
+            }
+
+            
+            setupLedgerContainer();
+            setupGroupContainer(); 
+            setupSubGroupContainer(); 
+ 
+        });
+
+</script>
+
+{{-- When switching tabs, hide all add-form containers --}}
+<script>
+            // When switching tabs, hide all add-form containers
+        $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function () {
+            // Hide all Add Form containers on tab change
+            $("#addLedgerContainer, #addGroupContainer, #addSubGroupContainer").slideUp();
+
+
+            // Optionally show all add buttons again (since form is hidden)
+            $("#addLedger, #addGroup, #addSubGroup").slideDown();
+
+            // Optional: Reset all forms if you want to clear data too
+            $("#addLedgerForm, #addGroupForm, #subGroupForm").each(function () {
+                this.reset();
+            });
+
+            // Clear validation errors
+            clearErrors("#addLedgerForm");
+            clearErrors("#addGroupForm");
+            clearErrors("#subGroupForm");
+
+        });
+
+</script>
+
+<script>
+    function clearErrors(formSelector) {
+        // Clear text inside span with error classes
+        $(formSelector).find('.text-danger.invalid').text('');
+
+        // Remove error highlight class from form controls
+        $(formSelector).find('.is-invalid').removeClass('is-invalid');
+    }
+</script>
 
 {{-- Add --}}
 <script>

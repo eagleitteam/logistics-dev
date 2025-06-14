@@ -81,6 +81,7 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::resource('Profit-and-Loss-Statement', App\Http\Controllers\Admin\Masters\ProftandlossController::class);
     Route::resource('Ledger-Statement', App\Http\Controllers\Admin\Masters\LedgerstatementController::class);
     Route::resource('BalanceSheet-Statement', App\Http\Controllers\Admin\Masters\BalancesheetstatementController::class);
+    Route::resource('Master-Group', App\Http\Controllers\Admin\Masters\MastergroupController::class);
 
 
     // Vendor Ajax fetch
